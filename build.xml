@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<project name="ydpgwtutil" default="dist" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant"  >
+<project name="ydpgwtutils" default="dist" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant"  >
 
 	<tstamp><format property="tstamp" pattern="yyyyMMddHHmm" timezone="GMT"/></tstamp>
 	<property file="default.properties" />
 	
-	<dirname property="base.dir" file="${ant.file.ydpgwtutil}" />
+	<dirname property="base.dir" file="${ant.file.ydpgwtutils}" />
 	<property name="ivylib.dir" value="${base.dir}/ivy-lib" />	
 	<property name="src.dir" value="${base.dir}/src" />	
 	<property name="build.dir" location="${base.dir}/build" />
@@ -34,7 +34,7 @@
 	<target name="dist" depends="compile">
 		<mkdir dir="${dist.dir}" />
 
-		<jar destfile="${dist.dir}/ydpgwtutil.jar">
+		<jar destfile="${dist.dir}/ydpgwtutils.jar">
 			<fileset dir="${classes.dir}"/>
     		<fileset dir="${src.dir}"/>
     	</jar>
