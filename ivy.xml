@@ -1,5 +1,8 @@
 <ivy-module version="2.0">
-  <info organisation="eu.ydp" module="ydpgwtutils"/>
+  <info organisation="eu.ydp" module="ydpgwtutils">
+	<ivyauthor name="rrybacki"/>
+	<description>ydpGwtUtils</description>
+  </info>
 	<configurations>
 		<conf name="default"  description="ydpgwtutils jar file"/>
   </configurations>
