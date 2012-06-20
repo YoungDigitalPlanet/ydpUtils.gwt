@@ -9,6 +9,9 @@ import eu.ydp.gwtutil.user.rebind.MobileUserAgentPropertyGenerator;
 public class UserAgentChecker {
 	protected static String userAgent = UserAgentChecker.getUserAgentStrting().toLowerCase();
 	protected static MobileUserAgent mobileUserAgent = null;
+	public static final MobileUserAgent[] ANDROID_USER_AGENTS = new MobileUserAgent[] {
+		MobileUserAgent.ANDROID23,  MobileUserAgent.ANDROID3,
+		MobileUserAgent.ANDROID321, MobileUserAgent.ANDROID4 };
 
 	/**
 	 * Konfiguracja mobilnego user agenta. Wartosci musza byc zsynchronizowane z
@@ -53,7 +56,8 @@ public class UserAgentChecker {
 	 *
 	 */
 	public enum UserAgent {
-		GECKO1_8("gecko1_8", ".*gecko.*"), ALL("all", ".*");
+		GECKO1_8("gecko1_8", ".*gecko.*"),
+		ALL("all", ".*");
 		private String tagName, regexPattern;
 
 		private UserAgent(String name, String regex) {
@@ -101,6 +105,15 @@ public class UserAgentChecker {
 		}
 		return false;
 	}
+
+
+	public static boolean isStackAndroidBrowser(){
+		if(isMobileUserAgent(ANDROID_USER_AGENTS) && !isMobileUserAgent(MobileUserAgent.CHROME,MobileUserAgent.FIREFOX)){
+			return true;
+		}
+		return false;
+	}
+
 	private native static boolean isUserAgentNative(String regex, String userAgent)/*-{
 		var reg = eval("/" + regex + "/");
 		return reg.test(userAgent);

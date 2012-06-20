@@ -12,14 +12,20 @@
 		.closeButton {
 			margin-left: 30px;
 		}
+
+		.panel{
+			position: fixed;
+			bottom: 0px;
+			right: 0px;
+		}
 	</ui:style>
 
-	<g:HTMLPanel>
+	<g:HTMLPanel styleName="{style.panel}">
 	    <g:TextArea ui:field="consoleText" styleName="{style.consoleText}" readOnly="true" />
 	    <g:HTMLPanel>
-	        <g:Button ui:field="clearButton" text="Clear log" />                                        
+	        <g:Button ui:field="clearButton" text="Clear log" />
             <g:Button ui:field="closeButton" text="Close" addStyleNames="{style.closeButton}" />
 	    </g:HTMLPanel>
 	</g:HTMLPanel>
-	
-</ui:UiBinder> 
+
+</ui:UiBinder>

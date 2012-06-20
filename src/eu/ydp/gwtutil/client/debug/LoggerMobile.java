@@ -5,15 +5,14 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
 
-public class LoggerMobile extends DialogBox implements Logger {
+public class LoggerMobile extends Composite implements Logger {
 
 	private static DebugUiBinder uiBinder = GWT.create(DebugUiBinder.class);
-	
+
 	@UiField
 	protected TextArea consoleText;
 
@@ -21,32 +20,32 @@ public class LoggerMobile extends DialogBox implements Logger {
 	}
 
 	public LoggerMobile() {
-		setWidget(uiBinder.createAndBindUi(this));
-		this.setText("Console log");
+		initWidget(uiBinder.createAndBindUi(this));
+		//this.setText("Console log");
 	}
-	
+
 	@Override
 	protected void onAttach() {
 		super.onAttach();
-		
-		this.show();
-		this.setPopupPosition(Window.getClientWidth() - 600, Window.getClientHeight() - 200);
 	}
-	
+
 	@Override
 	public void log(String text) {
-		consoleText.setText(consoleText.getText() + "==> " + text + "\n");
+		StringBuilder builder = new StringBuilder(text);
+		builder.append("\n");
+		builder.append(consoleText.getText());
+		consoleText.setText( builder.toString());
 	}
-	
+
 	@UiHandler("clearButton")
 	void clearHandler(ClickEvent event) {
 		consoleText.setText("");
 	}
-	
+
 	@UiHandler("closeButton")
 	void closeHandler(ClickEvent event) {
-		this.hide();
+		this.setVisible(false);
 	}
-	
+
 }
 
