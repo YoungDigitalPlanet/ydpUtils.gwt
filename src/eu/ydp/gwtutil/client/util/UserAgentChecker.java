@@ -147,4 +147,12 @@ public class UserAgentChecker {
 		}
 		return mobileUserAgent;
 	}
+
+	/**
+	 * Czy aplikacja jest uruchomiona loklanie
+	 * @return
+	 */
+	public static native boolean isLocal()/*-{
+		 return (window.location.href.indexOf("file://") == 0)? true : false;
+	}-*/;
 }
