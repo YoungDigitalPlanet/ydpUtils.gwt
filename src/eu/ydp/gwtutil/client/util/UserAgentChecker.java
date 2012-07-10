@@ -27,7 +27,7 @@ public class UserAgentChecker {
 		ANDROID3("android3", "android[ ]*3[.0-9a-z -]*"),
 		ANDROID4("android4","android[ ]*4[.0-9a-z -]*"),
 		UNKNOWN("unknown", ".*");
-		private String tagName, regexPattern;
+		private final String tagName, regexPattern;
 
 		private MobileUserAgent(String name, String regex) {
 			this.tagName = name;
@@ -56,9 +56,9 @@ public class UserAgentChecker {
 	 *
 	 */
 	public enum UserAgent {
-		GECKO1_8("gecko1_8", ".*gecko.*"),
+		GECKO1_8("gecko1_8", "^(((?!.*like).*)(.*gecko.*))$"),
 		ALL("all", ".*");
-		private String tagName, regexPattern;
+		private final String tagName, regexPattern;
 
 		private UserAgent(String name, String regex) {
 			this.tagName = name;
