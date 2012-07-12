@@ -58,6 +58,7 @@ public class UserAgentChecker {
 	public enum UserAgent {
 		GECKO1_8("gecko1_8", "^(((?!.*like).*)(.*gecko.*))$"),
 		OPERA("opera", ".*opera.*"),
+		IE9("ie9",".*msie[ ]*9.*"),
 		ALL("all", ".*");
 		private final String tagName, regexPattern;
 
