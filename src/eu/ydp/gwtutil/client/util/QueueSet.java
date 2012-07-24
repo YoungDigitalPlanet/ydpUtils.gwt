@@ -20,8 +20,7 @@ public class QueueSet<E> implements Set<E> {
 	
 	public boolean append(E e) {
 		if (list.contains(e)){
-			list.remove(e);			
-			list.add(e);
+			list.remove(e);	
 		}
 		list.add(e);
 		return true;
