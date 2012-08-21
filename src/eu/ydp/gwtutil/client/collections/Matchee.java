@@ -1,4 +1,4 @@
-package eu.ydp.gwtutil.client.util;
+package eu.ydp.gwtutil.client.collections;
 
 import java.util.List;
 

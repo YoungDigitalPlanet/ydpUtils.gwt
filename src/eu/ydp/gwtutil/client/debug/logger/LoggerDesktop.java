@@ -1,4 +1,4 @@
-package eu.ydp.gwtutil.client.debug;
+package eu.ydp.gwtutil.client.debug.logger;
 
 
 public class LoggerDesktop implements Logger {

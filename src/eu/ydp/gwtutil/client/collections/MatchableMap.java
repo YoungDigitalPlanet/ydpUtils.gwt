@@ -1,4 +1,4 @@
-package eu.ydp.gwtutil.client.util;
+package eu.ydp.gwtutil.client.collections;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+
+import eu.ydp.gwtutil.client.collections.Matchee;
+
 
 public class MatchableMap<K extends Matchable, V> implements Map<K, V> {
 

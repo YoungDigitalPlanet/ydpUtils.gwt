@@ -23,17 +23,17 @@
 	<extend-property name="application.debug" values="on" />
 	<set-property name="application.debug" value="off" />
 
-	<replace-with class="eu.ydp.gwtutil.client.debug.LoggerEmpty">
-		<when-type-is class="eu.ydp.gwtutil.client.debug.Logger" />
+	<replace-with class="eu.ydp.gwtutil.client.debug.logger.LoggerEmpty">
+		<when-type-is class="eu.ydp.gwtutil.client.debug.logger.Logger" />
 	</replace-with>
 
-	<replace-with class="eu.ydp.gwtutil.client.debug.LoggerDesktop">
-		<when-type-is class="eu.ydp.gwtutil.client.debug.Logger" />
+	<replace-with class="eu.ydp.gwtutil.client.debug.logger.LoggerDesktop">
+		<when-type-is class="eu.ydp.gwtutil.client.debug.logger.Logger" />
 		<when-property-is name="application.debug" value="on" />
 	</replace-with>
 
-	<replace-with class="eu.ydp.gwtutil.client.debug.LoggerMobile">
-		<when-type-is class="eu.ydp.gwtutil.client.debug.Logger" />
+	<replace-with class="eu.ydp.gwtutil.client.debug.logger.LoggerMobile">
+		<when-type-is class="eu.ydp.gwtutil.client.debug.logger.Logger" />
 		<when-property-is name="application.debug" value="on" />
 		<any>
 			<when-property-is name="mobile.user.agent" value="android23" />
@@ -44,4 +44,37 @@
 			<when-property-is name="mobile.user.agent" value="chrome" />
 		</any>
 	</replace-with>
+	
+  <set-property name="gwt.logging.enabled" value="TRUE"/>
+  <set-property name="gwt.logging.popupHandler" value="DISABLED" />    
+  <set-property name="gwt.logging.consoleHandler" value="DISABLED" />
+  <set-property name="gwt.logging.developmentModeHandler" value="DISABLED" />  
+  <set-property name="gwt.logging.systemHandler" value="DISABLED" />
+  
+  <define-property name="debugMode" values="none,popup,console,both" />
+  <collapse-property name="debugMode" values="*" />
+  <property-provider name="debugMode"><![CDATA[
+       {
+         return window.getDebugMode();
+       }
+     ]]>
+  </property-provider>
+  
+  <set-property name="gwt.logging.enabled" value="FALSE">
+  	<when-property-is name="debugMode" value="none"/>
+  </set-property>
+  
+  <set-property name="gwt.logging.popupHandler" value="ENABLED">
+  	<any>
+  		<when-property-is name="debugMode" value="popup"/>
+  		<when-property-is name="debugMode" value="both"/>
+  	</any>  	
+  </set-property>
+  <set-property name="gwt.logging.consoleHandler" value="ENABLED">
+  	<any>
+  		<when-property-is name="debugMode" value="console"/>
+  		<when-property-is name="debugMode" value="both"/>
+  	</any>  	
+  </set-property>
+  
 </module>

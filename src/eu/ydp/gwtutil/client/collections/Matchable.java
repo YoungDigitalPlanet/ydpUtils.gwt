@@ -1,6 +1,9 @@
-package eu.ydp.gwtutil.client.util;
+package eu.ydp.gwtutil.client.collections;
 
 import java.util.List;
+
+import eu.ydp.gwtutil.client.collections.Matchee;
+
 
 public abstract class Matchable implements Matchee {
 
