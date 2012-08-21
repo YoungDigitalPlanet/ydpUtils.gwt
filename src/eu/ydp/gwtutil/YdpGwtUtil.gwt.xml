@@ -56,7 +56,9 @@
   <collapse-property name="debugMode" values="*" />
   <property-provider name="debugMode"><![CDATA[
        {
-         return window.getDebugMode();
+		if (typeof window.getDebugMode == 'function')
+			return window.getDebugMode();
+		return "console";
        }
      ]]>
   </property-provider>
