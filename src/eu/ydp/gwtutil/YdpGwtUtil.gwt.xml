@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module rename-to='ydpgwtutil'>
 	<inherits name='com.google.gwt.user.User' />
+    <inherits name="com.google.gwt.logging.Logging"/>
 	<source path='client' />
 
 	<define-property name="mobile.user.agent" values="android23" />
