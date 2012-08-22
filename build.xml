@@ -11,6 +11,12 @@
 	<property name="classes.dir" location="${build.dir}/classes" />
 	<property name="dist.dir" location="${base.dir}/dist" />
 
+	<path id="project.class.path">
+		<pathelement location="war/WEB-INF/classes"/>
+		<fileset dir="${ivylib.dir}" includes="**/*.jar"/>
+		<fileset dir="war/WEB-INF/lib" includes="**/*.jar"/>
+	</path>
+  
 	<path id="lib.path">
 		<fileset dir="${ivylib.dir}" includes="**/*.jar"/>
 	</path>
@@ -31,7 +37,40 @@
 		</javac>
 	</target>
 	
-	<target name="dist" depends="compile">
+  <target name="javac.tests" depends="compile" description="Compiles test code">
+    <mkdir dir="test-classes"/>
+    <javac srcdir="test" includes="**" encoding="utf-8" destdir="test-classes"
+      source="1.5" target="1.5" nowarn="true"
+      debug="true" debuglevel="lines,vars,source">
+      <classpath location="${ivylib.dir}/junit.jar"/>
+      <classpath refid="project.class.path"/>
+    </javac>
+  </target>
+  
+  <target name="test.dev" depends="javac.tests" description="Run development mode tests">
+    <mkdir dir="reports/htmlunit.dev" />
+    <junit fork="yes" printsummary="yes" haltonfailure="yes">
+      <jvmarg line="-Xmx256m" />
+      <sysproperty key="gwt.args" value="-logLevel WARN" />
+      <sysproperty key="java.awt.headless" value="true" />
+      <classpath>
+      	<pathelement location="src" />
+      	<pathelement location="test" />
+      	<pathelement location="test-classes" />
+      	<path refid="project.class.path" />
+        <pathelement location="${ivylib.dir}/junit.jar" />
+      </classpath>
+      <batchtest todir="reports/htmlunit.dev" >
+        <fileset dir="test-classes" >
+		  <include name="**/*Test.class" />
+        </fileset>
+      </batchtest>
+      <formatter type="plain" />
+      <formatter type="xml" />
+    </junit>
+  </target>
+	
+	<target name="dist" depends="test.dev">
 		<mkdir dir="${dist.dir}" />
 
 		<jar destfile="${dist.dir}/ydpgwtutils.jar">

@@ -4,5 +4,9 @@
 	<classpathentry kind="src" output="test-classes" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="lib" path="ivy-lib/hamcrest-core.jar"/>
+	<classpathentry kind="lib" path="ivy-lib/hamcrest-library.jar"/>
+	<classpathentry kind="lib" path="ivy-lib/validation-api.jar"/>
+	<classpathentry kind="lib" path="ivy-lib/junit.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
