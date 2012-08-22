@@ -12,9 +12,9 @@
 	<property name="dist.dir" location="${base.dir}/dist" />
 
 	<path id="project.class.path">
-		<pathelement location="war/WEB-INF/classes"/>
+		<pathelement location="test-classes"/>
+		<pathelement location="${classes.dir}"/>
 		<fileset dir="${ivylib.dir}" includes="**/*.jar"/>
-		<fileset dir="war/WEB-INF/lib" includes="**/*.jar"/>
 	</path>
   
 	<path id="lib.path">
