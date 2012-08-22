@@ -94,7 +94,7 @@ public final class XMLUtils {
 	 * Zwraca tekst z dzieci typu {@link Node.TEXT_NODE} dla element
 	 *
 	 * @param element
-	 *            rodzic z którego pobieramy teksty
+	 *            rodzic z ktorego pobieramy teksty
 	 * @param allChilds
 	 *            czy przechodzimy rekurencyjnie przez wszystkie dzieci
 	 * @return
