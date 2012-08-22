@@ -52,8 +52,13 @@
   <set-property name="gwt.logging.developmentModeHandler" value="DISABLED" />  
   <set-property name="gwt.logging.systemHandler" value="DISABLED" />
   
+  <collapse-property name="gwt.logging.systemHandler" values="*" />
+  <collapse-property name="gwt.logging.developmentModeHandler" values="*" />
+  <collapse-property name="gwt.logging.consoleHandler" values="*" />
+  <collapse-property name="gwt.logging.popupHandler" values="*" />
+  <collapse-property name="gwt.logging.enabled" values="*" />
+  
   <define-property name="debugMode" values="none,popup,console,both" />
-  <collapse-property name="debugMode" values="*" />
   <property-provider name="debugMode"><![CDATA[
        {
 		if (typeof window.getDebugMode == 'function')
@@ -62,6 +67,7 @@
        }
      ]]>
   </property-provider>
+  <collapse-property name="debugMode" values="*" />
   
   <set-property name="gwt.logging.enabled" value="FALSE">
   	<when-property-is name="debugMode" value="none"/>
