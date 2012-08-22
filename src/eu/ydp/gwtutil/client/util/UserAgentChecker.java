@@ -19,6 +19,7 @@ public class UserAgentChecker {
 	 *
 	 */
 	public enum MobileUserAgent {
+		AIR("air", ".*adobeair.*"),
 		CHROME("chrome", "mozilla.*android.*chrome\\/[1-9]{1}[0-9]{1}.*"),
 		FIREFOX("firefox", "mozilla.*android.*firefox\\/[1-9]{1}[0-9]{1}.*"),
 		SAFARI("safari",".*(ipad|ipod|iphon).*applewebkit.*safari.*"),
@@ -90,7 +91,7 @@ public class UserAgentChecker {
 	 * @param userAgent
 	 * @return
 	 */
-	public static boolean isMobileUserAgent(MobileUserAgent userAgent) {
+	public static boolean isMobileUserAgent(MobileUserAgent userAgent) {		
 		return isUserAgentNative(userAgent.regexPattern, UserAgentChecker.userAgent);
 	}
 	/**
@@ -146,7 +147,7 @@ public class UserAgentChecker {
 					break;
 				}
 			}
-		}
+		}		
 		return mobileUserAgent;
 	}
 

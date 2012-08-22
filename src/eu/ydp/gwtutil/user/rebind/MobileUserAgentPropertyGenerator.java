@@ -46,7 +46,7 @@ public class MobileUserAgentPropertyGenerator implements PropertyProviderGenerat
 	 * {@link #VALID_VALUES} and <code>UserAgent.gwt.xml</code>.
 	 */
 	static void writeUserAgentPropertyJavaScript(TreeLogger logger, SourceWriter body, SortedSet<String> possibleValues) {
-		if (MobileUserAgent.values().length != 8) {
+		if (MobileUserAgent.values().length != 9) {
 			logger.log(TreeLogger.ERROR, "Niepoprawna ilosc wartosci w MobileUserAgent sprawdz plik " + MobileUserAgent.class.getName() + ", module.gwt.xml oraz "
 					+ MobileUserAgentPropertyGenerator.class.getName() + " Wszystkie musza byc zsynchronizowane");
 		}
@@ -57,7 +57,7 @@ public class MobileUserAgentPropertyGenerator implements PropertyProviderGenerat
 			if (possibleValues.contains(predicates[i].getUserAgent())) {
 				body.println("if ((function() { ");
 				body.indent();
-				body.print(predicates[i].toString());
+				body.print(predicates[i].toString());				
 				body.outdent();
 				body.println("})()) return " + predicates[i].getReturnValue() + ";");
 			}

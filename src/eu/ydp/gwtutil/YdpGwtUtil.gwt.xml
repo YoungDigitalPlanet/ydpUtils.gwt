@@ -12,6 +12,7 @@
 	<extend-property name="mobile.user.agent" values="chrome" />
 	<extend-property name="mobile.user.agent" values="safari" />
 	<extend-property name="mobile.user.agent" values="unknown" />
+	<extend-property name="mobile.user.agent" values="air" />
 
 	<property-provider name="mobile.user.agent" generator="eu.ydp.gwtutil.user.rebind.MobileUserAgentPropertyGenerator" />
 
