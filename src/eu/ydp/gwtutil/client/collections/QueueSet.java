@@ -40,14 +40,16 @@ public class QueueSet<E> implements Set<E> {
 	
 	public boolean appendAll(Collection<? extends E> c) {
 		boolean added = false;
-		for (E e : c){
-			if (!list.contains(e)){
-				list.add(e);
-				added = true;
-			} else if (list.indexOf(e) != list.size() - 1) {
-				list.remove(e);
-				list.add(e);
-				added = true;
+		if (c != null){
+			for (E e : c){
+				if (!list.contains(e)){
+					list.add(e);
+					added = true;
+				} else if (list.indexOf(e) != list.size() - 1) {
+					list.remove(e);
+					list.add(e);
+					added = true;
+				}
 			}
 		}
 		return added;
