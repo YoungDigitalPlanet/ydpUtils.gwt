@@ -26,7 +26,7 @@ public final class PathUtil {
 		return path.substring(0, bs+1);
 	}
 
-	public static String normalizePath(String path){
+	public static String normalizePath(String path){  // NOPMD
 		while (path.matches(".*\\\\[^\\\\]*\\\\[.]{2}.*")){
 			path = path.replaceAll("\\\\[^\\\\]*\\\\[.]{2}", "");
 		}

@@ -5,9 +5,11 @@ import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class Debug {
-	private static Logger _debug = null;
+public final class Debug {
+	private static Logger debug = null;  // NOPMD
 
+	private Debug(){}
+	
 	public static void log(Object text) {
 		getLogger().log(String.valueOf(text.toString()));
 	}
@@ -21,14 +23,14 @@ public class Debug {
 	}
 
 	private static Logger getLogger(){
-		if (_debug == null)
+		if (debug == null)
 		{
-			_debug = GWT.create(Logger.class);
+			debug = GWT.create(Logger.class);
 
-			if (_debug instanceof IsWidget) {
-				RootPanel.get().add((Widget) _debug);
+			if (debug instanceof IsWidget) {
+				RootPanel.get().add((Widget) debug);
 			}
 		}
-		return _debug;
+		return debug;
 	}
 }
