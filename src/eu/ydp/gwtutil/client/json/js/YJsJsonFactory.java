@@ -18,6 +18,9 @@ public final class YJsJsonFactory {
 		if (json.isNumber() != null){
 			return new YJsJsonNumber(json.isNumber());
 		}
+		if (json.isObject() != null){
+			return new YJsJsonObject(json.isObject());
+		}
 		return new YJsJsonValue(json);
 	}
 }
