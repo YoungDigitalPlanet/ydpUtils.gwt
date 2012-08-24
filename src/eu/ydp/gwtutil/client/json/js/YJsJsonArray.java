@@ -7,7 +7,7 @@ import eu.ydp.gwtutil.client.json.YJsonValue;
 
 public class YJsJsonArray extends YJsJsonValue implements YJsonArray {
 
-	public YJsJsonArray(JSONArray json) {
+	YJsJsonArray(JSONArray json) {
 		super(json);
 	}
 

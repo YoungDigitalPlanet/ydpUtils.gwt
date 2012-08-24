@@ -9,7 +9,7 @@ import eu.ydp.gwtutil.client.json.YJsonValue;
 
 public class YJsJsonObject extends YJsJsonValue implements YJsonObject {
 
-	public YJsJsonObject(JSONObject json) {
+	YJsJsonObject(JSONObject json) {
 		super(json);
 	}
 

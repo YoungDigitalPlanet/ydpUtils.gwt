@@ -6,7 +6,7 @@ import eu.ydp.gwtutil.client.json.YJsonString;
 
 public class YJsJsonString extends YJsJsonValue implements YJsonString {
 
-	public YJsJsonString(JSONString json){
+	YJsJsonString(JSONString json){
 		super(json);
 	}
 

@@ -11,7 +11,7 @@ public class YJsJsonValue implements YJsonValue {
 
 	private JSONValue json;
 
-	public YJsJsonValue(JSONValue json){
+	YJsJsonValue(JSONValue json){
 		this.json = json;
 	}
 	

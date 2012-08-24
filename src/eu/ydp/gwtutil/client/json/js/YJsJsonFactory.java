@@ -1,7 +1,14 @@
 package eu.ydp.gwtutil.client.json.js;
 
+import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.json.client.JSONNumber;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONString;
 import com.google.gwt.json.client.JSONValue;
 
+import eu.ydp.gwtutil.client.json.YJsonArray;
+import eu.ydp.gwtutil.client.json.YJsonObject;
+import eu.ydp.gwtutil.client.json.YJsonString;
 import eu.ydp.gwtutil.client.json.YJsonValue;
 
 public final class YJsJsonFactory {
@@ -22,5 +29,21 @@ public final class YJsJsonFactory {
 			return new YJsJsonObject(json.isObject());
 		}
 		return new YJsJsonValue(json);
+	}
+	
+	public static YJsonArray createArray(){
+		return new YJsJsonArray(new JSONArray());
+	}
+	
+	public static YJsonString createString(String v){
+		return new YJsJsonString(new JSONString(v));
+	}
+
+	public static YJsonValue createNumber(double value) {
+		return new YJsJsonNumber(new JSONNumber(value));
+	}
+
+	public static YJsonObject createObject() {
+		return new YJsJsonObject(new JSONObject());
 	}
 }
