@@ -18,7 +18,7 @@ public class YJsJsonArray extends YJsJsonValue implements YJsonArray {
 
 	@Override
 	public void set(int index, YJsonValue value) {
-		toJson().isArray().set(index, value.toJson());
+		toJson().isArray().set(index, ((YJsJsonValue)value).toJson());
 	}
 
 	@Override
