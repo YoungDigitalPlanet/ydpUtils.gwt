@@ -1,5 +1,7 @@
 package eu.ydp.gwtutil.client;
 
+import java.util.List;
+
 @SuppressWarnings("PMD")
 public class NumberUtils {
 
@@ -33,5 +35,29 @@ public class NumberUtils {
 		} catch (Exception e) {
 		}
 		return 0f;
+	}
+
+	public static Double tryParseDouble(String s){
+		try {
+			return Double.parseDouble(s);
+		} catch (Exception e) {
+		}
+		return 0d;
+	}
+
+	public static Double tryParseDouble(String s, Double defaultValue){
+		try {
+			return Double.parseDouble(s);
+		} catch (Exception e) {
+		}
+		return defaultValue;
+	}
+	
+	public static Integer listSum(List<Integer> values){
+		Integer sum = 0;
+		for (Integer v : values){
+			sum += v;
+		}
+		return sum;
 	}
 }
