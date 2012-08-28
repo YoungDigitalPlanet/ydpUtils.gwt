@@ -1,5 +1,8 @@
 package eu.ydp.gwtutil.json;
 
+import java.io.IOException;
+import java.io.StringWriter;
+
 import com.google.gwt.dev.json.JsonValue;
 
 import eu.ydp.gwtutil.client.json.YJsonArray;
@@ -39,6 +42,18 @@ public class YNativeJsonValue implements YJsonValue {
 		if (this instanceof YJsonNumber)
 			return (YJsonNumber)this;
 		return null;
+	}
+	
+	@Override
+	public String toString() {
+		StringWriter writer = new StringWriter();
+		try {
+			jSonValue.write(writer);
+			return writer.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 
 }
