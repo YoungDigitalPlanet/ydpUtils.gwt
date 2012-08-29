@@ -22,6 +22,7 @@ public final class ListCreator<T> {
 	}
 	
 	public static <T> ListCreator<T> create(List<T> list){
+		assert list != null;
 		ListCreator<T> listCreator = new ListCreator<T>(list);
 		return listCreator;
 	}
