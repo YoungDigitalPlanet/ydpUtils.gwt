@@ -86,5 +86,9 @@
   		<when-property-is name="debugMode" value="both"/>
   	</any>  	
   </set-property>
+    
+  <generate-with class="eu.ydp.gwtutil.user.rebind.constants.StringConstantsGenerator">
+	<when-type-assignable class="eu.ydp.gwtutil.client.constants.StringConstants" />
+  </generate-with>
   
 </module>
