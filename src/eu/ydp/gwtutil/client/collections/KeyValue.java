@@ -66,6 +66,7 @@ public class KeyValue<K, V> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+		@SuppressWarnings("rawtypes")
 		KeyValue other = (KeyValue) obj;
 		if (key == null) {
 			if (other.key != null)

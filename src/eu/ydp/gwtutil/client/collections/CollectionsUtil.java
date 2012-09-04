@@ -21,4 +21,12 @@ public class CollectionsUtil {
 		}
 		return -1;
 	}
+	
+	public static int intCollectionSum(Collection<? extends Number> collection){
+		int sum = 0;
+		for (Number value : collection){
+			sum += value.intValue();
+		}
+		return sum;
+	}
 }
