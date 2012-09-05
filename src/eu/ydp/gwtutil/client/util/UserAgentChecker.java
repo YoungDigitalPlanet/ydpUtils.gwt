@@ -91,7 +91,7 @@ public class UserAgentChecker {
 	 * @param userAgent
 	 * @return
 	 */
-	public static boolean isMobileUserAgent(MobileUserAgent userAgent) {		
+	public static boolean isMobileUserAgent(MobileUserAgent userAgent) {
 		return isUserAgentNative(userAgent.regexPattern, UserAgentChecker.userAgent);
 	}
 	/**
@@ -109,9 +109,17 @@ public class UserAgentChecker {
 		return false;
 	}
 
+	/**
+	 * Czy przegladarka jest przegladarka uruhomiona na urzadzeniu mobilnym
+	 *
+	 * @return
+	 */
+	public static boolean isMobileUserAgent() {
+		return getMobileUserAgent() != MobileUserAgent.UNKNOWN;
+	}
 
-	public static boolean isStackAndroidBrowser(){
-		if(isMobileUserAgent(ANDROID_USER_AGENTS) && !isMobileUserAgent(MobileUserAgent.CHROME,MobileUserAgent.FIREFOX)){
+	public static boolean isStackAndroidBrowser() {
+		if (isMobileUserAgent(ANDROID_USER_AGENTS) && !isMobileUserAgent(MobileUserAgent.CHROME, MobileUserAgent.FIREFOX)) {
 			return true;
 		}
 		return false;
@@ -147,7 +155,7 @@ public class UserAgentChecker {
 					break;
 				}
 			}
-		}		
+		}
 		return mobileUserAgent;
 	}
 
