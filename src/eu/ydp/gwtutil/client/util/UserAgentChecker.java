@@ -7,7 +7,7 @@ import eu.ydp.gwtutil.user.rebind.MobileUserAgentPropertyGenerator;
  *
  */
 public class UserAgentChecker {
-	protected static String userAgent = UserAgentChecker.getUserAgentStrting().toLowerCase();
+	protected static BrowserNativeInterface nativeInterface = new BrowserNativeInterfaceImpl();
 	protected static MobileUserAgent mobileUserAgent = null;
 	public static final MobileUserAgent[] ANDROID_USER_AGENTS = new MobileUserAgent[] {
 		MobileUserAgent.ANDROID23,  MobileUserAgent.ANDROID3,
@@ -92,7 +92,7 @@ public class UserAgentChecker {
 	 * @return
 	 */
 	public static boolean isMobileUserAgent(MobileUserAgent userAgent) {
-		return isUserAgentNative(userAgent.regexPattern, UserAgentChecker.userAgent);
+		return nativeInterface.isUserAgent(userAgent.regexPattern, UserAgentChecker.getUserAgentStrting());
 	}
 	/**
 	 * Sprawdza czy jeden z elementow kolekcji  odpowiada userAgent w przegladarce
@@ -102,7 +102,7 @@ public class UserAgentChecker {
 	 */
 	public static boolean isMobileUserAgent(MobileUserAgent... userAgent) {
 		for(MobileUserAgent uAgent : userAgent){
-			if(isUserAgentNative(uAgent.regexPattern, UserAgentChecker.userAgent)){
+			if(nativeInterface.isUserAgent(uAgent.regexPattern, UserAgentChecker.getUserAgentStrting())){
 				return true;
 			}
 		}
@@ -125,13 +125,9 @@ public class UserAgentChecker {
 		return false;
 	}
 
-	private native static boolean isUserAgentNative(String regex, String userAgent)/*-{
-		var reg = eval("/" + regex + "/");
-		return reg.test(userAgent);
-	}-*/;
 
 	public static boolean isUserAgent(UserAgent userAgent) {
-		return isUserAgentNative(userAgent.regexPattern, UserAgentChecker.userAgent);
+		return nativeInterface.isUserAgent(userAgent.regexPattern, UserAgentChecker.getUserAgentStrting());
 	}
 
 	/**
@@ -139,9 +135,9 @@ public class UserAgentChecker {
 	 *
 	 * @return
 	 */
-	public native static String getUserAgentStrting()/*-{
-		return navigator.userAgent;
-	}-*/;
+	public static String getUserAgentStrting(){
+		return nativeInterface.getUserAgentStrting().toLowerCase();
+	}
 
 	/**
 	 * zwraca userAgenta przegladarki
@@ -163,7 +159,12 @@ public class UserAgentChecker {
 	 * Czy aplikacja jest uruchomiona loklanie
 	 * @return
 	 */
-	public static native boolean isLocal()/*-{
-		 return (window.location.href.indexOf("file://") == 0)? true : false;
-	}-*/;
+	public static boolean isLocal(){
+		return nativeInterface.isLocal();
+	}
+
+	public static void setNativeInterface(BrowserNativeInterface nativeInterface) {
+		UserAgentChecker.nativeInterface = nativeInterface;
+	}
+
 }
