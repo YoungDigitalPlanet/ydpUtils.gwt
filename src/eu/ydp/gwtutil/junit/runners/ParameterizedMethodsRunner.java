@@ -39,7 +39,7 @@ import org.junit.runners.model.Statement;
  * For example, to test a Fibonacci function, write:
  * 
  * <pre>
- * &#064;RunWith(Parameterized.class)
+ * &#064;RunWith(ParameterizedMethodsRunner.class)
  * public class FibonacciTest {
  * 	&#064;Parameters(name= &quot;{index}: fib({0})={1}&quot;)
  * 	public static Collection&lt;Object[]&gt; data() {
@@ -100,7 +100,7 @@ import org.junit.runners.model.Statement;
  * You can also write:
  *
  * <pre>
- * &#064;RunWith(Parameterized.class)
+ * &#064;RunWith(ParameterizedMethodsRunner.class)
  * public class FibonacciTest {
  * 	&#064;Parameters
  * 	public static Collection&lt;Object[]&gt; data() {
@@ -271,6 +271,7 @@ public class ParameterizedMethodsRunner extends Suite {
 		
 		@Override
 		protected void collectInitializationErrors(List<Throwable> errors) {
+			// TODO Do the verification.
 		}
 
 		protected Statement methodInvoker(FrameworkMethod method, Object test) {
