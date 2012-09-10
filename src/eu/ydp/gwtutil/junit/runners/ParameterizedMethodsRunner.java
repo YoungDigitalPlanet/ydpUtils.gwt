@@ -272,7 +272,10 @@ public class ParameterizedMethodsRunner extends Suite {
 		
 		@Override
 		protected void collectInitializationErrors(List<Throwable> errors) {
-			// TODO Do the verification.
+			validateNoNonStaticInnerClass(errors);
+			validateConstructor(errors);
+			
+			// TODO Extend the verification.
 		}
 
 		protected Statement methodInvoker(FrameworkMethod method, Object test) {
