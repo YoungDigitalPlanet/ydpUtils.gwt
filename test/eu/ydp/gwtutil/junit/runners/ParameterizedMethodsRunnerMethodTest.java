@@ -28,8 +28,8 @@ public class ParameterizedMethodsRunnerMethodTest extends ParameterizedMethodsRu
 		return params;
 	}
 	
-	@MethodParameters(forMethod={"parameterizedMethod2", "parameterizedMethod3"}, name="{index} - {0}, {1}")
-	public static Collection<Object[]> parameterizedMethod2Parameters(){
+	@MethodParameters(forMethod={"parameterizedMethod2", "parameterizedMethod3", "parameterizedMethod4"}, name="{index} - {0}, {1}")
+	public static Collection<Object[]> parameterizedMethod234Parameters(){
 		return params;
 	}
 	
@@ -60,7 +60,7 @@ public class ParameterizedMethodsRunnerMethodTest extends ParameterizedMethodsRu
 		}
 		Assert.fail(VISIT_ONCE_MESSAGE);
 	}
-	
+
 	@Test
 	public void parameterizedMethod3(Integer x, String y){
 		for (int i = 0 ; i < params.size() ; i ++){
@@ -73,6 +73,11 @@ public class ParameterizedMethodsRunnerMethodTest extends ParameterizedMethodsRu
 			}
 		}
 		Assert.fail(VISIT_ONCE_MESSAGE);
+	}
+	
+	@Test(expected = RuntimeException.class)
+	public void parameterizedMethod4(Integer x, String y){
+		throw new RuntimeException("OK");
 	}
 	
 	@Test
