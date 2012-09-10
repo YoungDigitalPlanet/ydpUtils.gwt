@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -165,7 +166,7 @@ public class ParameterizedMethodsRunner extends Suite {
 		/**
 		 * Name of the method to be parameterized.
 		 */
-		String forMethod();
+		String[] forMethod();
 	}
 	
 	/**
@@ -434,7 +435,8 @@ public class ParameterizedMethodsRunner extends Suite {
 	private FrameworkMethod getParametersMethod(String forMethod) throws Exception {
 		List<FrameworkMethod> methods= getTestClass().getAnnotatedMethods(MethodParameters.class);
 		for (FrameworkMethod each : methods) {
-			if ((each.getMethod().getModifiers() | Modifier.PUBLIC) > 0  &&  (each.getMethod().getModifiers() | Modifier.STATIC) > 0 && each.getAnnotation(MethodParameters.class).forMethod().equals(forMethod))
+			if ((each.getMethod().getModifiers() | Modifier.PUBLIC) > 0  &&  (each.getMethod().getModifiers() | Modifier.STATIC) > 0 && 
+					Arrays.asList(each.getAnnotation(MethodParameters.class).forMethod()).contains(forMethod))
 				return each;
 		}
 		return null;

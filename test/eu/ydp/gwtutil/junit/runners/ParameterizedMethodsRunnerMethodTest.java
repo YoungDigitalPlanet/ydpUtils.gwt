@@ -19,6 +19,7 @@ public class ParameterizedMethodsRunnerMethodTest extends ParameterizedMethodsRu
 
 	private static List<Boolean> paramsUsed1 = CollectionsUtil.fillList(false, params.size());
 	private static List<Boolean> paramsUsed2 = CollectionsUtil.fillList(false, params.size());
+	private static List<Boolean> paramsUsed3 = CollectionsUtil.fillList(false, params.size());
 	private static int nonParameterizedMethodVisitedCount = 0;
 	
 
@@ -27,7 +28,7 @@ public class ParameterizedMethodsRunnerMethodTest extends ParameterizedMethodsRu
 		return params;
 	}
 	
-	@MethodParameters(forMethod="parameterizedMethod2", name="{index} - {0}, {1}")
+	@MethodParameters(forMethod={"parameterizedMethod2", "parameterizedMethod3"}, name="{index} - {0}, {1}")
 	public static Collection<Object[]> parameterizedMethod2Parameters(){
 		return params;
 	}
@@ -61,6 +62,20 @@ public class ParameterizedMethodsRunnerMethodTest extends ParameterizedMethodsRu
 	}
 	
 	@Test
+	public void parameterizedMethod3(Integer x, String y){
+		for (int i = 0 ; i < params.size() ; i ++){
+			Object[] currParams = params.get(i);
+			if (!paramsUsed3.get(i)){
+				if (x == currParams[0]  &&  y.equals(currParams[1])){
+					paramsUsed3.set(i, true);
+					return;
+				}
+			}
+		}
+		Assert.fail(VISIT_ONCE_MESSAGE);
+	}
+	
+	@Test
 	public void nonParameterizedMethod(){
 		nonParameterizedMethodVisitedCount++;
 	}
@@ -69,6 +84,7 @@ public class ParameterizedMethodsRunnerMethodTest extends ParameterizedMethodsRu
 	public static void after(){
 		assertThat(paramsUsed1.contains(false), is(false));
 		assertThat(paramsUsed2.contains(false), is(false));
+		assertThat(paramsUsed3.contains(false), is(false));
 		assertThat(nonParameterizedMethodVisitedCount, is(1));
 	}
 	
