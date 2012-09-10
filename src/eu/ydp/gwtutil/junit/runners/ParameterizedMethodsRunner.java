@@ -127,7 +127,7 @@ import org.junit.runners.model.Statement;
  * and fields annotated by <code>&#064;Parameter</code>  will be initialized
  * with the data values in the <code>&#064;Parameters</code> method.
  * </p>
- * @since 4.0
+ * @since 4.10
  * 
  * @author Rafal Rybacki rrybacki@dyp.com.pl
  * 
