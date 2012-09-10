@@ -165,7 +165,7 @@ public class ParameterizedMethodsRunner extends Suite {
 		String name() default "{index}";
 		
 		/**
-		 * Name of the method to be parameterized.
+		 * Names of the methods to be parameterized.
 		 */
 		String[] forMethod();
 	}
