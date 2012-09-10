@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -251,11 +252,21 @@ public class ParameterizedMethodsRunner extends Suite {
 
 		private boolean fIgnoreNameInTest;
 
-		TestClassRunnerForParameters(Class<?> type, Object[] ctorParameters, Object[] methodParameters, String name, String forMethod, Collection<String> ignoreMethods, boolean ignoreNameInTest) throws InitializationError {
+		TestClassRunnerForParameters(Class<?> type, Object[] ctorParameters, Object[] methodParameters, String name, String forMethod) throws InitializationError {
 			super(type);
 			fParameters= ctorParameters;
 			fName= name;
 			fForMethod = forMethod;
+			this.fMethodParameters = methodParameters;
+			this.fIgnoreMethods = null;
+			this.fIgnoreNameInTest = false;
+		}
+
+		TestClassRunnerForParameters(Class<?> type, Object[] ctorParameters, Object[] methodParameters, String name, Collection<String> ignoreMethods, boolean ignoreNameInTest) throws InitializationError {
+			super(type);
+			fParameters= ctorParameters;
+			fName= name;
+			fForMethod = null;
 			this.fMethodParameters = methodParameters;
 			this.fIgnoreMethods = ignoreMethods;
 			this.fIgnoreNameInTest = ignoreNameInTest;
@@ -268,6 +279,27 @@ public class ParameterizedMethodsRunner extends Suite {
 			} else {
 				return createTestUsingConstructorInjection();
 			}
+		}
+		
+		@Override
+		protected List<FrameworkMethod> computeTestMethods() {
+			List<FrameworkMethod> methods = getTestClass().getAnnotatedMethods(Test.class);
+			if (fIgnoreMethods == null){
+				for (Iterator<FrameworkMethod> it = methods.iterator(); it.hasNext() ; ){
+					if (!it.next().getName().equals(fForMethod)){
+						it.remove();
+					}
+				}
+			} else {
+				for (String ignoredMethod : fIgnoreMethods){
+					for (Iterator<FrameworkMethod> it = methods.iterator(); it.hasNext() ; ){
+						if (it.next().getName().equals(ignoredMethod)){
+							it.remove();
+						}
+					}
+				}
+			} 
+			return methods;
 		}
 		
 		@Override
@@ -466,11 +498,11 @@ public class ParameterizedMethodsRunner extends Suite {
 					}
 				
 					String namePattern = getNamePattern(method.getName());
-					for (Object[] parametersOfSingleTest : methodParams) { // methods
+					for (Object[] parametersOfSingleTest : methodParams) {
 						String name= method.getName() + nameFor(namePattern, i, parametersOfSingleTest);
 						TestClassRunnerForParameters runner= new TestClassRunnerForParameters(
 								getTestClass().getJavaClass(), defaultCtorParams, parametersOfSingleTest,
-								name, method.getName(), null, false);
+								name, method.getName());
 						runners.add(runner);
 						++i;
 					}
@@ -487,7 +519,7 @@ public class ParameterizedMethodsRunner extends Suite {
 					String name= nameFor(namePattern, k, parametersOfSingleTest);
 					TestClassRunnerForParameters runner= new TestClassRunnerForParameters(
 							getTestClass().getJavaClass(), parametersOfSingleTest, new Object[]{},
-							name, null, parameterizedMethod, ctorParams.size() == 1);
+							name, parameterizedMethod, ctorParams.size() == 1);
 					runners.add(runner);
 					++k;
 				}
