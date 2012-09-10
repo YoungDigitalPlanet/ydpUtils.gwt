@@ -7,6 +7,8 @@
 	<scm type="svn" href="https://svn.intranet.ydp/ydp/projects/empiria/utils/ydpgwtutils/trunk" />
 	<artifact name="jar file" href="dist/ydpgwtutils.jar" />
 	
+	<ivy href="ivy.xml" />
+	
 	<classification>
 		<label>JavaScript</label>
 		<label>Empiria</label>
