@@ -1,4 +1,4 @@
-package eu.ydp.gwtutil.client.test;
+package eu.ydp.gwtutil.test;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -43,6 +43,14 @@ public abstract class AbstractTestModule implements Module {
 			return new NullAnnotatedBindingBuilder<T>();
 		} else {
 			return binder.bind(clazz);
+		}
+	}
+
+	public <T> AnnotatedBindingBuilder<T> bindWhenIgnored(final Class<T> clazz) {
+		if (isIgnoreClass(clazz)) {
+			return binder.bind(clazz);
+		} else {
+			return new NullAnnotatedBindingBuilder<T>();			
 		}
 	}
 
