@@ -13,6 +13,14 @@ import com.google.inject.Singleton;
  */
 public abstract class AbstractMockingTestModule extends AbstractTestModule {
 
+	public AbstractMockingTestModule(){
+		super();
+	}
+	
+	public AbstractMockingTestModule(Class<?>... ignoreClassList) {
+		super(ignoreClassList);
+	}
+
 	/**
 	 * If not ignored binds the class. If ignored binds to mock provider.
 	 * 
