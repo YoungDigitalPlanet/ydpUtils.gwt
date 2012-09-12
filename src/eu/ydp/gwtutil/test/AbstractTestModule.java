@@ -46,6 +46,11 @@ public abstract class AbstractTestModule implements Module {
 		}
 	}
 
+	/**
+	 * If ignored binds the class. Otherwise binding is omitted.
+	 * 
+	 * @param clazz Class to bind.
+	 */
 	public <T> AnnotatedBindingBuilder<T> bindWhenIgnored(final Class<T> clazz) {
 		if (isIgnoreClass(clazz)) {
 			return binder.bind(clazz);
@@ -54,7 +59,7 @@ public abstract class AbstractTestModule implements Module {
 		}
 	}
 
-	private boolean isIgnoreClass(final Class<?> clazz) {
+	protected boolean isIgnoreClass(final Class<?> clazz) {
 		for (Class<?> ignoreClass : ignoreClassList) {
 			if (ignoreClass == clazz) {
 				return true;
