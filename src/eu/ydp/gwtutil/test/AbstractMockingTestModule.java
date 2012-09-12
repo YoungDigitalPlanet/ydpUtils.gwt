@@ -22,12 +22,14 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule {
 	}
 
 	/**
-	 * If not ignored binds the class. If ignored binds to mock provider.
+	 * If ignored binds the class. If not ignored binds to mock provider.
 	 * 
 	 * @param clazz Class to bind.
 	 */
 	public <T> void bindToClassOrMockProvider(final Class<T> clazz) {
 		if (isIgnoreClass(clazz)) {
+			bind(clazz);
+		} else {
 			binder.bind(clazz).toProvider(new Provider<T>() {
 
 				@Override
@@ -35,21 +37,19 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule {
 					return mock(clazz);
 				}
 			});
-		} else {
-			binder.bind(clazz);
 		}
 	}
 
 	/**
-	 * If not ignored binds the class as Singleton. If ignored binds to mock instance.
+	 * If ignored binds the class as Singleton. If not ignored binds to mock instance.
 	 * 
 	 * @param clazz Class to bind.
 	 */
 	public <T> void bindToSingletonOrMockInstance(final Class<T> clazz) {
 		if (isIgnoreClass(clazz)) {
-			binder.bind(clazz).toInstance(mock(clazz));
-		} else {
 			binder.bind(clazz).in(Singleton.class);
+		} else {
+			binder.bind(clazz).toInstance(mock(clazz));
 		}
 	}
 
