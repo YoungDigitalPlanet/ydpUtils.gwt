@@ -6,4 +6,5 @@ public interface YJsonValue {
 	YJsonArray isArray();
 	YJsonString isString();
 	YJsonNumber isNumber();
+	YJsonObject isObject();
 }

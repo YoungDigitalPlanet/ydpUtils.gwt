@@ -4,6 +4,7 @@ import com.google.gwt.json.client.JSONValue;
 
 import eu.ydp.gwtutil.client.json.YJsonArray;
 import eu.ydp.gwtutil.client.json.YJsonNumber;
+import eu.ydp.gwtutil.client.json.YJsonObject;
 import eu.ydp.gwtutil.client.json.YJsonString;
 import eu.ydp.gwtutil.client.json.YJsonValue;
 
@@ -37,6 +38,13 @@ public class YJsJsonValue implements YJsonValue {
 	public YJsonNumber isNumber() {
 		if (this instanceof YJsonNumber)
 			return (YJsonNumber)this;
+		return null;
+	}
+	
+	@Override
+	public YJsonObject isObject() {
+		if (this instanceof YJsonObject)
+			return (YJsonObject)this;
 		return null;
 	}
 }
