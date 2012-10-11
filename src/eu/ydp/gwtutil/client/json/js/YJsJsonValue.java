@@ -47,4 +47,17 @@ public class YJsJsonValue implements YJsonValue {
 			return (YJsonObject)this;
 		return null;
 	}
+	
+	@Override
+	public String toString() {		
+		String str = "";
+		
+		if(json != null){
+			str = json.toString();
+		}
+		
+		return str;
+			
+		
+	}
 }
