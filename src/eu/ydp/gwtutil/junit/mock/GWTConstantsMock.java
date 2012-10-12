@@ -21,8 +21,8 @@ public class GWTConstantsMock {
 	 * @param mock
 	 * @return mocka
 	 */
-	public static <T> T mockAllStringMethods(T mock) {
-		Method[] methods = mock.getClass().getMethods();
+	public static <T> T mockAllStringMethods(T mock, Class<?> baseClass) {
+		Method[] methods = baseClass.getMethods();
 		for (Method method : methods) {
 			try {
 				if (method.isAnnotationPresent(DefaultStringValue.class)) {
