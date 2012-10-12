@@ -46,16 +46,20 @@ public abstract class AbstractTestModule implements Module {
 		}
 	}
 
+	public void install (Module module){
+		binder.install(module);
+	}
+
 	/**
 	 * If ignored binds the class. Otherwise binding is omitted.
-	 * 
+	 *
 	 * @param clazz Class to bind.
 	 */
 	public <T> AnnotatedBindingBuilder<T> bindWhenIgnored(final Class<T> clazz) {
 		if (isIgnoreClass(clazz)) {
 			return binder.bind(clazz);
 		} else {
-			return new NullAnnotatedBindingBuilder<T>();			
+			return new NullAnnotatedBindingBuilder<T>();
 		}
 	}
 
