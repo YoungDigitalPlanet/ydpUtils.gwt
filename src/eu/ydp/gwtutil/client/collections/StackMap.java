@@ -21,8 +21,14 @@ public class StackMap<K, V>  {
 
 
 	public V put(K key, V value){
-		keys.add(key);
-		values.add(value);
+		int index = keys.indexOf(key);
+		if (index == -1){
+			keys.add(key);
+			values.add(value);
+		} else {
+			keys.set(index, key);
+			values.set(index, value);
+		}
 		return value;
 	}
 	
@@ -45,11 +51,25 @@ public class StackMap<K, V>  {
 	
 	public V get(K key){
 		int index = keys.indexOf(key);
-		return values.get(index);
+		if (index == -1){
+			return null;
+		} else {
+			return values.get(index);
+		}
 	}
 	
 	public Set<K> keySet(){
 		return new HashSet<K>(keys);
+	}
+	
+	public boolean remove(K key){
+		int index = keys.indexOf(key);
+		if (index != -1){
+			keys.remove(index);
+			values.remove(index);
+			return true;
+		}
+		return false;
 	}
 	
 }
