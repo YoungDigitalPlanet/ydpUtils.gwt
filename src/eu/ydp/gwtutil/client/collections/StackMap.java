@@ -1,75 +1,18 @@
 package eu.ydp.gwtutil.client.collections;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Set;
 
-
-public class StackMap<K, V>  {
-	
-	private static final long serialVersionUID = -5203287630904024114L;
-
-	protected List<K> keys;
-	protected List<V> values;
-
-	public StackMap(){
-		super();
-		keys = new ArrayList<K>();
-		values = new ArrayList<V>();
-	}
-
-
-	public V put(K key, V value){
-		int index = keys.indexOf(key);
-		if (index == -1){
-			keys.add(key);
-			values.add(value);
-		} else {
-			keys.set(index, key);
-			values.set(index, value);
-		}
-		return value;
-	}
-	
-	public void clear(){
-		keys.clear();
-		values.clear();
-	}
+@SuppressWarnings("serial")
+public class StackMap<K, V> extends LinkedHashMap<K, V> {
 	
 	public List<K> getKeys(){
-		return keys;
+		return new ArrayList<K>(keySet());
 	}
-	
-	public List<V> getValues(){
-		return values;
-	}
-	
-	public boolean containsKey(K key){
-		return keys.contains(key);
-	}
-	
-	public V get(K key){
-		int index = keys.indexOf(key);
-		if (index == -1){
-			return null;
-		} else {
-			return values.get(index);
-		}
-	}
-	
-	public Set<K> keySet(){
-		return new HashSet<K>(keys);
-	}
-	
-	public boolean remove(K key){
-		int index = keys.indexOf(key);
-		if (index != -1){
-			keys.remove(index);
-			values.remove(index);
-			return true;
-		}
-		return false;
+
+	public List<V> getValues() {
+		return new ArrayList<V>(values());
 	}
 	
 }
