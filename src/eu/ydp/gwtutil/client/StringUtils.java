@@ -3,6 +3,9 @@ package eu.ydp.gwtutil.client;
 import java.util.Set;
 
 public class StringUtils {
+	
+	public static final String EMPTY_STRING = "";
+	
 	public static String reverse(String source) {
 		int i, len = source.length();
 	    StringBuffer dest = new StringBuffer(len);
