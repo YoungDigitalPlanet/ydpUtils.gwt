@@ -91,4 +91,6 @@
 	<when-type-assignable class="eu.ydp.gwtutil.client.constants.StringConstants" />
   </generate-with>
   
+  <define-linker name="xsiframescripts" class="eu.ydp.gwtutil.core.linker.CrossSiteIframeWithScriptsLinker" />
+	
 </module>
