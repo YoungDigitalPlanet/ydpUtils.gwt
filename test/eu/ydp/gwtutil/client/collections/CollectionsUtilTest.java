@@ -8,9 +8,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import eu.ydp.gwtutil.AbstractTest;
+import eu.ydp.gwtutil.AbstractTestBase;
 
-public class CollectionsUtilTest extends AbstractTest {
+public class CollectionsUtilTest extends AbstractTestBase {
 
 	@Test
 	public void testIndexOfNot1(){

@@ -6,7 +6,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 
-public abstract class AbstractTest {
+public abstract class AbstractTestBase {
 
 	protected Injector injector;
 

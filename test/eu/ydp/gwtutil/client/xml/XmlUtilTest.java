@@ -6,14 +6,14 @@ import org.junit.Test;
 import com.google.gwt.xml.client.Element;
 import com.google.gwt.xml.client.NodeList;
 
-import eu.ydp.gwtutil.AbstractTest;
+import eu.ydp.gwtutil.AbstractTestBase;
 import eu.ydp.gwtutil.client.xml.XMLUtils;
 import eu.ydp.gwtutil.xml.ElementWrapper;
 import eu.ydp.gwtutil.xml.XMLComparator;
 import eu.ydp.gwtutil.xml.XMLParser;
 
 
-public class XmlUtilTest extends AbstractTest {
+public class XmlUtilTest extends AbstractTestBase {
 	
 	@Test
 	public void getElementsByAttribute(){

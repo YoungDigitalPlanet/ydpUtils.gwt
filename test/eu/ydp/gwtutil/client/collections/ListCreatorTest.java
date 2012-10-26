@@ -7,9 +7,9 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 import org.junit.Test;
 
-import eu.ydp.gwtutil.AbstractTest;
+import eu.ydp.gwtutil.AbstractTestBase;
 
-public class ListCreatorTest extends AbstractTest {
+public class ListCreatorTest extends AbstractTestBase {
 
 	@Test
 	public void testCreate(){
