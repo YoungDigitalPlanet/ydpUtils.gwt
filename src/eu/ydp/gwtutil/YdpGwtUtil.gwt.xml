@@ -91,6 +91,19 @@
 	<when-type-assignable class="eu.ydp.gwtutil.client.constants.StringConstants" />
   </generate-with>
   
+  <replace-with class="eu.ydp.gwtutil.client.xml.proxy.XMLProxyStandard">
+    <when-type-is class="eu.ydp.gwtutil.client.xml.proxy.XMLProxy"/>
+  </replace-with>
+  
+  <replace-with class="eu.ydp.gwtutil.client.xml.proxy.XMLProxyIE6">
+    <when-type-is class="eu.ydp.gwtutil.client.xml.proxy.XMLProxy"/>
+    <any>
+      <when-property-is name="user.agent" value="ie6"/>
+      <when-property-is name="user.agent" value="ie8"/>
+      <when-property-is name="user.agent" value="ie9"/>
+    </any>
+  </replace-with>
+  
   <define-linker name="xsiframescripts" class="eu.ydp.gwtutil.core.linker.CrossSiteIframeWithScriptsLinker" />
 	
 </module>

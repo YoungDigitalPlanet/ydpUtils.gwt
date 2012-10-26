@@ -4,6 +4,9 @@ import com.google.gwt.xml.client.Element;
 import com.google.gwt.xml.client.Node;
 import com.google.gwt.xml.client.NodeList;
 
+import eu.ydp.gwtutil.client.xml.proxy.XMLProxy;
+import eu.ydp.gwtutil.client.xml.proxy.XMLProxyFactory;
+
 public final class XMLUtils {
 
 	private XMLUtils() {
@@ -125,8 +128,9 @@ public final class XMLUtils {
 	 */
 	public static Element getFirstElementWithTagName(Element element, String tagName) {
 
-		Element node = null;
-		NodeList nodeList = element.getElementsByTagName(tagName);
+		Element node = null;	
+		XMLProxy xmlProxy = XMLProxyFactory.getXMLProxy();
+		NodeList nodeList = xmlProxy.getElementsByTagName(element, tagName);
 
 		if (nodeList.getLength() > 0) {
 			node = (Element) nodeList.item(0);
@@ -166,7 +170,11 @@ public final class XMLUtils {
 	}
 	
 	public static NodeList getElementsByAttribute(Element element, String nodeName, String attrName){		
-		NodeList children = element.getElementsByTagName(nodeName);		
+		XMLProxy xmlProxy = XMLProxyFactory.getXMLProxy();
+		NodeList children = xmlProxy.getElementsByTagName(element, nodeName);
+		if ("*".equals(nodeName)  &&  children.getLength() == 0){
+			children = element.getElementsByTagName("div");
+		}
 		Element child;
 		YNodeListImpl result = new YNodeListImpl();
 		int i;
