@@ -1,6 +1,7 @@
 package eu.ydp.gwtutil.json;
 
 import com.google.gwt.dev.json.JsonArray;
+import com.google.gwt.dev.json.JsonBoolean;
 import com.google.gwt.dev.json.JsonNumber;
 import com.google.gwt.dev.json.JsonObject;
 import com.google.gwt.dev.json.JsonString;
@@ -28,6 +29,11 @@ public class YNativeJsonFactory {
 		if (json.isObject()){
 			return new YNativeJsonObject(json.asObject());
 		}
+		
+		if(json.isBoolean()){
+			return new YNativeJsonBoolean(json.asBoolean());
+		}
+		
 		return new YNativeJsonValue(json);
 	}
 	
@@ -45,5 +51,9 @@ public class YNativeJsonFactory {
 	
 	public static YNativeJsonObject createObject() {
 		return new YNativeJsonObject(new JsonObject());
+	}
+	
+	public static YNativeJsonBoolean createBoolean(boolean bool){
+		return new YNativeJsonBoolean(JsonBoolean.create(bool));
 	}
 }

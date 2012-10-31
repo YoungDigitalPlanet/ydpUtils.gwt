@@ -3,6 +3,7 @@ package eu.ydp.gwtutil.client.json.js;
 import com.google.gwt.json.client.JSONValue;
 
 import eu.ydp.gwtutil.client.json.YJsonArray;
+import eu.ydp.gwtutil.client.json.YJsonBoolean;
 import eu.ydp.gwtutil.client.json.YJsonNumber;
 import eu.ydp.gwtutil.client.json.YJsonObject;
 import eu.ydp.gwtutil.client.json.YJsonString;
@@ -46,6 +47,11 @@ public class YJsJsonValue implements YJsonValue {
 		if (this instanceof YJsonObject)
 			return (YJsonObject)this;
 		return null;
+	}
+	
+	@Override
+	public YJsonBoolean isBoolean() {
+		return (this instanceof YJsonBoolean) ? (YJsonBoolean)this: null;
 	}
 	
 	@Override

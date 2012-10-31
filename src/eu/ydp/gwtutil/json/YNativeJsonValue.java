@@ -6,6 +6,7 @@ import java.io.StringWriter;
 import com.google.gwt.dev.json.JsonValue;
 
 import eu.ydp.gwtutil.client.json.YJsonArray;
+import eu.ydp.gwtutil.client.json.YJsonBoolean;
 import eu.ydp.gwtutil.client.json.YJsonNumber;
 import eu.ydp.gwtutil.client.json.YJsonObject;
 import eu.ydp.gwtutil.client.json.YJsonString;
@@ -51,6 +52,11 @@ public class YNativeJsonValue implements YJsonValue {
 			return (YJsonObject)this;
 		return null;
 	}	
+	
+	@Override
+	public YJsonBoolean isBoolean() {
+		return (this instanceof YJsonBoolean) ? (YJsonBoolean)this : null;
+	}
 	
 	@Override
 	public String toString() {

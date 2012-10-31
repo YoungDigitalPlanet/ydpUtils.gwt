@@ -1,12 +1,14 @@
 package eu.ydp.gwtutil.client.json.js;
 
 import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.json.client.JSONBoolean;
 import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.json.client.JSONValue;
 
 import eu.ydp.gwtutil.client.json.YJsonArray;
+import eu.ydp.gwtutil.client.json.YJsonBoolean;
 import eu.ydp.gwtutil.client.json.YJsonObject;
 import eu.ydp.gwtutil.client.json.YJsonString;
 import eu.ydp.gwtutil.client.json.YJsonValue;
@@ -28,6 +30,9 @@ public final class YJsJsonFactory {
 		if (json.isObject() != null){
 			return new YJsJsonObject(json.isObject());
 		}
+		if(json.isBoolean() != null){
+			return new YJsJsonBoolean(json.isBoolean());
+		}
 		return new YJsJsonValue(json);
 	}
 	
@@ -45,5 +50,9 @@ public final class YJsJsonFactory {
 
 	public static YJsonObject createObject() {
 		return new YJsJsonObject(new JSONObject());
+	}
+	
+	public static YJsonBoolean createBoolean(boolean bool){
+		return new YJsJsonBoolean(JSONBoolean.getInstance(bool));
 	}
 }
