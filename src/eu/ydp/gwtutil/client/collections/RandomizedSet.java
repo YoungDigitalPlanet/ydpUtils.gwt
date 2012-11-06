@@ -23,12 +23,20 @@
 */
 package eu.ydp.gwtutil.client.collections;
 
+import java.util.Collection;
 import java.util.Vector;
 
 public class RandomizedSet<T> {
 
 	private final Vector<T>	elements = new Vector<T>();
 
+	public RandomizedSet() {
+
+	}
+
+	public RandomizedSet(Collection<T> collection) {
+		elements.addAll(collection);
+	}
 	/**
 	 * Add element do the set
 	 * @param item
