@@ -1,5 +1,6 @@
 package eu.ydp.gwtutil.test;
 
+import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.mock;
 
 import com.google.inject.Provider;
@@ -50,6 +51,19 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule {
 			binder.bind(clazz).in(Singleton.class);
 		} else {
 			binder.bind(clazz).toInstance(mock(clazz));
+		}
+	}
+
+	/**
+	 * If ignored binds the class as Singleton. If not ignored binds to mock instance with deep stubs.
+	 * 
+	 * @param clazz Class to bind.
+	 */
+	public <T> void bindToSingletonOrMockInstanceDeep(final Class<T> clazz) {
+		if (isIgnoreClass(clazz)) {
+			binder.bind(clazz).in(Singleton.class);
+		} else {
+			binder.bind(clazz).toInstance(mock(clazz, RETURNS_DEEP_STUBS));
 		}
 	}
 
