@@ -3,6 +3,8 @@ package eu.ydp.gwtutil.test;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.mock;
 
+import org.mockito.MockSettings;
+
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
@@ -28,6 +30,16 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule {
 	 * @param clazz Class to bind.
 	 */
 	public <T> void bindToClassOrMockProvider(final Class<T> clazz) {
+		bindToClassOrMockProvider(clazz, null);
+	}
+
+	/**
+	 * If ignored binds the class. If not ignored binds to mock provider. Allows for the specification of the answer,
+	 * 
+	 * @param clazz Class to bind.
+	 * @param settings Mockito mock settings
+	 */
+	public <T> void bindToClassOrMockProvider(final Class<T> clazz, final MockSettings settings) {
 		if (isIgnoreClass(clazz)) {
 			bind(clazz);
 		} else {
@@ -35,10 +47,42 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule {
 
 				@Override
 				public T get() {
-					return mock(clazz);
+					return createMock(clazz, settings);
 				}
 			});
 		}
+	}
+	
+	private <T> T createMock(Class<T> clazz, MockSettings settings){
+		if (settings == null){
+			return mock(clazz);
+		}
+		return mock(clazz, settings);
+	}
+
+	/**
+	 * If ignored binds the class. If not ignored binds to mock provider.
+	 * 
+	 * @param clazz Class to bind.
+	 */
+	public <T> void bindToMockProvider(final Class<T> clazz) {
+		bindToMockProvider(clazz, null);
+	}
+
+	/**
+	 * If ignored binds the class. If not ignored binds to mock provider. Allows for the specification of the answer,
+	 * 
+	 * @param clazz Class to bind.
+	 * @param settings Mockito mock settings
+	 */
+	public <T> void bindToMockProvider(final Class<T> clazz, final MockSettings settings) {
+		binder.bind(clazz).toProvider(new Provider<T>() {
+
+			@Override
+			public T get() {
+				return createMock(clazz, settings);
+			}
+		});
 	}
 
 	/**
