@@ -61,31 +61,6 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule {
 	}
 
 	/**
-	 * If ignored binds the class. If not ignored binds to mock provider.
-	 * 
-	 * @param clazz Class to bind.
-	 */
-	public <T> void bindToMockProvider(final Class<T> clazz) {
-		bindToMockProvider(clazz, null);
-	}
-
-	/**
-	 * If ignored binds the class. If not ignored binds to mock provider. Allows for the specification of the answer,
-	 * 
-	 * @param clazz Class to bind.
-	 * @param settings Mockito mock settings
-	 */
-	public <T> void bindToMockProvider(final Class<T> clazz, final MockSettings settings) {
-		binder.bind(clazz).toProvider(new Provider<T>() {
-
-			@Override
-			public T get() {
-				return createMock(clazz, settings);
-			}
-		});
-	}
-
-	/**
 	 * If ignored binds the class as Singleton. If not ignored binds to mock instance.
 	 * 
 	 * @param clazz Class to bind.
