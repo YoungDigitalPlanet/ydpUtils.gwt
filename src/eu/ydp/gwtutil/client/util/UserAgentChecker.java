@@ -9,24 +9,27 @@ import eu.ydp.gwtutil.user.rebind.MobileUserAgentPropertyGenerator;
 public class UserAgentChecker {
 	protected static BrowserNativeInterface nativeInterface = new BrowserNativeInterfaceImpl();
 	protected static MobileUserAgent mobileUserAgent = null;
-	public static final MobileUserAgent[] ANDROID_USER_AGENTS = new MobileUserAgent[] {
-		MobileUserAgent.ANDROID23,  MobileUserAgent.ANDROID3,
-		MobileUserAgent.ANDROID321, MobileUserAgent.ANDROID4 };
+	public static final MobileUserAgent[] ANDROID_USER_AGENTS = new MobileUserAgent[] { MobileUserAgent.ANDROID23, MobileUserAgent.ANDROID3,
+			MobileUserAgent.ANDROID321, MobileUserAgent.ANDROID4 };
+
+	public interface BrowserUserAgent {
+		public String getRegexPattern();
+	}
 
 	/**
 	 * Konfiguracja mobilnego user agenta. Wartosci musza byc zsynchronizowane z
 	 * module.gwt.xml oraz {@link MobileUserAgentPropertyGenerator}
 	 *
 	 */
-	public enum MobileUserAgent {
+	public enum MobileUserAgent implements BrowserUserAgent {
 		AIR("air", ".*adobeair.*"),
 		CHROME("chrome", "mozilla.*android.*chrome\\/[1-9]{1}[0-9]{1}.*"),
-		FIREFOX("firefox", "mozilla.*android.*firefox\\/[1-9]{1}[0-9]{1}.*"),
-		SAFARI("safari",".*(ipad|ipod|iphon).*applewebkit.*safari.*"),
+		FIREFOX("firefox","mozilla.*android.*firefox\\/[1-9]{1}[0-9]{1}.*"),
+		SAFARI("safari", ".*(ipad|ipod|iphon).*applewebkit.*safari.*"),
 		ANDROID23("android23","android[ ]*2.3[.0-9a-z -]*"),
 		ANDROID321("android321", "android[ ]*3.2.1[.0-9a-z -]*"),
 		ANDROID3("android3", "android[ ]*3[.0-9a-z -]*"),
-		ANDROID4("android4","android[ ]*4[.0-9a-z -]*"),
+		ANDROID4("android4", "android[ ]*4[.0-9a-z -]*"),
 		UNKNOWN("unknown", ".*");
 		private final String tagName, regexPattern;
 
@@ -40,6 +43,7 @@ public class UserAgentChecker {
 		 *
 		 * @return
 		 */
+		@Override
 		public String getRegexPattern() {
 			return regexPattern;
 		}
@@ -56,10 +60,10 @@ public class UserAgentChecker {
 	 * W przyszlosci do zsynchronizwania z UserAgent dostarczanym przez gwt
 	 *
 	 */
-	public enum UserAgent {
+	public enum UserAgent implements BrowserUserAgent{
 		GECKO1_8("gecko1_8", "^(((?!.*like).*)(.*gecko.*))$"),
 		OPERA("opera", ".*opera.*"),
-		IE9("ie9",".*msie[ ]*9.*"),
+		IE9("ie9", ".*msie[ ]*9.*"),
 		IE8("ie8",".*msie[ ]*[78]{1}.*trident/4.*"),
 		ALL("all", ".*");
 		private final String tagName, regexPattern;
@@ -74,6 +78,7 @@ public class UserAgentChecker {
 		 *
 		 * @return
 		 */
+		@Override
 		public String getRegexPattern() {
 			return regexPattern;
 		}
@@ -93,21 +98,18 @@ public class UserAgentChecker {
 	 * @return
 	 */
 	public static boolean isMobileUserAgent(MobileUserAgent userAgent) {
-		return nativeInterface.isUserAgent(userAgent.regexPattern, UserAgentChecker.getUserAgentStrting());
+		return isUserAgent(userAgent);
 	}
+
 	/**
-	 * Sprawdza czy jeden z elementow kolekcji  odpowiada userAgent w przegladarce
+	 * Sprawdza czy jeden z elementow kolekcji odpowiada userAgent w
+	 * przegladarce
 	 *
 	 * @param userAgent
 	 * @return
 	 */
 	public static boolean isMobileUserAgent(MobileUserAgent... userAgent) {
-		for(MobileUserAgent uAgent : userAgent){
-			if(nativeInterface.isUserAgent(uAgent.regexPattern, UserAgentChecker.getUserAgentStrting())){
-				return true;
-			}
-		}
-		return false;
+		return isUserAgent(userAgent);
 	}
 
 	/**
@@ -126,9 +128,17 @@ public class UserAgentChecker {
 		return false;
 	}
 
+	public static boolean isUserAgent(BrowserUserAgent userAgent) {
+		return nativeInterface.isUserAgent(userAgent.getRegexPattern(), UserAgentChecker.getUserAgentStrting());
+	}
 
-	public static boolean isUserAgent(UserAgent userAgent) {
-		return nativeInterface.isUserAgent(userAgent.regexPattern, UserAgentChecker.getUserAgentStrting());
+	public static boolean isUserAgent(BrowserUserAgent... userAgents) {
+		for (BrowserUserAgent uAgent : userAgents) {
+			if (nativeInterface.isUserAgent(uAgent.getRegexPattern(), UserAgentChecker.getUserAgentStrting())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -136,7 +146,7 @@ public class UserAgentChecker {
 	 *
 	 * @return
 	 */
-	public static String getUserAgentStrting(){
+	public static String getUserAgentStrting() {
 		return nativeInterface.getUserAgentStrting().toLowerCase();
 	}
 
@@ -158,9 +168,10 @@ public class UserAgentChecker {
 
 	/**
 	 * Czy aplikacja jest uruchomiona loklanie
+	 *
 	 * @return
 	 */
-	public static boolean isLocal(){
+	public static boolean isLocal() {
 		return nativeInterface.isLocal();
 	}
 
