@@ -40,6 +40,15 @@ public class UserAgentDesktopCheckerJUnitTest {
 		return browsers;
 	}
 
+	private Set<String> getIe8Desktop() {
+		Set<String> browsers = new HashSet<String>();
+		browsers.add("Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Trident/4.0)");
+		browsers.add("Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0)");
+		browsers.add("Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)");
+		browsers.add("Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Win64; x64; Trident/4.0)");
+		browsers.add("Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; WOW64; Trident/4.0)");
+		return browsers;
+	}
 	@Test
 	public void firefoxDesktop() {
 		Set<String> browsers = getFirefoxDesktop();
@@ -81,6 +90,19 @@ public class UserAgentDesktopCheckerJUnitTest {
 		}
 	}
 
+	@Test
+	public void ie8Desktop() {
+		Set<String> browsers = getIe8Desktop();
+		for (String ua : browsers) {
+			Assert.assertTrue(ua.toLowerCase().matches(UserAgent.IE8.getRegexPattern()));
+		}
+
+		browsers = getFirefoxDesktop();
+		browsers.addAll(getIe9Desktop());
+		for (String ua : browsers) {
+			Assert.assertFalse(ua.toLowerCase().matches(UserAgent.IE8.getRegexPattern()));
+		}
+	}
 	@Test
 	public void allDesktop() {
 		Set<String> browsers = getIe9Desktop();
