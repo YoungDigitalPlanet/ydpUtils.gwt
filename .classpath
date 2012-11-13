@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="ivy-lib/mockito-all.jar"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="lib" path="ivy-lib/junit.jar"/>
+	<classpathentry kind="lib" path="ivy-lib/javassist.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
