@@ -2,6 +2,9 @@
 <module rename-to='ydpgwtutil'>
 	<inherits name='com.google.gwt.user.User' />
     <inherits name="com.google.gwt.logging.Logging"/>
+    <inherits name="javax.annotation.Annotation"/>
+	<inherits name="com.google.common.collect.Collect"/>
+	
 	<source path='client' />
 
 	<define-property name="mobile.user.agent" values="android23" />
