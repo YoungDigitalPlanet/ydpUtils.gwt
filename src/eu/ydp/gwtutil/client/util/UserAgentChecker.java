@@ -65,6 +65,7 @@ public class UserAgentChecker {
 		OPERA("opera", ".*opera.*"),
 		IE9("ie9", ".*msie[ ]*9.*"),
 		IE8("ie8",".*msie[ ]*[78]{1}.*trident\\/4.*"),
+		SAFARI("safari", ".*webkit.*"),
 		ALL("all", ".*");
 		private final String tagName, regexPattern;
 
@@ -164,6 +165,10 @@ public class UserAgentChecker {
 			}
 		}
 		return mobileUserAgent;
+	}
+	
+	public static boolean isBrowserSupportingMp3(){
+		return !isUserAgent(UserAgent.GECKO1_8, UserAgent.OPERA, MobileUserAgent.FIREFOX);
 	}
 
 	/**
