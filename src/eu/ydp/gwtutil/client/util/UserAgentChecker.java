@@ -167,8 +167,12 @@ public class UserAgentChecker {
 		return mobileUserAgent;
 	}
 	
-	public static boolean isBrowserSupportingMp3(){
-		return !isUserAgent(UserAgent.GECKO1_8, UserAgent.OPERA, MobileUserAgent.FIREFOX);
+	public static boolean isBrowserSupportingHtml5Mp3(){
+		return !isUserAgent(UserAgent.GECKO1_8, UserAgent.OPERA, UserAgent.IE8, MobileUserAgent.FIREFOX);
+	}
+	
+	public static boolean isBrowserSupportingHtml5OnlyOgg(){
+		return isUserAgent(UserAgent.GECKO1_8, UserAgent.OPERA, MobileUserAgent.FIREFOX);
 	}
 
 	/**
