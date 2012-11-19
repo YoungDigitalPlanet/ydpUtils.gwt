@@ -59,12 +59,12 @@ public class ElementWrapper extends NodeWrapper implements Element {
 
 	@Override
 	public void removeAttribute(String name) {
-		throw new UnsupportedOperationException();
+		getElement().removeAttribute(name);
 	}
 
 	@Override
 	public void setAttribute(String name, String value) {
-		throw new UnsupportedOperationException();
+		getElement().setAttribute(name, value);	
 	}
 	
 	@Override
