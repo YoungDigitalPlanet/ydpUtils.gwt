@@ -1,5 +1,8 @@
 package eu.ydp.gwtutil.client.util;
 
+import com.google.gwt.dom.client.MediaElement;
+import com.google.gwt.media.client.Audio;
+
 import eu.ydp.gwtutil.user.rebind.MobileUserAgentPropertyGenerator;
 
 /**
@@ -165,14 +168,6 @@ public class UserAgentChecker {
 			}
 		}
 		return mobileUserAgent;
-	}
-	
-	public static boolean isBrowserSupportingHtml5Mp3(){
-		return !isUserAgent(UserAgent.GECKO1_8, UserAgent.OPERA, UserAgent.IE8, MobileUserAgent.FIREFOX);
-	}
-	
-	public static boolean isBrowserSupportingHtml5OnlyOgg(){
-		return isUserAgent(UserAgent.GECKO1_8, UserAgent.OPERA, MobileUserAgent.FIREFOX);
 	}
 
 	/**
