@@ -76,27 +76,27 @@ public abstract class AbstractTestModule implements Module {
 
 		@Override
 		public LinkedBindingBuilder<T> annotatedWith(final Class<? extends Annotation> arg0) {
-			return null;
+			return new NullLinkedBindingBuilder<T>();
 		}
 
 		@Override
 		public LinkedBindingBuilder<T> annotatedWith(final Annotation arg0) {
-			return null;
+			return new NullLinkedBindingBuilder<T>();
 		}
 
 		@Override
 		public ScopedBindingBuilder to(final Class<? extends T> arg0) {//NOPMD
-			return null;
+			return new NullScopedBindingBuilder();
 		}
 
 		@Override
 		public ScopedBindingBuilder to(final TypeLiteral<? extends T> arg0) {//NOPMD
-			return null;
+			return new NullScopedBindingBuilder();
 		}
 
 		@Override
 		public ScopedBindingBuilder to(final Key<? extends T> arg0) {//NOPMD
-			return null;
+			return new NullScopedBindingBuilder();
 		}
 
 		@Override
@@ -122,30 +122,110 @@ public abstract class AbstractTestModule implements Module {
 
 		@Override
 		public ScopedBindingBuilder toProvider(TypeLiteral<? extends javax.inject.Provider<? extends T>> providerType) {
-			return null;
+			return new NullScopedBindingBuilder();
 		}
 
 		@Override
 		public <S extends T> ScopedBindingBuilder toConstructor(Constructor<S> constructor) {
-			return null;
+			return new NullScopedBindingBuilder();
 		}
 
 		@Override
 		public <S extends T> ScopedBindingBuilder toConstructor(Constructor<S> constructor,
 				TypeLiteral<? extends S> type) {
-			return null;
+			return new NullScopedBindingBuilder();
 		}
 
 		@Override
 		public ScopedBindingBuilder toProvider(Class<? extends javax.inject.Provider<? extends T>> providerType) {
-			return null;
+			return new NullScopedBindingBuilder();
 		}
 
 		@Override
 		public ScopedBindingBuilder toProvider(Key<? extends javax.inject.Provider<? extends T>> providerKey) {
-			return null;
+			return new NullScopedBindingBuilder();
 		}
 
-	};
+	}
+	
+	private static class NullScopedBindingBuilder implements ScopedBindingBuilder{
+
+		@Override
+		public void asEagerSingleton() {
+		}
+
+		@Override
+		public void in(Class<? extends Annotation> arg0) {
+		}
+
+		@Override
+		public void in(Scope arg0) {
+		}		
+	}
+	
+	private static class NullLinkedBindingBuilder<T> implements LinkedBindingBuilder<T>{
+
+		@Override
+		public void asEagerSingleton() {
+		}
+
+		@Override
+		public void in(Class<? extends Annotation> arg0) {
+		}
+
+		@Override
+		public void in(Scope arg0) {
+		}
+
+		@Override
+		public ScopedBindingBuilder to(Class<? extends T> arg0) {
+			return new NullScopedBindingBuilder();
+		}
+
+		@Override
+		public ScopedBindingBuilder to(TypeLiteral<? extends T> arg0) {
+			return new NullScopedBindingBuilder();
+		}
+
+		@Override
+		public ScopedBindingBuilder to(Key<? extends T> arg0) {
+			return new NullScopedBindingBuilder();
+		}
+
+		@Override
+		public <S extends T> ScopedBindingBuilder toConstructor(Constructor<S> arg0) {
+			return new NullScopedBindingBuilder();
+		}
+
+		@Override
+		public <S extends T> ScopedBindingBuilder toConstructor(Constructor<S> arg0, TypeLiteral<? extends S> arg1) {
+			return new NullScopedBindingBuilder();
+		}
+
+		@Override
+		public void toInstance(T arg0) {			
+		}
+
+		@Override
+		public ScopedBindingBuilder toProvider(Provider<? extends T> arg0) {
+			return new NullScopedBindingBuilder();
+		}
+
+		@Override
+		public ScopedBindingBuilder toProvider(Class<? extends javax.inject.Provider<? extends T>> arg0) {
+			return new NullScopedBindingBuilder();
+		}
+
+		@Override
+		public ScopedBindingBuilder toProvider(TypeLiteral<? extends javax.inject.Provider<? extends T>> arg0) {
+			return new NullScopedBindingBuilder();
+		}
+
+		@Override
+		public ScopedBindingBuilder toProvider(Key<? extends javax.inject.Provider<? extends T>> arg0) {
+			return new NullScopedBindingBuilder();
+		}
+	}
+	
 
 }
