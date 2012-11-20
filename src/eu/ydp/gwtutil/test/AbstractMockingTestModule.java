@@ -1,6 +1,5 @@
 package eu.ydp.gwtutil.test;
 
-import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.mock;
 
 import org.mockito.MockSettings;
@@ -52,13 +51,6 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule {
 			});
 		}
 	}
-	
-	private <T> T createMock(Class<T> clazz, MockSettings settings){
-		if (settings == null){
-			return mock(clazz);
-		}
-		return mock(clazz, settings);
-	}
 
 	/**
 	 * If ignored binds the class as Singleton. If not ignored binds to mock instance.
@@ -66,24 +58,27 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule {
 	 * @param clazz Class to bind.
 	 */
 	public <T> void bindToSingletonOrMockInstance(final Class<T> clazz) {
-		if (isIgnoreClass(clazz)) {
-			binder.bind(clazz).in(Singleton.class);
-		} else {
-			binder.bind(clazz).toInstance(mock(clazz));
-		}
+		bindToSingletonOrMockInstance(clazz, null);
 	}
 
 	/**
-	 * If ignored binds the class as Singleton. If not ignored binds to mock instance with deep stubs.
+	 * If ignored binds the class as Singleton to the provided 'to' class. If not ignored binds to mock instance.
 	 * 
 	 * @param clazz Class to bind.
+	 * @param to Class to bind to.
 	 */
-	public <T> void bindToSingletonOrMockInstanceDeep(final Class<T> clazz) {
+	public <T> void bindToSingletonOrMockInstance(final Class<T> clazz, final MockSettings settings) {
 		if (isIgnoreClass(clazz)) {
-			binder.bind(clazz).in(Singleton.class);
+			binder.bind(clazz).in(Singleton.class);			
 		} else {
-			binder.bind(clazz).toInstance(mock(clazz, RETURNS_DEEP_STUBS));
+			binder.bind(clazz).toInstance(createMock(clazz, settings));
 		}
 	}
 
+	private <T> T createMock(Class<T> clazz, MockSettings settings){
+		if (settings == null){
+			return mock(clazz);
+		}
+		return mock(clazz, settings);
+	}
 }
