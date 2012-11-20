@@ -32,8 +32,8 @@ public class AbstractMockingTestBase<T extends Module> {
 	}
 
 	/**
-	 * Setup test class, all injections will be done according to the Guice test
-	 * module.
+	 * <p>Setup test class, all injections will be done according to the Guice test
+	 * module.</p>
 	 */
 	@Before
 	public void setUp() {
@@ -41,12 +41,12 @@ public class AbstractMockingTestBase<T extends Module> {
 	}
 
 	/**
-	 * Setup test class allowing for ignore some classes. For the specified
-	 * ignored classes real implementations will be created.
+	 * <p>Setup test class allowing for ignore some classes. For the specified
+	 * ignored classes real implementations will be created.</p>
 	 * 
-	 * If you want to test class A in you test case, you will typically want to
+	 * <p>If you want to test class A in you test case, you will typically want to
 	 * treat class A as ignored. Other classes will be typically created as
-	 * mocks (it is defined in the test Guice module).
+	 * mocks (it is defined in the test Guice module).</p>
 	 * 
 	 * @param ignoreClasses
 	 *            Classes to ignore
@@ -56,14 +56,14 @@ public class AbstractMockingTestBase<T extends Module> {
 	}
 
 	/**
-	 * Setup test class allowing for ignore some classes. For the specified
+	 * <p>Setup test class allowing for ignore some classes. For the specified
 	 * ignored classes real implementations will be created. For the specified
-	 * classes spies of real implementations will be created.
+	 * classes spies of real implementations will be created.</p>
 	 * 
-	 * If you want to test class A in you test case, you will typically want to
+	 * <p>If you want to test class A in you test case, you will typically want to
 	 * treat class A as ignored. You may specify that some other classes should
 	 * be created as spies of the real implementations. Other classes will be
-	 * typically created as mocks (it is defined in the test Guice module).
+	 * typically created as mocks (it is defined in the test Guice module).</p>
 	 * 
 	 * @param ignoreClasses
 	 *            Classes to ignore
