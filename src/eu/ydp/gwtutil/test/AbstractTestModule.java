@@ -14,6 +14,8 @@ import com.google.inject.TypeLiteral;
 import com.google.inject.binder.AnnotatedBindingBuilder;
 import com.google.inject.binder.LinkedBindingBuilder;
 import com.google.inject.binder.ScopedBindingBuilder;
+import com.google.inject.matcher.Matcher;
+import com.google.inject.spi.TypeListener;
 
 public abstract class AbstractTestModule implements Module {
 
@@ -46,14 +48,15 @@ public abstract class AbstractTestModule implements Module {
 		}
 	}
 
-	public void install (Module module){
+	public void install(Module module) {
 		binder.install(module);
 	}
 
 	/**
 	 * If ignored binds the class. Otherwise binding is omitted.
 	 *
-	 * @param clazz Class to bind.
+	 * @param clazz
+	 *            Class to bind.
 	 */
 	public <T> AnnotatedBindingBuilder<T> bindWhenIgnored(final Class<T> clazz) {
 		if (isIgnoreClass(clazz)) {
@@ -70,6 +73,11 @@ public abstract class AbstractTestModule implements Module {
 			}
 		}
 		return false;
+
+	}
+
+	protected void bindListener(Matcher<? super TypeLiteral<?>> arg0, TypeListener arg1) {
+		binder.bindListener(arg0, arg1);
 	}
 
 	private static class NullAnnotatedBindingBuilder<T> implements AnnotatedBindingBuilder<T> {
@@ -85,17 +93,17 @@ public abstract class AbstractTestModule implements Module {
 		}
 
 		@Override
-		public ScopedBindingBuilder to(final Class<? extends T> arg0) {//NOPMD
+		public ScopedBindingBuilder to(final Class<? extends T> arg0) {// NOPMD
 			return new NullScopedBindingBuilder();
 		}
 
 		@Override
-		public ScopedBindingBuilder to(final TypeLiteral<? extends T> arg0) {//NOPMD
+		public ScopedBindingBuilder to(final TypeLiteral<? extends T> arg0) {// NOPMD
 			return new NullScopedBindingBuilder();
 		}
 
 		@Override
-		public ScopedBindingBuilder to(final Key<? extends T> arg0) {//NOPMD
+		public ScopedBindingBuilder to(final Key<? extends T> arg0) {// NOPMD
 			return new NullScopedBindingBuilder();
 		}
 
@@ -113,11 +121,11 @@ public abstract class AbstractTestModule implements Module {
 		}
 
 		@Override
-		public void in(final Class<? extends Annotation> arg0) {//NOPMD
+		public void in(final Class<? extends Annotation> arg0) {// NOPMD
 		}
 
 		@Override
-		public void in(final Scope arg0) {//NOPMD
+		public void in(final Scope arg0) {// NOPMD
 		}
 
 		@Override
@@ -131,8 +139,7 @@ public abstract class AbstractTestModule implements Module {
 		}
 
 		@Override
-		public <S extends T> ScopedBindingBuilder toConstructor(Constructor<S> constructor,
-				TypeLiteral<? extends S> type) {
+		public <S extends T> ScopedBindingBuilder toConstructor(Constructor<S> constructor, TypeLiteral<? extends S> type) {
 			return new NullScopedBindingBuilder();
 		}
 
@@ -147,8 +154,8 @@ public abstract class AbstractTestModule implements Module {
 		}
 
 	}
-	
-	private static class NullScopedBindingBuilder implements ScopedBindingBuilder{
+
+	private static class NullScopedBindingBuilder implements ScopedBindingBuilder {
 
 		@Override
 		public void asEagerSingleton() {
@@ -160,10 +167,10 @@ public abstract class AbstractTestModule implements Module {
 
 		@Override
 		public void in(Scope arg0) {
-		}		
+		}
 	}
-	
-	private static class NullLinkedBindingBuilder<T> implements LinkedBindingBuilder<T>{
+
+	private static class NullLinkedBindingBuilder<T> implements LinkedBindingBuilder<T> {
 
 		@Override
 		public void asEagerSingleton() {
@@ -203,7 +210,7 @@ public abstract class AbstractTestModule implements Module {
 		}
 
 		@Override
-		public void toInstance(T arg0) {			
+		public void toInstance(T arg0) {
 		}
 
 		@Override
@@ -226,6 +233,5 @@ public abstract class AbstractTestModule implements Module {
 			return new NullScopedBindingBuilder();
 		}
 	}
-	
 
 }
