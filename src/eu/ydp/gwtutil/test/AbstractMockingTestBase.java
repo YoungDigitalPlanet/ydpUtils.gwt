@@ -48,8 +48,7 @@ public class AbstractMockingTestBase<T extends Module> {
 	 * treat class A as ignored. Other classes will be typically created as
 	 * mocks (it is defined in the test Guice module).</p>
 	 * 
-	 * @param ignoreClasses
-	 *            Classes to ignore
+	 * @param ignoreClasses classes to ignore (real implementations will be created)
 	 */
 	public final void setUp(Class<?>... ignoreClasses) {
 		injector = Guice.createInjector(createInstance(ignoreClasses));
@@ -65,8 +64,8 @@ public class AbstractMockingTestBase<T extends Module> {
 	 * be created as spies of the real implementations. Other classes will be
 	 * typically created as mocks (it is defined in the test Guice module).</p>
 	 * 
-	 * @param ignoreClasses
-	 *            Classes to ignore
+	 * @param ignoreClasses classes to ignore (real implementations will be created)
+	 * @param classToSpy classes to create spies
 	 */
 	public final void setUp(Class<?>[] ignoreClasses, Class<?>[] classToSpy) {
 		injector = Guice.createInjector(createInstance(ignoreClasses, classToSpy));
