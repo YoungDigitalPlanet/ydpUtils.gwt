@@ -1,6 +1,11 @@
 package eu.ydp.gwtutil.test;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.mockito.MockSettings;
 
@@ -15,12 +20,21 @@ import com.google.inject.Singleton;
  */
 public abstract class AbstractMockingTestModule extends AbstractTestModule {
 
+	private final List<Class<?>> classToSpy;
+	
 	public AbstractMockingTestModule(){
 		super();
+		classToSpy = new ArrayList<Class<?>>();
 	}
 	
 	public AbstractMockingTestModule(Class<?>... ignoreClassList) {
 		super(ignoreClassList);
+		classToSpy = new ArrayList<Class<?>>();
+	}
+	
+	public AbstractMockingTestModule(Class<?>[] ignoreClassList, Class<?>[] classToSpy){
+		super(ignoreClassList);
+		this.classToSpy = Arrays.asList(classToSpy);
 	}
 
 	/**
@@ -122,6 +136,15 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule {
 	}
 
 	private <T> T createMock(Class<T> clazz, MockSettings settings){
+		if (classToSpy.contains(clazz)){
+			try {
+				return spy(clazz.newInstance());
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
 		if (settings == null){
 			return mock(clazz);
 		}
