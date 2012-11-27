@@ -2,13 +2,9 @@ package eu.ydp.gwtutil.useragent;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
 import eu.ydp.gwtutil.client.util.BrowserNativeInterface;
 import eu.ydp.gwtutil.client.util.UserAgentChecker;
@@ -69,25 +65,10 @@ public class UserAgentCheckerJUnitTest {
 		return browsers;
 	}
 
-	private BrowserNativeInterface fillMock(String userAgent) {
-		BrowserNativeInterface nativeInterface = Mockito.mock(BrowserNativeInterface.class);
-		Mockito.when(nativeInterface.getUserAgentStrting()).thenReturn(userAgent);
-		Mockito.when(nativeInterface.isLocal()).thenReturn(false);
-		Mockito.when(nativeInterface.isUserAgent(Mockito.any(String.class), Mockito.any(String.class))).then(new Answer<Boolean>() {
-			@Override
-			public Boolean answer(InvocationOnMock invocation) throws Throwable {
-				Object[] args = invocation.getArguments();
-				Pattern pattern = Pattern.compile(String.valueOf(args[0]));
-				return pattern.matcher(String.valueOf(args[1])).find();
-			}
-		});
-		return nativeInterface;
-	}
-
 	@Test
 	public void userAgentDesktopTest() {
 		for (Map.Entry<String, UserAgent> ua : getDesktop().entrySet()) {
-			BrowserNativeInterface nativeInterface = fillMock(ua.getKey());
+			BrowserNativeInterface nativeInterface = UserAgentCheckerNativeInterfaceMock.getNativeInterfaceMock(ua.getKey());
 			UserAgentChecker.setNativeInterface(nativeInterface);
 			Assert.assertTrue(UserAgentChecker.isUserAgent(new UserAgent[] { ua.getValue() }));
 
@@ -97,7 +78,7 @@ public class UserAgentCheckerJUnitTest {
 	@Test
 	public void userAgentMobileTest() {
 		for (Map.Entry<String, MobileUserAgent> ua : getMobile().entrySet()) {
-			BrowserNativeInterface nativeInterface = fillMock(ua.getKey());
+			BrowserNativeInterface nativeInterface = UserAgentCheckerNativeInterfaceMock.getNativeInterfaceMock(ua.getKey());
 			UserAgentChecker.setNativeInterface(nativeInterface);
 			Assert.assertTrue(ua.getKey(), UserAgentChecker.isMobileUserAgent(ua.getValue()));
 			Assert.assertTrue(ua.getKey(), UserAgentChecker.isMobileUserAgent());
@@ -110,7 +91,7 @@ public class UserAgentCheckerJUnitTest {
 		for (MobileUserAgent androidUserAgent : UserAgentChecker.ANDROID_USER_AGENTS) {
 			for (Map.Entry<String, MobileUserAgent> ua : androidUserAgents.entrySet()) {
 				if (ua.getValue() == androidUserAgent) {
-					BrowserNativeInterface nativeInterface = fillMock(ua.getKey());
+					BrowserNativeInterface nativeInterface = UserAgentCheckerNativeInterfaceMock.getNativeInterfaceMock(ua.getKey());
 					UserAgentChecker.setNativeInterface(nativeInterface);
 					Assert.assertTrue(ua.getKey(), UserAgentChecker.isMobileUserAgent(ua.getValue()));
 					Assert.assertTrue(ua.getKey(), UserAgentChecker.isMobileUserAgent());

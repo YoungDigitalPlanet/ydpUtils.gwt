@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import eu.ydp.gwtutil.client.util.UserAgentChecker.MobileUserAgent;
 
-public class UserAgentMobileCheckerJUtinTest {
+public class UserAgentMobileCheckerJUnitTest {
 	private Set<String> getFirefoxMobile() {
 		Set<String> browsers = new HashSet<String>();
 		browsers.add("Mozilla/5.0 (Android; Mobile; rv:13.0) Gecko/13.0 Firefox/13.0");
