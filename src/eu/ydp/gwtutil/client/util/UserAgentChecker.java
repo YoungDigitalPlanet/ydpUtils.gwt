@@ -1,8 +1,5 @@
 package eu.ydp.gwtutil.client.util;
 
-import com.google.gwt.dom.client.MediaElement;
-import com.google.gwt.media.client.Audio;
-
 import eu.ydp.gwtutil.user.rebind.MobileUserAgentPropertyGenerator;
 
 /**
@@ -14,6 +11,8 @@ public class UserAgentChecker {
 	protected static MobileUserAgent mobileUserAgent = null;
 	public static final MobileUserAgent[] ANDROID_USER_AGENTS = new MobileUserAgent[] { MobileUserAgent.ANDROID23, MobileUserAgent.ANDROID3,
 			MobileUserAgent.ANDROID321, MobileUserAgent.ANDROID4 };
+
+	protected static boolean isStackAndroidBrowser;// = isMobileUserAgent(ANDROID_USER_AGENTS) && !isMobileUserAgent(MobileUserAgent.CHROME, MobileUserAgent.FIREFOX);
 
 	public interface BrowserUserAgent {
 		public String getRegexPattern();
@@ -126,10 +125,7 @@ public class UserAgentChecker {
 	}
 
 	public static boolean isStackAndroidBrowser() {
-		if (isMobileUserAgent(ANDROID_USER_AGENTS) && !isMobileUserAgent(MobileUserAgent.CHROME, MobileUserAgent.FIREFOX)) {
-			return true;
-		}
-		return false;
+		return isMobileUserAgent(ANDROID_USER_AGENTS) && !isMobileUserAgent(MobileUserAgent.CHROME, MobileUserAgent.FIREFOX);//isStackAndroidBrowser;
 	}
 
 	public static boolean isUserAgent(BrowserUserAgent userAgent) {
@@ -181,6 +177,7 @@ public class UserAgentChecker {
 
 	public static void setNativeInterface(BrowserNativeInterface nativeInterface) {
 		UserAgentChecker.nativeInterface = nativeInterface;
+		mobileUserAgent = null;
 	}
 
 }
