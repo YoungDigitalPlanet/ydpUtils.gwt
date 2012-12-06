@@ -31,6 +31,8 @@ public class JAssistClassLoader {
 				return super.loadClass(name);
 			} else if (name.startsWith("sun.")) {
 				return super.loadClass(name);
+			} else if (name.startsWith("com.sun.xml")) {
+				return super.loadClass(name);
 			} else if (name.startsWith("org.")) {
 				return super.loadClass(name);
 			} else if (name.startsWith("org.mockito.")) {
