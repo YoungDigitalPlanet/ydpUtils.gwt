@@ -3,7 +3,6 @@ package eu.ydp.gwtutil.test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,23 +17,33 @@ import com.google.inject.Singleton;
  * @author Rafal Rybacki rrybacki@ydp.com.pl
  *
  */
-public abstract class AbstractMockingTestModule extends AbstractTestModule {
+public abstract class AbstractMockingTestModule extends AbstractTestModule implements Mocking {
 
-	private final List<Class<?>> classToSpy;
+	private List<Class<?>> classToSpy;
 	
 	public AbstractMockingTestModule(){
 		super();
-		classToSpy = new ArrayList<Class<?>>();
+		setSpyClasses(new Class<?>[]{});
 	}
 	
 	public AbstractMockingTestModule(Class<?>... ignoreClassList) {
 		super(ignoreClassList);
-		classToSpy = new ArrayList<Class<?>>();
+		setSpyClasses(new Class<?>[]{});
 	}
 	
 	public AbstractMockingTestModule(Class<?>[] ignoreClassList, Class<?>[] classToSpy){
 		super(ignoreClassList);
-		this.classToSpy = Arrays.asList(classToSpy);
+		setSpyClasses(classToSpy);
+	}
+
+	@Override
+	public final void setIgnoreClasses(Class<?>[] ignoreClassList) {
+		super.setIgnoreClasses(ignoreClassList);
+	}
+
+	@Override
+	public final void setSpyClasses(Class<?>[] classesToSpy) {
+		this.classToSpy = Arrays.asList(classesToSpy);
 	}
 
 	/**
@@ -150,4 +159,5 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule {
 		}
 		return mock(clazz, settings);
 	}
+
 }

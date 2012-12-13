@@ -25,17 +25,23 @@ public abstract class AbstractTestModule implements Module {
 	@Override
 	public void configure(Binder binder) {
 		this.binder = binder;
-
 		configure();
 	}
 
 	public AbstractTestModule() {
 	}
 
-	public abstract void configure();
-
 	public AbstractTestModule(final Class<?>... ignoreClassList) {
 		for (Class<?> ignore : ignoreClassList) {
+			this.ignoreClassList.add(ignore);
+		}
+	}
+
+	public abstract void configure();
+	
+	public void setIgnoreClasses(Class<?>[] ignoreClasses){
+		ignoreClassList.clear();
+		for (Class<?> ignore : ignoreClasses) {
 			this.ignoreClassList.add(ignore);
 		}
 	}

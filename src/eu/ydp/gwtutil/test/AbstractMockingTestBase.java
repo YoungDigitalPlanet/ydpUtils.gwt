@@ -6,7 +6,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 
-public class AbstractMockingTestBase<T extends Module> {
+public class AbstractMockingTestBase<T extends Module & Mocking> {
 
 	protected Injector injector;
 	private Class<T> testModuleClass;
@@ -17,18 +17,19 @@ public class AbstractMockingTestBase<T extends Module> {
 
 	T createInstance(Object... args) {
 		try {
+			T inst =  testModuleClass.getConstructor().newInstance();
 			if (args.length == 2  &&  args[0].getClass().equals(Class[].class)  &&  args[1].getClass().equals(Class[].class)) {
-				return testModuleClass.getConstructor(Class[].class, Class[].class).newInstance(args);
-			} else if (args.length == 0){
-				return testModuleClass.getConstructor().newInstance();
-			} else {
-				return testModuleClass.getConstructor(Class[].class).newInstance((Object)args);
+				inst.setIgnoreClasses((Class<?>[]) args[0]);
+				inst.setSpyClasses((Class<?>[]) args[1]);
+			} else if (args.length > 0){
+				inst.setIgnoreClasses((Class<?>[]) args);
 			}
-			
+			return inst;
+		} catch (ClassCastException e) {
+			throw new IllegalArgumentException("Problem while creating instance of Guice module. Arguments mismatch. An array or arrays of Class objects was expected.", e);
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new RuntimeException("Problem while creating instance of Guice module. Make sure that there is no-arg constructor available in the module.", e);
 		}
-		return null;
 	}
 
 	/**
