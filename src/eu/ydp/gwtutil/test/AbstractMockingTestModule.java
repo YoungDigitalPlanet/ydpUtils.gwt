@@ -88,15 +88,9 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule imple
 				binder.bind(clazz).to(to);
 			}
 		} else {
-			binder.bind(clazz).toProvider(new Provider<T>() {
-
-				@Override
-				public T get() {
-					return createMock(clazz, settings);
-				}
-			});
+			binder.bind(clazz).toProvider(createMockProvider(clazz, settings));
 		}
-	}
+	}	
 
 	/**
 	 * If ignored binds the class as Singleton. If not ignored binds to mock instance.
@@ -143,14 +137,26 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule imple
 			binder.bind(clazz).toInstance(createMock(clazz, settings));
 		}
 	}
+	
+	protected <T> Provider<T> createMockProvider(final Class<T> clazz){
+		return createMockProvider(clazz, null);
+	}
+	
+	protected <T> Provider<T> createMockProvider(final Class<T> clazz, final MockSettings settings){
+		return new Provider<T>() {
 
-	private <T> T createMock(Class<T> clazz, MockSettings settings){
+			@Override
+			public T get() {
+				return createMock(clazz, settings);
+			}
+		};
+	}
+
+	protected <T> T createMock(Class<T> clazz, MockSettings settings){
 		if (classToSpy.contains(clazz)){
 			try {
 				return spy(clazz.newInstance());
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
