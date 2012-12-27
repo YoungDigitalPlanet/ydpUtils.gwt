@@ -25,7 +25,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @author rrybacki@ydp.com.pl
  */
 // TODO commit
-public class ExListBox extends Composite implements IExListBox {
+public class ExListBox extends Composite implements IsExListBox {
 
 	private static ExListBoxUiBinder uiBinder = GWT.create(ExListBoxUiBinder.class);
 
@@ -170,17 +170,6 @@ public class ExListBox extends Composite implements IExListBox {
 		for (int i = 0 ; i < options.size() ; i ++){
 			options.get(i).setSelected(i == selectedIndex);
 		}
-	}
-	
-    /**
-     * <p>Exposes private methods for unit tests. This class must not be used
-     * for any purpose other than unit testing.</p>
-     */	
-	public final class ExListBoxUnitTestAccess {
-	
-		public void setOptions(ArrayList<ExListBoxOption> options) {
-			ExListBox.this.options = options;
-		}		
 	}
 	
 }

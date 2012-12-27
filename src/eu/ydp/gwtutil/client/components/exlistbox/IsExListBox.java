@@ -4,7 +4,7 @@ import com.google.gwt.user.client.ui.IsWidget;
 
 import eu.ydp.gwtutil.client.components.exlistbox.ExListBox.PopupPosition;
 
-public interface IExListBox extends IsWidget {
+public interface IsExListBox extends IsWidget {
 	
 	void addOption(IsWidget baseBody, IsWidget popupBody);
 	
