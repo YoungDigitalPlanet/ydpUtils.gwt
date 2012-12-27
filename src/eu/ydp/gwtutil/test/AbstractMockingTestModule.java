@@ -78,6 +78,7 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule imple
 	 * If ignored binds the class to specified class. If not ignored binds to mock provider. Allows for the specification of the answer,
 	 * 
 	 * @param clazz Class to bind.
+	 * @param to Class to bind to.
 	 * @param settings Mockito mock settings
 	 */
 	public <T> void bindToClassOrMockProvider(final Class<T> clazz, final Class<? extends T> to, final MockSettings settings) {
