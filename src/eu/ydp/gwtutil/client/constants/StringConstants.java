@@ -7,8 +7,8 @@ package eu.ydp.gwtutil.client.constants;
  * 
  * <pre>
  * {@code
- * @Prefix("pref-")
- * @Suffix("-suf")
+ * @Prefix("pref")
+ * @Suffix("suf")
  * @Separator("-")  // defines characters separating components
  * public interface MyConstants extends StringConstants {
  * 		MyConstants first();
@@ -18,6 +18,7 @@ package eu.ydp.gwtutil.client.constants;
  * // ...
  * 
  * String s1 = myConstants.first().toString(); // will return "pref-first-suf"
+ * String s1 = myConstants.firstSecond().toString(); // will return "pref-first-second-suf"
  * String s2 = myConstants.first().second().toString(); // will return "pref-first-second-suf"
  * 
  * }
@@ -37,7 +38,7 @@ public interface StringConstants {
 	 * 
 	 * Ex. <code>String output =  stringConstantsImpl.aaa().bbb().toString();</code>
 	 * 
-	 * @return Built string containing desired string constant
+	 * @return Built String object containing desired string constant
 	 */
 	@Override
 	String toString();

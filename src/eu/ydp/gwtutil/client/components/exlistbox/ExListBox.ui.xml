@@ -1,0 +1,12 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:with type="eu.ydp.gwtutil.client.components.exlistbox.ExListBoxStyleNames" field="styleNames" />
+	<g:FlowPanel styleName="{styleNames.toString}" ui:field="mainContainer">
+		<g:FocusPanel styleName="{styleNames.baseContainer.toString}" ui:field="baseContainer">
+			<g:FlowPanel styleName="{styleNames.baseContainerInner.toString}" ui:field="baseContainerInner">
+				<g:FlowPanel styleName="{styleNames.baseContents.toString}" ui:field="baseContents" />
+				<g:PushButton styleName="{styleNames.baseButton.toString}" text=" "/>
+			</g:FlowPanel>
+		</g:FocusPanel>
+	</g:FlowPanel>
+</ui:UiBinder> 

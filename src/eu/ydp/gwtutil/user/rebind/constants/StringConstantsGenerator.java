@@ -1,6 +1,10 @@
 package eu.ydp.gwtutil.user.rebind.constants;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.google.gwt.core.ext.Generator;
 import com.google.gwt.core.ext.GeneratorContext;
@@ -11,6 +15,7 @@ import com.google.gwt.core.ext.typeinfo.JMethod;
 import com.google.gwt.user.rebind.ClassSourceFileComposerFactory;
 import com.google.gwt.user.rebind.SourceWriter;
 
+import eu.ydp.gwtutil.client.StringUtils;
 import eu.ydp.gwtutil.client.constants.Output;
 import eu.ydp.gwtutil.client.constants.OutputType;
 import eu.ydp.gwtutil.client.constants.Prefix;
@@ -46,18 +51,27 @@ public class StringConstantsGenerator extends Generator {
 			return null;
 		}
 		SourceWriter sw = composer.createSourceWriter(context, printWriter);
-		String prefix = findPrefix(classType);
-		String suffix = findSuffix(classType);
 		String separator = findSeparator(classType);
+		String prefix = findPrefix(classType);
+		// backward compatibility - if prefix ends with separator then remove it
+		// separator will be added in the final generation of the constant
+		if (prefix.endsWith(separator)){
+			prefix = prefix.substring(0, prefix.length()-1);
+		}
+		String suffix = findSuffix(classType);
+		// backward compatibility - same issue as above
+		if (suffix.startsWith(separator)){
+			suffix = suffix.substring(1, suffix.length());
+		}
 		OutputType outputType = findOutputType(classType);
 
-		sw.println("private String value;");
+		sw.println("private String value = \"\";");
 		sw.println("private void setValue(String value) {");
 		sw.println("	this.value = value;");
 		sw.println("}");
 		sw.println("private " + simpleName + " replicate(String value) {");
 		sw.println("	" + simpleName + " obj = new " + simpleName + "();");
-		sw.println("	if (this.value == null)");
+		sw.println("	if (this.value.isEmpty())");
 		sw.println("		obj.setValue(value);");
 		sw.println("	else");
 		sw.println("		obj.setValue(this.value + \"" + separator + "\" + value);");
@@ -67,9 +81,21 @@ public class StringConstantsGenerator extends Generator {
 		for (int m = 0 ; m < classType.getMethods().length ; m ++){
 			printMethod(simpleName, classType.getMethods()[m], separator, sw, outputType);
 		}
-
+		
 		sw.println("public String toString() {");
-		sw.println("	return \"" + prefix + "\" + value + \"" + suffix + "\";");
+		sw.println("	String prefixSeparator;");
+		sw.println("	if (value.isEmpty()  ||  \"" + prefix + "\".isEmpty()){");
+		sw.println("		prefixSeparator = \"\";");
+		sw.println("	} else {");
+		sw.println("		prefixSeparator = \"" + separator + "\";");
+		sw.println("	}");
+		sw.println("	String suffixSeparator;");
+		sw.println("	if (value.isEmpty()  ||  \"" + suffix + "\".isEmpty()){");
+		sw.println("		suffixSeparator = \"\";");
+		sw.println("	} else {");
+		sw.println("		suffixSeparator = \"" + separator + "\";");
+		sw.println("	}");
+		sw.println("	return \"" + prefix + "\" + prefixSeparator + value + suffixSeparator + \"" + suffix + "\";");
 		sw.println("}");
 		
 		return sw;
@@ -79,8 +105,9 @@ public class StringConstantsGenerator extends Generator {
 		sw.println("public " + simpleName + " " + method.getName() + "() {");
 		String value = null;
 		switch (outputType) {
-		case LOWER_CASE_SEPARATED:
-			value = camelCaseToDash(method.getName());
+		case LOWER_CASE:
+			List<String> components = camelCaseToComponents(method.getName());
+			value = combineComponents(components, separator);
 			break;
 		case UPPER_CASE:
 			value = method.getName().toUpperCase();
@@ -92,23 +119,34 @@ public class StringConstantsGenerator extends Generator {
 		sw.println("}");
 	}
 	
-	private String camelCaseToDash(String cc){
-		StringBuilder output = new StringBuilder();
-		for (int i = 0 ; i < cc.length() ; i ++ ){
-			Character ch = cc.charAt(i);
-			if (Character.isUpperCase(ch)){
-				output.append("-");
+	List<String> camelCaseToComponents(String cc){
+		List<String> components = new ArrayList<String>();
+		
+		Pattern pattern = Pattern.compile("[^a-z0-9]|\\d+|$");
+		
+		Matcher matcher = pattern.matcher(cc);
+		
+		int prevIndex = 0;		
+		while (matcher.find()){
+			if (matcher.start() == 0){
+				continue;
 			}
-			output.append(Character.toLowerCase(ch));
+			components.add(cc.substring(prevIndex, matcher.start()).toLowerCase());
+			prevIndex = matcher.start();
 		}
-		 return output.toString();
+		
+		return components;
+	}
+	
+	String combineComponents(List<String> components, String separator){
+		return StringUtils.combine( components.toArray(new String[0]), separator);
 	}
 
 	private OutputType findOutputType(JClassType classType) {
 		Output ann = classType.getAnnotation(Output.class);
 		if (ann != null)
 			return ann.value();
-		return OutputType.LOWER_CASE_SEPARATED;
+		return OutputType.LOWER_CASE;
 	}
 	
 	private String findSeparator(JClassType classType) {
