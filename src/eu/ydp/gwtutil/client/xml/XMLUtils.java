@@ -1,9 +1,17 @@
 package eu.ydp.gwtutil.client.xml;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.gwt.xml.client.Attr;
 import com.google.gwt.xml.client.Element;
+import com.google.gwt.xml.client.NamedNodeMap;
 import com.google.gwt.xml.client.Node;
 import com.google.gwt.xml.client.NodeList;
 
+import eu.ydp.gwtutil.client.StringUtils;
 import eu.ydp.gwtutil.client.xml.proxy.XMLProxy;
 import eu.ydp.gwtutil.client.xml.proxy.XMLProxyFactory;
 
@@ -205,5 +213,49 @@ public final class XMLUtils {
 		
 		return result;
 	}
+	
+	/**
+	 * Strips element nodes and returns the contents (node value) of the element.
+	 * 
+	 * <p>Ex. for </p>
+	 * <p>{@code<a x="y"><b c="d">e</b>f</a>}</p> 
+	 * <p>the result will be</p>
+	 * <p>{@code"<b c="d">e</b>f"}</p>
+	 * 
+	 * @param element
+	 * @return Contents of the element node as <code>String</code> or empty string if the element has no contents. 
+	 */
+	public static String getElementInnerContentAsString(Element element){
+		String elementString = element.toString();
+		if (elementString.indexOf(">") < elementString.lastIndexOf("</")){
+			return elementString.substring(elementString.indexOf(">")+1, elementString.lastIndexOf("</"));
+		}
+		return StringUtils.EMPTY_STRING;
+	}
 
+	/**
+	 * Converts attributes of the given element to map.
+	 * 
+	 * @param element Element to map
+	 * @param ignore array of attributes that should be ignored (not added to the map if they appear)
+	 * @return map of pairs attribute name -> attribute value
+	 */
+	public static Map<String, String> attributesToMap(Element element, String... ignore){
+		
+		NamedNodeMap attrs = element.getAttributes();				
+		Map<String, String> mapParams = new HashMap<String, String>();
+		List<String> ignoreList = Arrays.asList(ignore);
+		
+		for(int i = 0; i < attrs.getLength() ; i++){
+			Attr attribute = (Attr)attrs.item(i);
+			String attrName = attribute.getName();
+			if(!ignoreList.contains(attrName)){
+				String attrValue = attribute.getValue();
+				mapParams.put(attrName, attrValue);
+			}
+		}
+		
+		return mapParams;		
+		
+	}
 }
