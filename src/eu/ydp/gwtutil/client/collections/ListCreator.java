@@ -1,10 +1,11 @@
 package eu.ydp.gwtutil.client.collections;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public final class ListCreator<T> {
-
+	
 	private List<T> list;
 	
 	private ListCreator(){
@@ -34,5 +35,9 @@ public final class ListCreator<T> {
 	
 	public List<T> build(){
 		return list;
+	}
+	
+	public static <T> List<T> empty(){
+		return Collections.unmodifiableList(new ArrayList<T>());
 	}
 }

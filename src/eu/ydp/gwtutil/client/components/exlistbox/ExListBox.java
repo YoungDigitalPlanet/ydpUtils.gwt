@@ -81,9 +81,13 @@ public class ExListBox extends Composite implements IsExListBox {
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
-				selectedIndex = options.indexOf(option);
-				setSelectedBaseBody();
-				listener.onChange();
+				int currentOptionIndex = options.indexOf(option);
+				if (selectedIndex != currentOptionIndex){
+					selectedIndex = currentOptionIndex;
+					setSelectedBaseBody();
+					listener.onChange();
+				}
+				hidePopup();
 			}
 		}, ClickEvent.getType());
 	}
@@ -106,6 +110,7 @@ public class ExListBox extends Composite implements IsExListBox {
 		if (index >= -1   &&  index < options.size()){
 			selectedIndex = index;
 			setSelectedBaseBody();
+			hidePopup();
 		}
 	}
 	
@@ -134,8 +139,11 @@ public class ExListBox extends Composite implements IsExListBox {
 		baseContents.clear();
 		if (selectedIndex >= 0  &&  selectedIndex < options.size()){
 			baseContents.add(options.get(selectedIndex).getBaseBody());
-		}
-		popupPanel.hide();		
+		}	
+	}
+	
+	private void hidePopup(){
+		popupPanel.hide();	
 	}
 
 	private void updatePosition(){

@@ -49,7 +49,7 @@ import org.junit.runners.model.Statement;
  * 				{ 3, 2 }, { 4, 3 }, { 5, 5 }, { 6, 8 } });
  * 	}
  * 
- * 	&#064;MethodParameters(forMethod=&quot;testMethod&quot;, name= &quot;{index}: ({0}, {1}&quot;)
+ * 	&#064;MethodParameters(forMethod=&quot;testMethod&quot;, name= &quot;{index}: {0}, {1}&quot;)
  * 	public static Collection&lt;Object[]&gt; data() {
  * 		return Arrays.asList(new Object[][] { { 1, 1 }, { 2, 2 }, { 5, 5 }, { 6, 6 } });1
  * 	}
