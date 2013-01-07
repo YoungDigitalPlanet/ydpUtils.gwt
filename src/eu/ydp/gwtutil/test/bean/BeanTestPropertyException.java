@@ -4,6 +4,10 @@ package eu.ydp.gwtutil.test.bean;
 public class BeanTestPropertyException extends RuntimeException {
 
 	public BeanTestPropertyException(String property) {
-		super("Failed bean test for property: " + property);
+		this(property, null);
+	}
+
+	public BeanTestPropertyException(String property, Throwable e) {
+		super("Failed bean test for property: " + property, e);
 	}
 }
