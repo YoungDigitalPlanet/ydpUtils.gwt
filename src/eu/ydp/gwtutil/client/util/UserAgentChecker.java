@@ -11,8 +11,8 @@ public class UserAgentChecker {
 	protected static MobileUserAgent mobileUserAgent = null;
 	public static final MobileUserAgent[] ANDROID_USER_AGENTS = new MobileUserAgent[] { MobileUserAgent.ANDROID23, MobileUserAgent.ANDROID3,
 			MobileUserAgent.ANDROID321, MobileUserAgent.ANDROID4 };
-
-	protected static boolean isStackAndroidBrowser;// = isMobileUserAgent(ANDROID_USER_AGENTS) && !isMobileUserAgent(MobileUserAgent.CHROME, MobileUserAgent.FIREFOX);
+	
+	protected static Boolean isStackAndroidBrowser = null;
 
 	public interface BrowserUserAgent {
 		public String getRegexPattern();
@@ -146,7 +146,11 @@ public class UserAgentChecker {
 	}
 
 	public static boolean isStackAndroidBrowser() {
-		return isMobileUserAgent(ANDROID_USER_AGENTS) && !isMobileUserAgent(MobileUserAgent.CHROME, MobileUserAgent.FIREFOX);//isStackAndroidBrowser;
+		if (isStackAndroidBrowser == null) {
+			isStackAndroidBrowser = isMobileUserAgent(ANDROID_USER_AGENTS) && !isMobileUserAgent(MobileUserAgent.CHROME, MobileUserAgent.FIREFOX);
+		}
+		
+		return isStackAndroidBrowser;
 	}
 
 	public static boolean isUserAgent(BrowserUserAgent userAgent) {
