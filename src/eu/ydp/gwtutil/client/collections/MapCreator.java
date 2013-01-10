@@ -37,11 +37,4 @@ public final class MapCreator<K, V> {
 		return map;
 	}
 	
-	/**
-	 * @return Empty immutable map;
-	 */
-	public static <K, V> Map<K, V> empty(){
-		return Collections.unmodifiableMap(new HashMap<K, V>());
-	}
-	
 }

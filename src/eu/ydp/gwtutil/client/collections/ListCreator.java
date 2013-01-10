@@ -36,11 +36,4 @@ public final class ListCreator<T> {
 	public List<T> build(){
 		return list;
 	}
-	
-	/**
-	 * @return Empty unmodifiable list.
-	 */
-	public static <T> List<T> empty(){
-		return Collections.unmodifiableList(new ArrayList<T>());
-	}
 }
