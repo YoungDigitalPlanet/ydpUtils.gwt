@@ -6,4 +6,8 @@ public class XMLParser {
 	public Document parse(String xmlConntent){
 		return com.google.gwt.xml.client.XMLParser.parse(xmlConntent);
 	}
+
+	public Document createDocument(){
+		return com.google.gwt.xml.client.XMLParser.createDocument();
+	}
 }

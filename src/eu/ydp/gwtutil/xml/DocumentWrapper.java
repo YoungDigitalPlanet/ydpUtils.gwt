@@ -11,8 +11,8 @@ import com.google.gwt.xml.client.ProcessingInstruction;
 import com.google.gwt.xml.client.Text;
 
 public class DocumentWrapper extends NodeWrapper implements Document {
-	
-	private org.w3c.dom.Document document;
+
+	private final org.w3c.dom.Document document;
 
 	public DocumentWrapper(org.w3c.dom.Document document){
 		super(document);
@@ -36,7 +36,7 @@ public class DocumentWrapper extends NodeWrapper implements Document {
 
 	@Override
 	public Element createElement(String tagName) {
-		throw new UnsupportedOperationException();
+		return new ElementWrapper(document.createElement(tagName));
 	}
 
 	@Override

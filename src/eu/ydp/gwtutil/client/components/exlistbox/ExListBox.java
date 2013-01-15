@@ -19,9 +19,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Custom combo box widget that display list of options on the popup.
- * 
+ *
  * Use {@link #addOption(IsWidget, IsWidget)} to add options.
- * 
+ *
  * @author rrybacki@ydp.com.pl
  */
 // TODO commit
@@ -30,36 +30,36 @@ public class ExListBox extends Composite implements IsExListBox {
 	private static ExListBoxUiBinder uiBinder = GWT.create(ExListBoxUiBinder.class);
 
 	interface ExListBoxUiBinder extends UiBinder<Widget, ExListBox> {}
-	
+
 	public static enum PopupPosition {ABOVE, BELOW};
 
 	@UiField FlowPanel mainContainer;
 	@UiField FocusPanel baseContainer;
 	@UiField FlowPanel baseContainerInner;
 	@UiField FlowPanel baseContents;
-	
-	private ExListBoxPopup popupContents;
-	private PopupPanel popupPanel;
-	private List<ExListBoxOption> options;
-	
+
+	private final ExListBoxPopup popupContents;
+	private final PopupPanel popupPanel;
+	private final List<ExListBoxOption> options;
+
 	private int selectedIndex = 0;
 	private boolean enabled = true;
 	private PopupPosition popupPosition = PopupPosition.ABOVE;
-	
+
 	protected ExListBoxChangeListener listener;
 
 	public ExListBox(){
 		initWidget(uiBinder.createAndBindUi(this));
-		
+
 		options = new ArrayList<ExListBoxOption>();
-		
+
 		popupContents = new ExListBoxPopup();
 
 		popupPanel = new PopupPanel(true);
 		popupPanel.setStyleName(ExListBoxStyleNames.INSTANCE.popupContainer().toString());
 		popupPanel.add(popupContents);
 	}
-	
+
 	@UiHandler("baseContainer")
 	public void baseContainerClickHandler(ClickEvent arg0){
 		if (enabled){
@@ -67,18 +67,20 @@ public class ExListBox extends Composite implements IsExListBox {
 			popupPanel.show();
 			updatePosition();
 		}
-		
+
 	}
 
+	@Override
 	public void addOption(IsWidget baseBody, IsWidget popupBody){
 		addOption(new ExListBoxOption(baseBody, popupBody));
 	}
-	
+
+	@Override
 	public void addOption(final ExListBoxOption option){
 		options.add(option);
 		popupContents.addOption(option.getPopupBody());
 		option.getPopupBody().addDomHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent arg0) {
 				int currentOptionIndex = options.indexOf(option);
@@ -91,21 +93,24 @@ public class ExListBox extends Composite implements IsExListBox {
 			}
 		}, ClickEvent.getType());
 	}
-	
+
+	@Override
 	public void setChangeListener(ExListBoxChangeListener listener){
 		this.listener = listener;
 	}
-	
+
 	/**
 	 * @return Index of the currently selected option or <code>-1</code> if no  option is selected.
 	 */
+	@Override
 	public int getSelectedIndex(){
 		return selectedIndex;
 	}
-	
+
 	/**
 	 * @param index Index of the option to select or <code>-1</code>.
 	 */
+	@Override
 	public void setSelectedIndex(int index){
 		if (index >= -1   &&  index < options.size()){
 			selectedIndex = index;
@@ -113,7 +118,8 @@ public class ExListBox extends Composite implements IsExListBox {
 			hidePopup();
 		}
 	}
-	
+
+	@Override
 	public void setEnabled(boolean enabled){
 		this.enabled = enabled;
 		if (this.enabled){
@@ -123,38 +129,45 @@ public class ExListBox extends Composite implements IsExListBox {
 		}
 	}
 
+	public void setShowEmptyOptions(boolean showEmptyOption){
+		this.setSelectedIndex(((showEmptyOption) ? 0 : -1));
+	}
+
+	@Override
 	public boolean isEnabled(){
 		return this.enabled;
 	}
 
+	@Override
 	public void setPopupPosition(PopupPosition pp){
 		popupPosition = pp;
 	}
 
+	@Override
 	public PopupPosition getPopupPosition(){
 		return popupPosition;
 	}
-	
+
 	private void setSelectedBaseBody(){
 		baseContents.clear();
 		if (selectedIndex >= 0  &&  selectedIndex < options.size()){
 			baseContents.add(options.get(selectedIndex).getBaseBody());
-		}	
+		}
 	}
-	
-	private void hidePopup(){
-		popupPanel.hide();	
+
+	public void hidePopup(){
+		popupPanel.hide();
 	}
 
 	private void updatePosition(){
 		int mountingPointX = 0;
 		int mountingPointY = 0;
 		final int MARGIN = 8;
-		
+
 		mountingPointX = baseContainer.getAbsoluteLeft() + baseContainer.getOffsetWidth()/2 - popupPanel.getOffsetWidth()/2;
 		if (popupPosition == PopupPosition.ABOVE){
 			mountingPointY = baseContainer.getAbsoluteTop() - popupPanel.getOffsetHeight();
-		} else { 
+		} else {
 			mountingPointY = baseContainer.getAbsoluteTop() + baseContainer.getOffsetHeight();
 		}
 
@@ -169,15 +182,15 @@ public class ExListBox extends Composite implements IsExListBox {
 		} else if (mountingPointY + popupPanel.getOffsetHeight() > Window.getClientHeight() + Window.getScrollTop() + MARGIN){
 			mountingPointY = Window.getClientHeight() + Window.getScrollTop() + MARGIN - popupPanel.getOffsetHeight();
 		}
-				
+
 		popupPanel.setPopupPosition(mountingPointX, mountingPointY);
-		
+
 	}
-	
+
 	private void updateOptionButtonsSelection(){
 		for (int i = 0 ; i < options.size() ; i ++){
 			options.get(i).setSelected(i == selectedIndex);
 		}
 	}
-	
+
 }
