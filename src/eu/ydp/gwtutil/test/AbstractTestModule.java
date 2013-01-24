@@ -37,8 +37,13 @@ public abstract class AbstractTestModule implements Module {
 		}
 	}
 
+	public AbstractTestModule(Iterable<Class<?>> ignoreClassList) {
+		for (Class<?> ignore : ignoreClassList) {
+			this.ignoreClassList.add(ignore);
+		}
+	}
 	public abstract void configure();
-	
+
 	public void setIgnoreClasses(Class<?>[] ignoreClasses){
 		ignoreClassList.clear();
 		for (Class<?> ignore : ignoreClasses) {
