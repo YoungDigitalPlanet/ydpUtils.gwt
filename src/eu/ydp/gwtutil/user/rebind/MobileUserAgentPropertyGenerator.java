@@ -7,8 +7,8 @@ import com.google.gwt.core.ext.linker.ConfigurationProperty;
 import com.google.gwt.core.ext.linker.PropertyProviderGenerator;
 import com.google.gwt.user.rebind.SourceWriter;
 import com.google.gwt.user.rebind.StringSourceWriter;
-import com.google.gwt.user.rebind.UserAgentGenerator;
-import com.google.gwt.user.rebind.UserAgentPropertyGeneratorPredicate;
+import com.google.gwt.useragent.rebind.UserAgentGenerator;
+import com.google.gwt.useragent.rebind.UserAgentPropertyGeneratorPredicate;
 
 import eu.ydp.gwtutil.client.util.UserAgentChecker.MobileUserAgent;
 
@@ -57,7 +57,7 @@ public class MobileUserAgentPropertyGenerator implements PropertyProviderGenerat
 			if (possibleValues.contains(predicates[i].getUserAgent())) {
 				body.println("if ((function() { ");
 				body.indent();
-				body.print(predicates[i].toString());				
+				body.print(predicates[i].toString());
 				body.outdent();
 				body.println("})()) return " + predicates[i].getReturnValue() + ";");
 			}
@@ -67,6 +67,7 @@ public class MobileUserAgentPropertyGenerator implements PropertyProviderGenerat
 		body.println("return 'unknown';");
 	}
 
+	@Override
 	public String generate(TreeLogger logger, SortedSet<String> possibleValues, String fallback, SortedSet<ConfigurationProperty> configProperties) {
 		StringSourceWriter body = new StringSourceWriter();
 		body.println("{");

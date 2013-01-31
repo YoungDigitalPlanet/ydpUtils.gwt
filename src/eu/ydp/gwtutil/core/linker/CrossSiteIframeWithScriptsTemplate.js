@@ -2,6 +2,7 @@ __BEGIN_TRY_BLOCK__
 function __MODULE_FUNC__() {
   var $wnd = __WINDOW_DEF__;
   var $doc = __DOCUMENT_DEF__;
+
   sendStats('bootstrap', 'begin');
 
   /****************************************************************************
@@ -35,7 +36,7 @@ function __MODULE_FUNC__() {
    ***************************************************************************/
   if (!$wnd.__gwt_stylesLoaded) { $wnd.__gwt_stylesLoaded = {}; }
   if (!$wnd.__gwt_scriptsLoaded) { $wnd.__gwt_scriptsLoaded = {}; }
-  
+
   /****************************************************************************
    * Exposed Functions and Variables
    ***************************************************************************/
@@ -54,6 +55,12 @@ function __MODULE_FUNC__() {
 
   // Exposed for devmode.js
   __MODULE_FUNC__.__computePropValue = null;
+  // Exposed for super dev mode
+  __MODULE_FUNC__.__getPropMap = null;
+  
+  // Exposed for runAsync
+  __MODULE_FUNC__.__gwtInstallCode = function() {};
+  __MODULE_FUNC__.__gwtStartLoadingFragment = function() { return null; };
 
   // Exposed for property provider code
   var __gwt_isKnownPropertyValue = function() { return false; };
@@ -63,13 +70,27 @@ function __MODULE_FUNC__() {
   __propertyErrorFunction = null;
 
 
+  // Set up our entry in the page-wide registry of active modules.
+  // It must be set up before calling computeScriptBase() and
+  // getCompiledCodeFilename().
+  var activeModules =
+      ($wnd.__gwt_activeModules = ($wnd.__gwt_activeModules || {}));
+  activeModules["__MODULE_NAME__"] = {moduleName: "__MODULE_NAME__"};
+
   /****************************************************************************
    * Internal Helper functions that have been broken out into their own .js
    * files for readability and for easy sharing between linkers.  The linker
    * code will inject these functions in these placeholders.
    ***************************************************************************/
+  // Provides the getInstallLocation() and getInstallLocationDoc() functions
+  __INSTALL_LOCATION__
+
   // Provides the installScript() function.
   __INSTALL_SCRIPT__
+
+  // Sets the __MODULE_FUNC__.__installRunAsyncCode and 
+  // __MODULE_FUNC__.__startLoadingFragment functions
+  __RUN_ASYNC__
 
   // Provides the processMetas() function which sets the __gwt_getMetaProperty
   // __propertyErrorFunction and __MODULE_FUNC__.__errFn variables if needed
@@ -81,27 +102,34 @@ function __MODULE_FUNC__() {
   // Provides the computeUrlForResource() function
   __COMPUTE_URL_FOR_RESOURCE__
 
-  // Provides the getCompiledCodeFilename() function which sets the
-  // __gwt_isKnownPropertyValue, MODULE_FUNC__.__computePropValue and
-  // __MODULE_FUNC__.__softPermutationId variables if needed
+  // Provides the getCompiledCodeFilename() function which sets the following
+  // variables if needed:
+  //   __gwt_isKnownPropertyValue
+  //   __MODULE_FUNC__.__computePropValue
+  //   __MODULE_FUNC__.__getPropMap
+  //   __MODULE_FUNC__.__softPermutationId
   __PERMUTATIONS__
 
   // Provides the loadExternalStylesheets() function
   __LOAD_STYLESHEETS__
-  
+
   __LOAD_SCRIPTS__
 
   /****************************************************************************
    * Bootstrap startup code
    ***************************************************************************/
+
   // Must be called before computeScriptBase() and getCompiledFilename()
   processMetas();
 
   // Must be set before getCompiledFilename() is called
   __MODULE_FUNC__.__moduleBase = computeScriptBase();
+  activeModules["__MODULE_NAME__"].moduleBase = __MODULE_FUNC__.__moduleBase;
 
   // Must be done right before the "bootstrap" "end" stat is sent
   var filename = getCompiledCodeFilename();
+
+  __DEV_MODE_REDIRECT_HOOK__
 
   loadExternalStylesheets();
 
@@ -109,8 +137,9 @@ function __MODULE_FUNC__() {
 
   installScript(filename);
 
+  return true; // success
 }
-__MODULE_FUNC__();
+__MODULE_FUNC__.succeeded = __MODULE_FUNC__();
 
 __END_TRY_BLOCK_AND_START_CATCH__
   __MODULE_FUNC_ERROR_CATCH__
