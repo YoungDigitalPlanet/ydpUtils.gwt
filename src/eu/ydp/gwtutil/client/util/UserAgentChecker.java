@@ -205,5 +205,13 @@ public class UserAgentChecker {
 		UserAgentChecker.nativeInterface = nativeInterface;
 		mobileUserAgent = null;
 	}
+	
+	/**
+	 * Aby to zadzialalo w pliku HTML w ktorym osadzona jest Empiria nalezy dodac kod javascriptowy
+	 * <code>navigator.isAIR = true;</code>.
+	 */
+	public static native boolean isAIR() /*-{
+    	return $wnd.navigator.isAIR;
+  	}-*/;
 
 }
