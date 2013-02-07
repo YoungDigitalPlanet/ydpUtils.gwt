@@ -27,7 +27,7 @@ public class UserAgentChecker {
 		AIR("air", ".*adobeair.*"),
 		CHROME("chrome", "mozilla.*android.*chrome\\/[1-9]{1}[0-9]{1}.*"),
 		FIREFOX("firefox","mozilla.*android.*firefox\\/[1-9]{1}[0-9]{1}.*"),
-		SAFARI("safari", ".*(ipad|ipod|iphon).*applewebkit.*"), 
+		SAFARI("safari", ".*(ipad|ipod|iphon).*applewebkit.*safari.*"), 
 		SAFARI_WEBVIEW("safari_webview", ".*(ipad|ipod|iphon).*applewebkit(?!(.*safari.*)).*"),
 		ANDROID23("android23","android[ ]*2.3[.0-9a-z -]*"),
 		ANDROID321("android321", "android[ ]*3.2.1[.0-9a-z -]*"),
