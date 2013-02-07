@@ -2,11 +2,28 @@ package eu.ydp.gwtutil.client;
 
 public class Base64Util {
 
-	public String stringToBase64(String str){
-		return stringToBase64Js(str);
+	/**
+	 * Encodes string to base 64.
+	 */
+	public String encode(String str){
+		return encodeJs(str);
 	}
 	
-	private native String stringToBase64Js(String str) /*-{
+	private native String encodeJs(String str) /*-{
 	    return $wnd.btoa($wnd.unescape($wnd.encodeURIComponent( str )));
+	}-*/;
+
+	/**
+	 * Decodes string from base 64.
+	 */
+	public String decode(String str){
+		return decodeJs(str);
+	}
+	
+	private native String decodeJs(String str) /*-{
+		// remove padding
+		var unpadded = str.replace(/(%3D)+$/gi,'');
+		// decode
+		return $wnd.decodeURIComponent($wnd.escape($wnd.atob( unpadded )));
 	}-*/;
 }
