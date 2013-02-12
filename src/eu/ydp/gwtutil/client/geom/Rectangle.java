@@ -46,16 +46,6 @@ public class Rectangle {
 		return top + height/2;
 	}
 	
-	public void move(int newLeft, int newTop){
-		left = newLeft;
-		top = newTop;
-	}
-
-	public void resize(int newWidth, int newHeight){
-		width = newWidth;
-		height = newHeight;
-	}
-	
 	public boolean contains(int x, int y){
 		return (x >= left &&  y >= top && x <= left+width &&  y <= top+height);
 	}
