@@ -10,7 +10,7 @@ public class UserAgentChecker {
 	protected static BrowserNativeInterface nativeInterface = new BrowserNativeInterfaceImpl();
 	protected static MobileUserAgent mobileUserAgent = null;
 	public static final MobileUserAgent[] ANDROID_USER_AGENTS = new MobileUserAgent[] { MobileUserAgent.ANDROID23, MobileUserAgent.ANDROID3,
-			MobileUserAgent.ANDROID321, MobileUserAgent.ANDROID4 };
+			MobileUserAgent.ANDROID321, MobileUserAgent.ANDROID4, MobileUserAgent.ANDROID_OTHER };
 	
 	protected static Boolean isStackAndroidBrowser = null;
 
