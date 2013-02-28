@@ -2,6 +2,9 @@ package eu.ydp.gwtutil.client;
 
 import java.util.Set;
 
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
+
 public class StringUtils {
 
 	public static final String EMPTY_STRING = "";
@@ -26,5 +29,17 @@ public class StringUtils {
 				all += ";";
 		}
 		return all;
+	}
+	
+	public static String join(String separator, Iterable<?> parts){
+		return Joiner.on(separator).join(parts);
+	}
+	
+	public static String join(String separator, Object[] parts){
+		return Joiner.on(separator).join(parts);
+	}
+	
+	public static Iterable<String> split(String separator, CharSequence seq){
+		return Splitter.on(separator).split(seq);
 	}
 }
