@@ -2,11 +2,15 @@ package eu.ydp.gwtutil.client.collections;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
+import com.google.gwt.thirdparty.guava.common.collect.Lists;
 
 import eu.ydp.gwtutil.AbstractTestBase;
 
@@ -62,6 +66,24 @@ public class CollectionsUtilTest extends AbstractTestBase {
 		assertThat(CollectionsUtil.indexOfNot(list4, "b"), equalTo(0));
 		assertThat(CollectionsUtil.indexOfNot(list4, "x"), equalTo(0));
 		
+	}
+	
+	@Test
+	public void testContainsAnyOfElements_shouldReturnTrue() throws Exception {
+		List<String> elements = Lists.newArrayList("element1", "element2");
+		List<String> collection = Lists.newArrayList("sth", "sth2", "element2");
+		
+		boolean containsAnyOfElements = CollectionsUtil.containsAnyOfElements(elements, collection);
+		assertTrue(containsAnyOfElements);
+	}
+	
+	@Test
+	public void testContainsAnyOfElements_shouldReturnFalse() throws Exception {
+		List<String> elements = Lists.newArrayList("element1", "element2");
+		List<String> collection = Lists.newArrayList("sth", "sth2", "sth3");
+		
+		boolean containsAnyOfElements = CollectionsUtil.containsAnyOfElements(elements, collection);
+		assertFalse(containsAnyOfElements);
 	}
 	
 }

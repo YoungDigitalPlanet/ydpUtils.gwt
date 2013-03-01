@@ -37,4 +37,13 @@ public class CollectionsUtil {
 		}
 		return sum;
 	}
+	
+	public static <T> boolean containsAnyOfElements(Iterable<? extends T> elements, Collection<T> collection){
+		for(T element : elements){
+			if(collection.contains(element)){
+				return true;
+			}
+		}
+		return false;
+	}
 }
