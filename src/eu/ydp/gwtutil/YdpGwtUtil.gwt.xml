@@ -11,6 +11,7 @@
 	<extend-property name="mobile.user.agent" values="android3" />
 	<extend-property name="mobile.user.agent" values="android321" />
 	<extend-property name="mobile.user.agent" values="android4" />
+	<extend-property name="mobile.user.agent" values="android_other" />
 	<extend-property name="mobile.user.agent" values="firefox" />
 	<extend-property name="mobile.user.agent" values="chrome" />
 	<extend-property name="mobile.user.agent" values="safari" />
