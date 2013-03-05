@@ -7,12 +7,10 @@ import eu.ydp.gwtutil.user.rebind.MobileUserAgentPropertyGenerator;
  *
  */
 public class UserAgentChecker {
-	protected static BrowserNativeInterface nativeInterface = new BrowserNativeInterfaceImpl();
-	protected static MobileUserAgent mobileUserAgent = null;
-	public static final MobileUserAgent[] ANDROID_USER_AGENTS = new MobileUserAgent[] { MobileUserAgent.ANDROID23, MobileUserAgent.ANDROID3,
-			MobileUserAgent.ANDROID321, MobileUserAgent.ANDROID4, MobileUserAgent.ANDROID_OTHER };
-	
-	protected static Boolean isStackAndroidBrowser = null;
+	protected static UserAgentUtilImpl userAgentUtilImpl = new UserAgentUtilImpl();
+	static{
+		userAgentUtilImpl.setNativeInterface(new BrowserNativeInterfaceImpl());
+	}
 
 	public interface BrowserUserAgent {
 		public String getRegexPattern();
@@ -27,7 +25,7 @@ public class UserAgentChecker {
 		AIR("air", ".*adobeair.*"),
 		CHROME("chrome", "mozilla.*android.*chrome\\/[1-9]{1}[0-9]{1}.*"),
 		FIREFOX("firefox","mozilla.*android.*firefox\\/[1-9]{1}[0-9]{1}.*"),
-		SAFARI("safari", ".*(ipad|ipod|iphon).*applewebkit.*safari.*"), 
+		SAFARI("safari", ".*(ipad|ipod|iphon).*applewebkit.*safari.*"),
 		SAFARI_WEBVIEW("safari_webview", ".*(ipad|ipod|iphon).*applewebkit(?!(.*safari.*)).*"),
 		ANDROID23("android23","android[ ]*2.3[.0-9a-z -]*"),
 		ANDROID321("android321", "android[ ]*3.2.1[.0-9a-z -]*"),
@@ -144,28 +142,19 @@ public class UserAgentChecker {
 	 * @return
 	 */
 	public static boolean isMobileUserAgent() {
-		return getMobileUserAgent() != MobileUserAgent.UNKNOWN;
+		return userAgentUtilImpl.isMobileUserAgent();
 	}
 
 	public static boolean isStackAndroidBrowser() {
-		if (isStackAndroidBrowser == null) {
-			isStackAndroidBrowser = isMobileUserAgent(ANDROID_USER_AGENTS) && !isMobileUserAgent(MobileUserAgent.CHROME, MobileUserAgent.FIREFOX);
-		}
-		
-		return isStackAndroidBrowser;
+		return userAgentUtilImpl.isStackAndroidBrowser();
 	}
 
 	public static boolean isUserAgent(BrowserUserAgent userAgent) {
-		return nativeInterface.isUserAgent(userAgent.getRegexPattern(), UserAgentChecker.getUserAgentStrting());
+		return userAgentUtilImpl.isUserAgent(userAgent);
 	}
 
 	public static boolean isUserAgent(BrowserUserAgent... userAgents) {
-		for (BrowserUserAgent uAgent : userAgents) {
-			if (nativeInterface.isUserAgent(uAgent.getRegexPattern(), UserAgentChecker.getUserAgentStrting())) {
-				return true;
-			}
-		}
-		return false;
+		return userAgentUtilImpl.isUserAgent(userAgents);
 	}
 
 	/**
@@ -174,23 +163,14 @@ public class UserAgentChecker {
 	 * @return
 	 */
 	public static String getUserAgentStrting() {
-		return nativeInterface.getUserAgentStrting().toLowerCase();
+		return userAgentUtilImpl.getUserAgentStrting();
 	}
 
 	/**
 	 * zwraca userAgenta przegladarki
 	 */
 	public static MobileUserAgent getMobileUserAgent() {
-		if (mobileUserAgent == null) {
-			mobileUserAgent = MobileUserAgent.UNKNOWN;
-			for (MobileUserAgent ua : MobileUserAgent.values()) {
-				if (isMobileUserAgent(ua)) {
-					mobileUserAgent = ua;
-					break;
-				}
-			}
-		}
-		return mobileUserAgent;
+		return userAgentUtilImpl.getMobileUserAgent();
 	}
 
 	/**
@@ -199,20 +179,19 @@ public class UserAgentChecker {
 	 * @return
 	 */
 	public static boolean isLocal() {
-		return nativeInterface.isLocal();
+		return userAgentUtilImpl.isLocal();
 	}
 
 	public static void setNativeInterface(BrowserNativeInterface nativeInterface) {
-		UserAgentChecker.nativeInterface = nativeInterface;
-		mobileUserAgent = null;
+		userAgentUtilImpl.setNativeInterface(nativeInterface);
 	}
-	
+
 	/**
 	 * Aby to zadzialalo w pliku HTML w ktorym osadzona jest Empiria nalezy dodac kod javascriptowy
 	 * <code>navigator.isAIR = true;</code>.
 	 */
-	public static native boolean isAIR() /*-{
-    	return $wnd.navigator.isAIR;
-  	}-*/;
+	public static boolean isAIR() {
+		return userAgentUtilImpl.isAIR();
+	}
 
 }
