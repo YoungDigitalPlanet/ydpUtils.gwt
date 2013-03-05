@@ -10,6 +10,7 @@ import eu.ydp.gwtutil.client.util.BrowserNativeInterface;
 import eu.ydp.gwtutil.client.util.UserAgentChecker;
 import eu.ydp.gwtutil.client.util.UserAgentChecker.MobileUserAgent;
 import eu.ydp.gwtutil.client.util.UserAgentChecker.UserAgent;
+import eu.ydp.gwtutil.client.util.UserAgentUtilImpl;
 import eu.ydp.gwtutil.junit.mock.UserAgentCheckerNativeInterfaceMock;
 
 public class UserAgentCheckerJUnitTest {
@@ -89,7 +90,7 @@ public class UserAgentCheckerJUnitTest {
 	@Test
 	public void stackAndroidBrowserUserAgentTest() {
 		Map<String, MobileUserAgent> androidUserAgents = getMobile();
-		for (MobileUserAgent androidUserAgent : UserAgentChecker.ANDROID_USER_AGENTS) {
+		for (MobileUserAgent androidUserAgent : UserAgentUtilImpl.ANDROID_USER_AGENTS) {
 			for (Map.Entry<String, MobileUserAgent> ua : androidUserAgents.entrySet()) {
 				if (ua.getValue() == androidUserAgent) {
 					BrowserNativeInterface nativeInterface = UserAgentCheckerNativeInterfaceMock.getNativeInterfaceMock(ua.getKey());
