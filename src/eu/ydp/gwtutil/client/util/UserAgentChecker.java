@@ -12,6 +12,10 @@ public class UserAgentChecker {
 		userAgentUtilImpl.setNativeInterface(new BrowserNativeInterfaceImpl());
 	}
 
+	protected static MobileUserAgent[] getAndroidUserAgents(){
+		return UserAgentUtilImpl.ANDROID_USER_AGENTS;
+	}
+
 	public interface BrowserUserAgent {
 		public String getRegexPattern();
 	}
@@ -97,7 +101,8 @@ public class UserAgentChecker {
 	public enum RuntimeMobileUserAgent implements BrowserUserAgent {
 		IOS6("ios6", ".*(ipad|ipod|iphon).*os[ ]+6_0.*"),
 		IOS6_1("ios6_1", ".*(ipad|ipod|iphon).*os[ ]+6_1.*"),
-		ANDROID404("android404", ".*android 4.0.4");
+		ANDROID404("android404", ".*android 4.0.4"),
+		ANDROID("android", ".*android.*");
 
 		private final String tagName, regexPattern;
 		private RuntimeMobileUserAgent(String name, String regex) {
