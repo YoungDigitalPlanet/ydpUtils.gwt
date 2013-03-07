@@ -20,9 +20,9 @@ public class YNativeJsonParser {
 		
 		JsonValue val;
 		
-		val = parseAsObject(contents);		
+		val = tryParseObject(contents);		
 		if(val == null){
-			val = parseAsArray(contents);
+			val = tryParseAsArray(contents);
 		}
 		
 		if(val == null){
@@ -34,7 +34,7 @@ public class YNativeJsonParser {
 	}
 	
 	
-	private static JsonValue parseAsObject(String contents){
+	private static JsonValue tryParseObject(String contents){
 		JsonValue val;
 		StringReader sr = new StringReader(contents);
 		try{
@@ -51,7 +51,7 @@ public class YNativeJsonParser {
 		
 	}
 	
-	private static JsonValue parseAsArray(String contents){
+	private static JsonValue tryParseAsArray(String contents){
 		JsonValue val;
 		StringReader sr = new StringReader(contents);
 		try{
