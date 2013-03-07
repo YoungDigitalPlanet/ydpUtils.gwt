@@ -20,11 +20,14 @@ public class YNativeJsonParser {
 		
 		JsonValue val;
 		
-		val = parseAsObject(contents);
-		if(val == null)
+		val = parseAsObject(contents);		
+		if(val == null){
 			val = parseAsArray(contents);
-		else
+		}
+		
+		if(val == null){
 			val = parseAsNumberOrString(contents);
+		}	
 		
 		return YNativeJsonFactory.create(val);
 		
