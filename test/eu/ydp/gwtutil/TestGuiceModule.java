@@ -1,5 +1,7 @@
 package eu.ydp.gwtutil;
 
+import eu.ydp.gwtutil.client.service.json.IJSONService;
+import eu.ydp.gwtutil.client.service.json.NativeJSONService;
 import eu.ydp.gwtutil.client.xml.proxy.XMLProxy;
 import eu.ydp.gwtutil.client.xml.proxy.XMLProxyFactory;
 import eu.ydp.gwtutil.test.AbstractMockingTestModule;
@@ -18,7 +20,9 @@ public class TestGuiceModule extends AbstractMockingTestModule {
 	@Override
 	public void configure() {
 		bind(XMLProxy.class).to(XMLProxyWrapper.class);
+		bind(IJSONService.class).to(NativeJSONService.class);
 		binder.requestStaticInjection(XMLProxyFactory.class);
+		
 	}
 
 }
