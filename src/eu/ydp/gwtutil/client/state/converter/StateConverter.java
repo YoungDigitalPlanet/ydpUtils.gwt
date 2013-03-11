@@ -23,6 +23,6 @@ public class StateConverter implements Comparable<StateConverter> {
 	
 	@Override
 	public int compareTo(StateConverter converter) {
-		return new Integer(version).compareTo(converter.getVersion());
+		return Integer.valueOf(version).compareTo(converter.getVersion());
 	}
 }
