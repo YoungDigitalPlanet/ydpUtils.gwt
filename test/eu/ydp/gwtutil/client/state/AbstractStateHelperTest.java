@@ -7,8 +7,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -25,11 +23,10 @@ import eu.ydp.gwtutil.client.state.converter.StateConverter;
 import eu.ydp.gwtutil.json.YNativeJsonFactory;
 
 @RunWith(JUnitParamsRunner.class)
-public class AbstractStateHelperTestt extends AbstractTestBase {
+public class AbstractStateHelperTest extends AbstractTestBase {
 	
 	
-	private IJSONService jsonService;
-	protected AbstractStateHelper helper;
+	private IJSONService jsonService;	
 	
 	@Override	
 	public void setUp() {
@@ -84,20 +81,5 @@ public class AbstractStateHelperTestt extends AbstractTestBase {
                      $(YNativeJsonFactory.createArray())                     
                 );
     }
-	
-	@Test
-	public void testPrepareStateConverters(){	
-		
-		//when
-		List<StateConverter> converters = helper.prepareStateConverters();
-		Collections.sort(converters);
-		//then
-		assertThat(converters.size(), equalTo(helper.getVersion()));
-		
-		for(int i = 0; i < converters.size(); i++){
-			assertThat(converters.get(i).getVersion(), equalTo(i));
-		}
-		
-	}
 
 }
