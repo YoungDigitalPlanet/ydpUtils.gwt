@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayString;
+
 public class CollectionsUtil {
 
 	public static <T> Collection<T> fill(Collection<T> collection, T value, int count){
@@ -45,5 +48,13 @@ public class CollectionsUtil {
 			}
 		}
 		return false;
+	}
+	
+	public static JsArrayString iterableToJsArray(Iterable<String> iterable){
+		JsArrayString array = JavaScriptObject.createArray().cast();
+		for (String el : iterable){
+			array.push(el);
+		}
+		return array;
 	}
 }
