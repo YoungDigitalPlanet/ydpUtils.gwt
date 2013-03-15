@@ -101,9 +101,9 @@ public class ExListBox extends Composite implements IsExListBox {
 	public void addOption(final ExListBoxOption option) {
 		options.add(option);
 		popupContents.addOption(option.getPopupBody());
-		Command optionSelected = createOptionIsSelectedCommand(option);
-		EventHandlerProxy optionSelectedHandler = userInteractionHandlerFactory.createUserClickHandler(optionSelected);
-		optionSelectedHandler.apply(option.getPopupBody());
+		Command selectedOption = createOptionIsSelectedCommand(option);
+		EventHandlerProxy selectedOptionHandler = userInteractionHandlerFactory.createUserClickHandler(selectedOption);
+		selectedOptionHandler.apply(option.getPopupBody());
 	}
 
 	private Command createOptionIsSelectedCommand(final ExListBoxOption option) {
@@ -198,9 +198,9 @@ public class ExListBox extends Composite implements IsExListBox {
 
 		mountingPointX = baseContainer.getAbsoluteLeft() + baseContainer.getOffsetWidth() / 2 - popupPanel.getOffsetWidth() / 2;
 		if (popupPosition == PopupPosition.ABOVE) {
-			mountingPointY = baseContainer.getAbsoluteTop() - popupPanel.getOffsetHeight();
+			mountingPointY = baseContainer.getAbsoluteTop()+ baseContainer.getOffsetHeight() - popupPanel.getOffsetHeight();
 		} else {
-			mountingPointY = baseContainer.getAbsoluteTop() + baseContainer.getOffsetHeight();
+			mountingPointY = baseContainer.getAbsoluteTop() - baseContainer.getOffsetHeight() + baseContainer.getOffsetHeight();
 		}
 
 		if (mountingPointX < Window.getScrollLeft() + MARGIN) {

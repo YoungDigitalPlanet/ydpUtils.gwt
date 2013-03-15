@@ -13,6 +13,13 @@ public class UserInteractionHandlerFactory {
 		}
 	}
 
+	public EventHandlerProxy createUserOverHandler(Command command){
+		if(isTouchSupported()){
+			return new TouchStartEventProxy(command);
+		}else{
+			return new MouseOverEventProxy(command);
+		}
+	}
 	private boolean isTouchSupported() {
 		return UserAgentChecker.isMobileUserAgent() && TouchEvent.isSupported();
 	}
