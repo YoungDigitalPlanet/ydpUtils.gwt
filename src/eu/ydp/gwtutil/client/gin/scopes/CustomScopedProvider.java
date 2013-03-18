@@ -1,4 +1,4 @@
-package eu.ydp.gwtutil.gin.scopes;
+package eu.ydp.gwtutil.client.gin.scopes;
 
 import java.util.HashMap;
 import java.util.Map;

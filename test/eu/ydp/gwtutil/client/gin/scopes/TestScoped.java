@@ -1,4 +1,4 @@
-package gin.scopes;
+package eu.ydp.gwtutil.client.gin.scopes;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

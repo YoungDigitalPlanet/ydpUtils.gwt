@@ -1,4 +1,4 @@
-package gin.scopes;
+package eu.ydp.gwtutil.client.gin.scopes;
 
 import static org.junit.Assert.assertTrue;
 
@@ -10,7 +10,7 @@ import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.Singleton;
 
-import eu.ydp.gwtutil.gin.scopes.CurrentScopeProvider;
+import eu.ydp.gwtutil.client.gin.scopes.CurrentScopeProvider;
 
 
 public class GinScopesTest {

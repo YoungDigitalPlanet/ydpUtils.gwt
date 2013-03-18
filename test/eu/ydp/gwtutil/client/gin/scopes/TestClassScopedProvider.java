@@ -1,10 +1,10 @@
-package gin.scopes;
+package eu.ydp.gwtutil.client.gin.scopes;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
-import eu.ydp.gwtutil.gin.scopes.CurrentScopeProvider;
-import eu.ydp.gwtutil.gin.scopes.CustomScopedProvider;
+import eu.ydp.gwtutil.client.gin.scopes.CurrentScopeProvider;
+import eu.ydp.gwtutil.client.gin.scopes.CustomScopedProvider;
 
 class TestClassScopedProvider extends CustomScopedProvider<TestClass>{
 
