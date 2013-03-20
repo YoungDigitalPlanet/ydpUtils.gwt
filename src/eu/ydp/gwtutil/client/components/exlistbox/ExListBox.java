@@ -55,6 +55,7 @@ public class ExListBox extends Composite implements IsExListBox {
 	private int selectedIndex = 0;
 	private boolean enabled = true;
 	private PopupPosition popupPosition = PopupPosition.ABOVE;
+	private boolean optionIsSelected;
 	private final UserInteractionHandlerFactory userInteractionHandlerFactory = new UserInteractionHandlerFactory();
 
 	protected ExListBoxChangeListener listener;
@@ -104,6 +105,9 @@ public class ExListBox extends Composite implements IsExListBox {
 		Command selectedOption = createOptionIsSelectedCommand(option);
 		EventHandlerProxy selectedOptionHandler = userInteractionHandlerFactory.createUserClickHandler(selectedOption);
 		selectedOptionHandler.apply(option.getPopupBody());
+		EventHandlerProxy lockNotSelectedOptionCommand = userInteractionHandlerFactory.createUserTouchStartHandler(createLockNotSelectedOptionCommand(option));
+		lockNotSelectedOptionCommand.apply(option.getPopupBody());
+
 	}
 
 	private Command createOptionIsSelectedCommand(final ExListBoxOption option) {
@@ -111,16 +115,61 @@ public class ExListBox extends Composite implements IsExListBox {
 			@Override
 			public void execute(NativeEvent event) {
 				event.stopPropagation();
-				int currentOptionIndex = options.indexOf(option);
-				if (selectedIndex != currentOptionIndex) {
-					selectedIndex = currentOptionIndex;
-					setSelectedBaseBody();
-					listener.onChange();
-				}
+				selectOptionAndLockUnselectedOptions(option);
 				hidePopup();
+				resetNotSelectedOptions();
+				setSelectedBodyAndFireOnChange();
 			}
 		};
 		return optionSelected;
+	}
+
+	private Command createLockNotSelectedOptionCommand(final ExListBoxOption option) {
+		return new Command() {
+			@Override
+			public void execute(NativeEvent event) {
+				selectOptionAndLockUnselectedOptions(option);
+			}
+		};
+	}
+
+	private void selectOptionAndLockUnselectedOptions(final ExListBoxOption option) {
+		if(!optionIsSelected){
+			selectOption(option);
+			lockNotSelectedOptions();
+			optionIsSelected= true;
+		}
+	}
+
+	private void selectOption(final ExListBoxOption option) {
+		int currentOptionIndex = getOptionIndex(option);
+		if (selectedIndex != currentOptionIndex) {
+			selectedIndex = currentOptionIndex;
+		}
+	}
+
+	private void setSelectedBodyAndFireOnChange() {
+		setSelectedBaseBody();
+		listener.onChange();
+	}
+
+	private int getOptionIndex(final ExListBoxOption option) {
+		int currentOptionIndex = options.indexOf(option);
+		return currentOptionIndex;
+	}
+
+	private void resetNotSelectedOptions() {
+		for (int i = 0; i < options.size(); i++) {
+			if (i != selectedIndex) {
+				options.get(i).reset();
+			}
+		}
+	}
+
+	private void lockNotSelectedOptions() {
+		for (int i = 0; i < options.size(); i++) {
+			options.get(i).setLocked(i != selectedIndex);
+		}
 	}
 
 	@Override
@@ -189,6 +238,7 @@ public class ExListBox extends Composite implements IsExListBox {
 	@Override
 	public void hidePopup() {
 		popupPanel.hide();
+		optionIsSelected = false;
 	}
 
 	private void updatePosition() {
@@ -198,7 +248,7 @@ public class ExListBox extends Composite implements IsExListBox {
 
 		mountingPointX = baseContainer.getAbsoluteLeft() + baseContainer.getOffsetWidth() / 2 - popupPanel.getOffsetWidth() / 2;
 		if (popupPosition == PopupPosition.ABOVE) {
-			mountingPointY = baseContainer.getAbsoluteTop()+ baseContainer.getOffsetHeight() - popupPanel.getOffsetHeight();
+			mountingPointY = baseContainer.getAbsoluteTop() + baseContainer.getOffsetHeight() - popupPanel.getOffsetHeight();
 		} else {
 			mountingPointY = baseContainer.getAbsoluteTop() - baseContainer.getOffsetHeight() + baseContainer.getOffsetHeight();
 		}

@@ -45,6 +45,7 @@ public class ExListBoxOptionWidget extends Composite {
 
 	private boolean selected = false;
 	private boolean over = false;
+	private boolean locked;
 	private final UserInteractionHandlerFactory userInteractionHandlerFactory = new UserInteractionHandlerFactory();
 
 	public ExListBoxOptionWidget(IsWidget popupBody) {
@@ -83,23 +84,38 @@ public class ExListBoxOptionWidget extends Composite {
 		updateStyle();
 	}
 
-	private void updateStyle() {
-		ExListBoxStyleNames popupPanelStyleName;
-		if (selected && over) {
-			popupPanelStyleName = ExListBoxStyleNames.INSTANCE.popupOptionPanelSelectedOver();
-		} else if (selected) {
-			popupPanelStyleName = ExListBoxStyleNames.INSTANCE.popupOptionPanelSelected();
-		} else if (over) {
-			popupPanelStyleName = ExListBoxStyleNames.INSTANCE.popupOptionPanelOver();
-		} else {
-			popupPanelStyleName = ExListBoxStyleNames.INSTANCE.popupOptionPanel();
-		}
-		popupPanel.setStyleName(popupPanelStyleName.toString());
+	public void reset() {
+		over = false;
+		selected = false;
+		locked = false;
+		updateStyle();
+	}
 
-		if (selected) {
-			popupButton.addStyleName(ExListBoxStyleNames.INSTANCE.popupOptionButtonSelected().toString());
-		} else {
-			popupButton.removeStyleName(ExListBoxStyleNames.INSTANCE.popupOptionButtonSelected().toString());
+	private void updateStyle() {
+		if (!locked) {
+			ExListBoxStyleNames popupPanelStyleName;
+			if (selected && over) {
+				popupPanelStyleName = ExListBoxStyleNames.INSTANCE.popupOptionPanelSelectedOver();
+			} else if (selected) {
+				popupPanelStyleName = ExListBoxStyleNames.INSTANCE.popupOptionPanelSelected();
+			} else if (over) {
+				popupPanelStyleName = ExListBoxStyleNames.INSTANCE.popupOptionPanelOver();
+			} else {
+				popupPanelStyleName = ExListBoxStyleNames.INSTANCE.popupOptionPanel();
+			}
+
+			popupPanel.setStyleName(popupPanelStyleName.toString());
+
+			if (selected) {
+				popupButton.addStyleName(ExListBoxStyleNames.INSTANCE.popupOptionButtonSelected().toString());
+			} else {
+				popupButton.removeStyleName(ExListBoxStyleNames.INSTANCE.popupOptionButtonSelected().toString());
+			}
 		}
+	}
+
+	public void setLocked(boolean locked) {
+		this.locked = locked;
+
 	}
 }

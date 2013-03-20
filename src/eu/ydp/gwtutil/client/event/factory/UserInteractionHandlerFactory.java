@@ -20,6 +20,15 @@ public class UserInteractionHandlerFactory {
 			return new MouseOverEventProxy(command);
 		}
 	}
+
+	public EventHandlerProxy createUserTouchStartHandler(Command command){
+		if(isTouchSupported()){
+			return new TouchStartEventProxy(command);
+		}else{
+			return new NoEventProxy();
+		}
+	}
+
 	private boolean isTouchSupported() {
 		return UserAgentChecker.isMobileUserAgent() && TouchEvent.isSupported();
 	}
