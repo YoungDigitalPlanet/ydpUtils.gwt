@@ -30,4 +30,28 @@ public class Logger implements ILogger {
 	public void warning(String message) {
 		this.logger.warning(message);
 	}
+	
+	public void methodLog(String className, String methodName, Object ... args){
+		StringBuilder builder = new StringBuilder();
+		builder.append("Calling: ")
+			.append(className)
+			.append(".")
+			.append(methodName)
+			.append(" with args: ");
+		appendArguments(builder, args);
+		
+		this.logger.info(builder.toString());
+	}
+
+	private void appendArguments(StringBuilder builder, Object... args) {
+		for (Object argument : args) {
+			if(argument == null){
+				builder.append("null, ");
+			}else{
+				builder.append("{")
+					.append(argument.hashCode())
+					.append("},");
+			}
+		}
+	}
 }
