@@ -38,7 +38,10 @@ public class Logger implements ILogger {
 			.append(".")
 			.append(methodName)
 			.append(" with args: ");
-		appendArguments(builder, args);
+		
+		if(args != null){
+			appendArguments(builder, args);
+		}
 		
 		this.logger.info(builder.toString());
 	}
