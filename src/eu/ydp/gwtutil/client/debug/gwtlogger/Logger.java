@@ -36,8 +36,7 @@ public class Logger implements ILogger {
 		builder.append("Calling: ")
 			.append(className)
 			.append(".")
-			.append(methodName)
-			.append(" with args: ");
+			.append(methodName);
 		
 		if(args != null){
 			appendArguments(builder, args);
@@ -47,12 +46,15 @@ public class Logger implements ILogger {
 	}
 
 	private void appendArguments(StringBuilder builder, Object... args) {
+		builder.append(" with args: ");
 		for (Object argument : args) {
 			if(argument == null){
 				builder.append("null, ");
 			}else{
-				builder.append("{")
+				builder.append("{@")
 					.append(argument.hashCode())
+					.append("@ - ")
+					.append(argument.toString())
 					.append("},");
 			}
 		}
