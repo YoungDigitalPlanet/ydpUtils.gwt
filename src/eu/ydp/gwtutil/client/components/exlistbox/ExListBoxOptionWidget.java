@@ -2,10 +2,12 @@ package eu.ydp.gwtutil.client.components.exlistbox;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.TouchMoveEvent;
+import com.google.gwt.event.dom.client.TouchMoveHandler;
+import com.google.gwt.event.dom.client.TouchStartEvent;
+import com.google.gwt.event.dom.client.TouchStartHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.FocusPanel;
@@ -32,7 +34,7 @@ public class ExListBoxOptionWidget extends Composite {
 
 		@Override
 		public void execute(NativeEvent event) {
-			setOver(over);
+			overHandler.onEvent(over, exListBoxOption);
 		}
 	}
 
@@ -45,14 +47,36 @@ public class ExListBoxOptionWidget extends Composite {
 
 	private boolean selected = false;
 	private boolean over = false;
-	private boolean locked;
 	private final UserInteractionHandlerFactory userInteractionHandlerFactory = new UserInteractionHandlerFactory();
+	private ExListBoxClickHandler clickHandler;
+	private ExListBoxOverHandler overHandler;
+	private final ExListBoxOption exListBoxOption;
+	private boolean touchMove = false;
 
-	public ExListBoxOptionWidget(IsWidget popupBody) {
+	public ExListBoxOptionWidget(IsWidget popupBody, ExListBoxOption exListBoxOption) {
 		initWidget(uiBinder.createAndBindUi(this));
+		this.exListBoxOption = exListBoxOption;
 		addOverHandler();
 		addClickHandler();
+		addOutHandler();
 		insertPopupBody(popupBody);
+		addTouchMoveCheckHandlers();
+	}
+
+	private void addTouchMoveCheckHandlers() {
+		popupPanel.addTouchMoveHandler(new TouchMoveHandler() {
+			@Override
+			public void onTouchMove(TouchMoveEvent event) {
+				touchMove = true;
+			}
+		});
+
+		popupPanel.addTouchStartHandler(new TouchStartHandler() {
+			@Override
+			public void onTouchStart(TouchStartEvent event) {
+				touchMove = false;
+			}
+		});
 	}
 
 	private void insertPopupBody(IsWidget popupBody) {
@@ -64,17 +88,28 @@ public class ExListBoxOptionWidget extends Composite {
 		userOverHandler.apply(popupPanel);
 	}
 
+	private void addOutHandler() {
+		EventHandlerProxy userOutHandler = userInteractionHandlerFactory.createUserOutHandler(new SetOverCommand(false));
+		userOutHandler.apply(popupPanel);
+	}
+
 	private void addClickHandler() {
-		EventHandlerProxy userClickHandler = userInteractionHandlerFactory.createUserClickHandler(new SetOverCommand(false));
+		EventHandlerProxy userClickHandler = userInteractionHandlerFactory.createUserClickHandler(createUserClickHandlerCommand());
 		userClickHandler.apply(popupPanel);
 	}
 
-	@UiHandler("popupPanel")
-	public void onMouseOut(MouseOutEvent event) {
-		setOver(false);
+	private Command createUserClickHandlerCommand() {
+		return new Command() {
+			@Override
+			public void execute(NativeEvent event) {
+				if (!touchMove) {
+					clickHandler.onClick(event, exListBoxOption);
+				}
+			}
+		};
 	}
 
-	protected void setOver(boolean over) {
+	public void setOver(boolean over) {
 		this.over = over;
 		updateStyle();
 	}
@@ -87,12 +122,10 @@ public class ExListBoxOptionWidget extends Composite {
 	public void reset() {
 		over = false;
 		selected = false;
-		locked = false;
 		updateStyle();
 	}
 
 	private void updateStyle() {
-		if (!locked) {
 			ExListBoxStyleNames popupPanelStyleName;
 			if (selected && over) {
 				popupPanelStyleName = ExListBoxStyleNames.INSTANCE.popupOptionPanelSelectedOver();
@@ -111,11 +144,14 @@ public class ExListBoxOptionWidget extends Composite {
 			} else {
 				popupButton.removeStyleName(ExListBoxStyleNames.INSTANCE.popupOptionButtonSelected().toString());
 			}
-		}
 	}
 
-	public void setLocked(boolean locked) {
-		this.locked = locked;
-
+	public void setClickHandler(ExListBoxClickHandler handler) {
+		this.clickHandler = handler;
 	}
+
+	public void setOverHandler(ExListBoxOverHandler handler) {
+		this.overHandler = handler;
+	}
+
 }

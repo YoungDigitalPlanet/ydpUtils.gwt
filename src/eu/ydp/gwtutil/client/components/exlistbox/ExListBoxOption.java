@@ -10,7 +10,7 @@ public class ExListBoxOption {
 
 	public ExListBoxOption(IsWidget baseBody, IsWidget popupBody){
 		this.baseBody = baseBody.asWidget();
-		optionWidget = new ExListBoxOptionWidget(popupBody);
+		optionWidget = new ExListBoxOptionWidget(popupBody,this);
 	}
 
 	public Widget getPopupBody(){
@@ -29,8 +29,16 @@ public class ExListBoxOption {
 		optionWidget.reset();
 	}
 
-	public void setLocked(boolean locked){
-		optionWidget.setLocked(locked);
+	public void setClickHandler(ExListBoxClickHandler handler){
+		optionWidget.setClickHandler(handler);
+	}
+
+	public void setOverHandler(ExListBoxOverHandler handler){
+		optionWidget.setOverHandler(handler);
+	}
+
+	public void setOver(boolean over){
+		optionWidget.setOver(over);
 	}
 
 }

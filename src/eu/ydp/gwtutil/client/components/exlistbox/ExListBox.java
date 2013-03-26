@@ -55,10 +55,12 @@ public class ExListBox extends Composite implements IsExListBox {
 	private int selectedIndex = 0;
 	private boolean enabled = true;
 	private PopupPosition popupPosition = PopupPosition.ABOVE;
-	private boolean optionIsSelected;
+
 	private final UserInteractionHandlerFactory userInteractionHandlerFactory = new UserInteractionHandlerFactory();
 
 	protected ExListBoxChangeListener listener;
+
+	private final ExListBoxSelectionController selectionController = new ExListBoxSelectionController(this);
 
 	public ExListBox() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -102,50 +104,15 @@ public class ExListBox extends Composite implements IsExListBox {
 	public void addOption(final ExListBoxOption option) {
 		options.add(option);
 		popupContents.addOption(option.getPopupBody());
-		Command selectedOption = createOptionIsSelectedCommand(option);
-		EventHandlerProxy selectedOptionHandler = userInteractionHandlerFactory.createUserClickHandler(selectedOption);
-		selectedOptionHandler.apply(option.getPopupBody());
-		EventHandlerProxy lockNotSelectedOptionCommand = userInteractionHandlerFactory.createUserTouchStartHandler(createLockNotSelectedOptionCommand(option));
-		lockNotSelectedOptionCommand.apply(option.getPopupBody());
-
+		selectionController.addOption(option);
 	}
 
-	private Command createOptionIsSelectedCommand(final ExListBoxOption option) {
-		Command optionSelected = new Command() {
-			@Override
-			public void execute(NativeEvent event) {
-				event.stopPropagation();
-				selectOptionAndLockUnselectedOptions(option);
-				hidePopup();
-				resetNotSelectedOptions();
-				setSelectedBodyAndFireOnChange();
-			}
-		};
-		return optionSelected;
-	}
-
-	private Command createLockNotSelectedOptionCommand(final ExListBoxOption option) {
-		return new Command() {
-			@Override
-			public void execute(NativeEvent event) {
-				selectOptionAndLockUnselectedOptions(option);
-			}
-		};
-	}
-
-	private void selectOptionAndLockUnselectedOptions(final ExListBoxOption option) {
-		if(!optionIsSelected){
-			selectOption(option);
-			lockNotSelectedOptions();
-			optionIsSelected= true;
-		}
-	}
-
-	private void selectOption(final ExListBoxOption option) {
+	protected void selectOption(final ExListBoxOption option) {
 		int currentOptionIndex = getOptionIndex(option);
 		if (selectedIndex != currentOptionIndex) {
 			selectedIndex = currentOptionIndex;
 		}
+		setSelectedBodyAndFireOnChange();
 	}
 
 	private void setSelectedBodyAndFireOnChange() {
@@ -156,20 +123,6 @@ public class ExListBox extends Composite implements IsExListBox {
 	private int getOptionIndex(final ExListBoxOption option) {
 		int currentOptionIndex = options.indexOf(option);
 		return currentOptionIndex;
-	}
-
-	private void resetNotSelectedOptions() {
-		for (int i = 0; i < options.size(); i++) {
-			if (i != selectedIndex) {
-				options.get(i).reset();
-			}
-		}
-	}
-
-	private void lockNotSelectedOptions() {
-		for (int i = 0; i < options.size(); i++) {
-			options.get(i).setLocked(i != selectedIndex);
-		}
 	}
 
 	@Override
@@ -238,7 +191,6 @@ public class ExListBox extends Composite implements IsExListBox {
 	@Override
 	public void hidePopup() {
 		popupPanel.hide();
-		optionIsSelected = false;
 	}
 
 	private void updatePosition() {
