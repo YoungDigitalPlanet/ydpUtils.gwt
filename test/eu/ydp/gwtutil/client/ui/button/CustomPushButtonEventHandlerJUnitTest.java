@@ -44,7 +44,6 @@ public class CustomPushButtonEventHandlerJUnitTest {
 
 	@Before
 	public void before() {
-
 		CustomPushButton pushButton = mock(CustomPushButton.class);
 		doReturn(null).when(pushButton).addDomHandler(clickEventCaptor.capture(), Mockito.any(DomEvent.Type.class));
 		instance = new CustomPushButtonEventHandler(pushButton,userInteractionHandlerFactory);

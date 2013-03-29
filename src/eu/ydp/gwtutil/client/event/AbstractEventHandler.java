@@ -7,7 +7,7 @@ import com.google.gwt.core.client.GWT;
 
 import eu.ydp.gwtutil.client.event.EventImpl.Type;
 
-public abstract class AbstractEventHandler<H extends EventHandler, E extends Enum<E>, EV extends Event<H, E>> extends AbstractEventHandlerRegistrator<H, Type<H, E>> {
+public abstract class AbstractEventHandler<H extends EventHandler, E extends Enum<E>, EV extends Event<H, E>> extends EventHandlerRegistrator<H, Type<H, E>> {
 	protected HandlerRegistration[] addHandlers(final H handler, final Type<H, E>[] event) {
 		HandlerRegistration[] registrations = new HandlerRegistration[event.length];
 		for (int x = 0; x < event.length; ++x) {

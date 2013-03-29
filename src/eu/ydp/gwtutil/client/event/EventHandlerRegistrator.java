@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class AbstractEventHandlerRegistrator<H, K> {
+public class EventHandlerRegistrator<H, K> {
 	private final Map<K, Set<H>> handlers = new HashMap<K, Set<H>>();
 
 	protected HandlerRegistration addHandler(final H handler, final K key) {

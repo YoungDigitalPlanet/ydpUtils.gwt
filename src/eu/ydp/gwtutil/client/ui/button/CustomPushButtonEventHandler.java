@@ -10,14 +10,14 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.dom.client.DomEvent.Type;
 
-import eu.ydp.gwtutil.client.event.AbstractEventHandlerRegistrator;
+import eu.ydp.gwtutil.client.event.EventHandlerRegistrator;
 import eu.ydp.gwtutil.client.event.HandlerRegistration;
 import eu.ydp.gwtutil.client.event.emulate.CustomClickEvent;
 import eu.ydp.gwtutil.client.event.factory.Command;
 import eu.ydp.gwtutil.client.event.factory.EventHandlerProxy;
 import eu.ydp.gwtutil.client.event.factory.UserInteractionHandlerFactory;
 
-public class CustomPushButtonEventHandler extends AbstractEventHandlerRegistrator<ClickHandler, DomEvent.Type<?>> {
+public class CustomPushButtonEventHandler extends EventHandlerRegistrator<ClickHandler, DomEvent.Type<?>> {
 
 	private final UserInteractionHandlerFactory interactionHandlerFactory;
 
@@ -39,21 +39,13 @@ public class CustomPushButtonEventHandler extends AbstractEventHandlerRegistrato
 		return super.addHandler(handler, key);
 	}
 
-	protected Set<ClickHandler> getHandlers(DomEvent.Type<ClickHandler> key) {
-		return super.getHandlers(key);
-	}
-
 	protected void fireEvent(ClickEvent event) {
 		// concurrentModificationException in dev mode
 		final Set<ClickHandler> eventHandlers = GWT.isProdMode() ? getHandlers(event.getAssociatedType()) : new HashSet<ClickHandler>(
 				getHandlers(event.getAssociatedType()));
 		for (ClickHandler handler : eventHandlers) {
-			dispatchEvent(handler, event);
+			handler.onClick(event);
 		}
-	}
-
-	protected void dispatchEvent(ClickHandler handler, ClickEvent event) {
-		handler.onClick(event);
 	}
 
 	private void setUserInteractionHandler() {
