@@ -1,0 +1,81 @@
+package eu.ydp.gwtutil.client.ui.button;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DomEvent;
+import com.google.gwt.event.dom.client.DomEvent.Type;
+
+import eu.ydp.gwtutil.client.event.AbstractEventHandlerRegistrator;
+import eu.ydp.gwtutil.client.event.HandlerRegistration;
+import eu.ydp.gwtutil.client.event.emulate.CustomClickEvent;
+import eu.ydp.gwtutil.client.event.factory.Command;
+import eu.ydp.gwtutil.client.event.factory.EventHandlerProxy;
+import eu.ydp.gwtutil.client.event.factory.UserInteractionHandlerFactory;
+
+public class CustomPushButtonEventHandler extends AbstractEventHandlerRegistrator<ClickHandler, DomEvent.Type<?>> {
+
+	private final UserInteractionHandlerFactory interactionHandlerFactory;
+
+	private boolean isUserInteractionHandlerAdded;
+
+	private final CustomPushButton pushButton;
+
+	public CustomPushButtonEventHandler(CustomPushButton pushButton) {
+		this.pushButton = pushButton;
+		this.interactionHandlerFactory = new UserInteractionHandlerFactory();
+	}
+
+	public CustomPushButtonEventHandler(CustomPushButton pushButton, UserInteractionHandlerFactory interactionHandlerFactory) {
+		this.pushButton = pushButton;
+		this.interactionHandlerFactory = interactionHandlerFactory;
+	}
+
+	protected <EH extends ClickHandler> HandlerRegistration addHandler(EH handler, Type<EH> key) {
+		return super.addHandler(handler, key);
+	}
+
+	protected Set<ClickHandler> getHandlers(DomEvent.Type<ClickHandler> key) {
+		return super.getHandlers(key);
+	}
+
+	protected void fireEvent(ClickEvent event) {
+		// concurrentModificationException in dev mode
+		final Set<ClickHandler> eventHandlers = GWT.isProdMode() ? getHandlers(event.getAssociatedType()) : new HashSet<ClickHandler>(
+				getHandlers(event.getAssociatedType()));
+		for (ClickHandler handler : eventHandlers) {
+			dispatchEvent(handler, event);
+		}
+	}
+
+	protected void dispatchEvent(ClickHandler handler, ClickEvent event) {
+		handler.onClick(event);
+	}
+
+	private void setUserInteractionHandler() {
+		if (!isUserInteractionHandlerAdded) {
+			isUserInteractionHandlerAdded = true;
+			EventHandlerProxy userClickHandler = createUserClickHandler();
+			userClickHandler.apply(pushButton);
+		}
+	}
+
+	private EventHandlerProxy createUserClickHandler() {
+		EventHandlerProxy userClickHandler = interactionHandlerFactory.createUserClickHandler(new Command() {
+			@Override
+			public void execute(NativeEvent event) {
+				fireEvent(new CustomClickEvent(event));
+			}
+		});
+		return userClickHandler;
+	}
+
+	public HandlerRegistration addClickHandler(ClickHandler handler) {
+		setUserInteractionHandler();
+		return addHandler(handler, ClickEvent.getType());
+	}
+}
