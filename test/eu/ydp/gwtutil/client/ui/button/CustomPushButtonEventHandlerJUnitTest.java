@@ -63,27 +63,29 @@ public class CustomPushButtonEventHandlerJUnitTest {
 	@Test
 	public void fireTest() {
 		ClickHandler clickHandler = mock(ClickHandler.class);
-		instance.addHandler(clickHandler, ClickEvent.getType());
-		CustomClickEvent click = new CustomClickEvent(mock(NativeEvent.class));
-		instance.fireEvent(click);
+		instance.addClickHandler(clickHandler);
+		NativeEvent nativeEvent = mock(NativeEvent.class);
+		CustomClickEvent click = new CustomClickEvent(nativeEvent);
+		clickEventCaptor.getValue().onClick(click);
 
 		ArgumentCaptor<ClickEvent> eventCaptor = ArgumentCaptor.forClass(ClickEvent.class);
 		verify(clickHandler).onClick(eventCaptor.capture());
-		assertEquals(click, eventCaptor.getValue());
+		assertEquals(click.getNativeEvent(), eventCaptor.getValue().getNativeEvent());
 	}
 
 	@Test
 	public void multipleAddSameHandlerTest() {
 		ClickHandler clickHandler = mock(ClickHandler.class);
-		instance.addHandler(clickHandler, ClickEvent.getType());
-		instance.addHandler(clickHandler, ClickEvent.getType());
+		instance.addClickHandler(clickHandler);
+		instance.addClickHandler(clickHandler);
 
-		CustomClickEvent click = new CustomClickEvent(mock(NativeEvent.class));
-		instance.fireEvent(click);
+		NativeEvent nativeEvent = mock(NativeEvent.class);
+		CustomClickEvent click = new CustomClickEvent(nativeEvent);
+		clickEventCaptor.getValue().onClick(click);
 
 		ArgumentCaptor<ClickEvent> eventCaptor = ArgumentCaptor.forClass(ClickEvent.class);
 		verify(clickHandler).onClick(eventCaptor.capture());
-		assertEquals(click, eventCaptor.getValue());
+		assertEquals(click.getNativeEvent(), eventCaptor.getValue().getNativeEvent());
 	}
 
 	private Set<ClickHandler> getclickHandlers() {
@@ -98,25 +100,26 @@ public class CustomPushButtonEventHandlerJUnitTest {
 	public void fireTestMultipleHandlers() {
 		Set<ClickHandler> clickHandlers = getclickHandlers();
 		for (ClickHandler handler : clickHandlers) {
-			instance.addHandler(handler, ClickEvent.getType());
+			instance.addClickHandler(handler);
 		}
-		CustomClickEvent click = new CustomClickEvent(mock(NativeEvent.class));
-		instance.fireEvent(click);
+		NativeEvent nativeEvent = mock(NativeEvent.class);
+		CustomClickEvent click = new CustomClickEvent(nativeEvent);
+		clickEventCaptor.getValue().onClick(click);
 
 		for (ClickHandler handler : clickHandlers) {
 			ArgumentCaptor<ClickEvent> eventCaptor = ArgumentCaptor.forClass(ClickEvent.class);
 			verify(handler).onClick(eventCaptor.capture());
-			assertEquals(click, eventCaptor.getValue());
+			assertEquals(click.getNativeEvent(), eventCaptor.getValue().getNativeEvent());
 		}
 	}
 
 	@Test
 	public void removeHandlerTest() {
 		ClickHandler clickHandler = mock(ClickHandler.class);
-		HandlerRegistration addHandler = instance.addHandler(clickHandler, ClickEvent.getType());
+		HandlerRegistration addHandler = instance.addClickHandler(clickHandler);
 		addHandler.removeHandler();
 		CustomClickEvent click = new CustomClickEvent(mock(NativeEvent.class));
-		instance.fireEvent(click);
+		clickEventCaptor.getValue().onClick(click);
 
 		verify(clickHandler, times(0)).onClick(Mockito.any(ClickEvent.class));
 	}

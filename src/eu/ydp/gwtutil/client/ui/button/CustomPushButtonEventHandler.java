@@ -35,11 +35,11 @@ public class CustomPushButtonEventHandler extends EventHandlerRegistrator<ClickH
 		this.interactionHandlerFactory = interactionHandlerFactory;
 	}
 
-	protected <EH extends ClickHandler> HandlerRegistration addHandler(EH handler, Type<EH> key) {
+	private <EH extends ClickHandler> HandlerRegistration addHandler(EH handler, Type<EH> key) {
 		return super.addHandler(handler, key);
 	}
 
-	protected void fireEvent(ClickEvent event) {
+	private void fireEvent(ClickEvent event) {
 		// concurrentModificationException in dev mode
 		final Set<ClickHandler> eventHandlers = GWT.isProdMode() ? getHandlers(event.getAssociatedType()) : new HashSet<ClickHandler>(
 				getHandlers(event.getAssociatedType()));
