@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.gwt.core.client.GWT;
+
 public class EventHandlerRegistrator<H, K> {
 	private final Map<K, Set<H>> handlers = new HashMap<K, Set<H>>();
 
@@ -19,6 +21,16 @@ public class EventHandlerRegistrator<H, K> {
 			}
 		};
 		return registration;
+	}
+	
+	protected Set<H> getHandlersAccordingToRunningMode(K key) {
+		Set<H> eventHandlers = getHandlers(key);
+		
+		// concurrentModificationException in dev mode
+		if(GWT.isProdMode()){
+			eventHandlers = new HashSet<H>(eventHandlers);
+		}
+		return eventHandlers;
 	}
 
 	protected Set<H> getHandlers(K key) {

@@ -1,9 +1,6 @@
 package eu.ydp.gwtutil.client.event;
 
-import java.util.HashSet;
 import java.util.Set;
-
-import com.google.gwt.core.client.GWT;
 
 import eu.ydp.gwtutil.client.event.EventImpl.Type;
 
@@ -17,8 +14,7 @@ public abstract class AbstractEventHandler<H extends EventHandler, E extends Enu
 	}
 
 	protected void fireEvent(EV event) {
-		// concurrentModificationException in dev mode
-		final Set<H> eventHandlers = GWT.isProdMode() ? getHandlers(event.getAssociatedType()) : new HashSet<H>(getHandlers(event.getAssociatedType()));
+		final Set<H> eventHandlers = getHandlersAccordingToRunningMode(event.getAssociatedType());
 		for (H handler : eventHandlers) {
 			dispatchEvent(handler, event);
 		}

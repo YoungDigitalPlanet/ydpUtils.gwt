@@ -1,9 +1,7 @@
 package eu.ydp.gwtutil.client.ui.button;
 
-import java.util.HashSet;
 import java.util.Set;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -35,19 +33,15 @@ public class CustomPushButtonEventHandler extends EventHandlerRegistrator<ClickH
 		this.interactionHandlerFactory = interactionHandlerFactory;
 	}
 
+	public HandlerRegistration addClickHandler(ClickHandler handler) {
+		setUserInteractionHandler();
+		return addHandler(handler, ClickEvent.getType());
+	}
+
 	private <EH extends ClickHandler> HandlerRegistration addHandler(EH handler, Type<EH> key) {
 		return super.addHandler(handler, key);
 	}
-
-	private void fireEvent(ClickEvent event) {
-		// concurrentModificationException in dev mode
-		final Set<ClickHandler> eventHandlers = GWT.isProdMode() ? getHandlers(event.getAssociatedType()) : new HashSet<ClickHandler>(
-				getHandlers(event.getAssociatedType()));
-		for (ClickHandler handler : eventHandlers) {
-			handler.onClick(event);
-		}
-	}
-
+	
 	private void setUserInteractionHandler() {
 		if (!isUserInteractionHandlerAdded) {
 			isUserInteractionHandlerAdded = true;
@@ -55,7 +49,7 @@ public class CustomPushButtonEventHandler extends EventHandlerRegistrator<ClickH
 			userClickHandler.apply(pushButton);
 		}
 	}
-
+	
 	private EventHandlerProxy createUserClickHandler() {
 		EventHandlerProxy userClickHandler = interactionHandlerFactory.createUserClickHandler(new Command() {
 			@Override
@@ -66,8 +60,11 @@ public class CustomPushButtonEventHandler extends EventHandlerRegistrator<ClickH
 		return userClickHandler;
 	}
 
-	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		setUserInteractionHandler();
-		return addHandler(handler, ClickEvent.getType());
+	private void fireEvent(ClickEvent event) {
+		final Set<ClickHandler> eventHandlers = getHandlersAccordingToRunningMode(event.getAssociatedType());
+		for (ClickHandler handler : eventHandlers) {
+			handler.onClick(event);
+		}
 	}
+
 }
