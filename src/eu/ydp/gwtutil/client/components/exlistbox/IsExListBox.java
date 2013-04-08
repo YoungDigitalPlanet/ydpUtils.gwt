@@ -25,4 +25,6 @@ public interface IsExListBox extends IsWidget {
 	public void hidePopup();
 
 	PopupPosition getPopupPosition();
+
+	void addOpenCloseListener(ExListBoxOpenCloseListener openCloseListener);
 }

@@ -22,9 +22,9 @@ import eu.ydp.gwtutil.client.event.factory.UserInteractionHandlerFactory;
 
 /**
  * Custom combo box widget that display list of options on the popup.
- *
+ * 
  * Use {@link #addOption(IsWidget, IsWidget)} to add options.
- *
+ * 
  * @author rrybacki@ydp.com.pl
  */
 // TODO commit
@@ -51,6 +51,7 @@ public class ExListBox extends Composite implements IsExListBox {
 	private final ExListBoxPopup popupContents;
 	private final PopupPanel popupPanel;
 	private final List<ExListBoxOption> options;
+	private ExListBoxOpenCloseListener openCloseListener;
 
 	private int selectedIndex = 0;
 	private boolean enabled = true;
@@ -75,6 +76,12 @@ public class ExListBox extends Composite implements IsExListBox {
 		addShowListBoxHandler(baseContainer);
 	}
 
+	@Override
+	public void addOpenCloseListener(ExListBoxOpenCloseListener openCloseListener) {
+		this.openCloseListener = openCloseListener;
+		popupPanel.addCloseHandler(openCloseListener);
+	}
+
 	private void addShowListBoxHandler(Panel baseContainer) {
 		Command showListBox = createShowListBoxCommand();
 		EventHandlerProxy showListboxClickHandler = userInteractionHandlerFactory.createUserClickHandler(showListBox);
@@ -88,11 +95,18 @@ public class ExListBox extends Composite implements IsExListBox {
 				if (enabled) {
 					updateOptionButtonsSelection();
 					popupPanel.show();
+					fireOpenEvent();
 					updatePosition();
 				}
 			}
 		};
 		return showListBox;
+	}
+
+	private void fireOpenEvent() {
+		if (openCloseListener != null) {
+			openCloseListener.onOpen();
+		}
 	}
 
 	@Override
