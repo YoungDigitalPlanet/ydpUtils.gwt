@@ -35,7 +35,7 @@ import eu.ydp.gwtutil.junit.runners.ExMockRunner;
 import eu.ydp.gwtutil.junit.runners.PrepareForTest;
 
 @RunWith(ExMockRunner.class)
-@PrepareForTest(Widget.class)
+@PrepareForTest({Widget.class,NativeEvent.class})
 public class CustomPushButtonEventHandlerJUnitTest {
 
 	private final UserInteractionHandlerFactory userInteractionHandlerFactory = spy(new UserInteractionHandlerFactory());
@@ -70,6 +70,7 @@ public class CustomPushButtonEventHandlerJUnitTest {
 
 		ArgumentCaptor<ClickEvent> eventCaptor = ArgumentCaptor.forClass(ClickEvent.class);
 		verify(clickHandler).onClick(eventCaptor.capture());
+		verify(nativeEvent).preventDefault();
 		assertEquals(click.getNativeEvent(), eventCaptor.getValue().getNativeEvent());
 	}
 

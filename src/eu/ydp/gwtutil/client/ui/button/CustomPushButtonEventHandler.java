@@ -41,7 +41,7 @@ public class CustomPushButtonEventHandler extends EventHandlerRegistrator<ClickH
 	private <EH extends ClickHandler> HandlerRegistration addHandler(EH handler, Type<EH> key) {
 		return super.addHandler(handler, key);
 	}
-	
+
 	private void setUserInteractionHandler() {
 		if (!isUserInteractionHandlerAdded) {
 			isUserInteractionHandlerAdded = true;
@@ -49,11 +49,12 @@ public class CustomPushButtonEventHandler extends EventHandlerRegistrator<ClickH
 			userClickHandler.apply(pushButton);
 		}
 	}
-	
+
 	private EventHandlerProxy createUserClickHandler() {
 		EventHandlerProxy userClickHandler = interactionHandlerFactory.createUserClickHandler(new Command() {
 			@Override
 			public void execute(NativeEvent event) {
+				event.preventDefault();
 				fireEvent(new CustomClickEvent(event));
 			}
 		});
