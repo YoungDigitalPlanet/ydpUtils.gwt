@@ -56,7 +56,7 @@ public class AbstractStateHelperTest extends AbstractTestBase {
 		AbstractStateHelper helper = mock(AbstractStateHelper.class);
 		helper.jsonService = jsonService;
 		when(helper.exportState(inState)).thenCallRealMethod();
-		when(helper.getTargetVersion()).thenCallRealMethod();
+		when(helper.getTargetVersion()).thenReturn(0);
 
 		// when
 		YJsonValue exportedState = helper.exportState(inState);
