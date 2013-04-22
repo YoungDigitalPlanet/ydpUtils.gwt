@@ -82,7 +82,7 @@ public class StateConverterTest extends AbstractTestBase {
 	
 	private IStateConvertionStrategy prepareVesrionStrategy(int version){
 		IStateConvertionStrategy strategy = mock(IStateConvertionStrategy.class);
-		when(strategy.getVersion()).thenReturn(version);
+		when(strategy.getStartVersion()).thenReturn(version);
 		
 		return strategy;
 	}

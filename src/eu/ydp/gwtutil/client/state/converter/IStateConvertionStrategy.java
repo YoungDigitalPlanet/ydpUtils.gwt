@@ -4,5 +4,6 @@ import eu.ydp.gwtutil.client.json.YJsonValue;
 
 public interface IStateConvertionStrategy {
 	YJsonValue convert(YJsonValue jsonState);
-	int getVersion();
+
+	int getStartVersion();
 }

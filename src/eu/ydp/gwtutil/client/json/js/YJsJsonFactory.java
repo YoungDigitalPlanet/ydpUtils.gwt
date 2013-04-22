@@ -15,32 +15,37 @@ import eu.ydp.gwtutil.client.json.YJsonValue;
 
 public final class YJsJsonFactory {
 
-	private YJsJsonFactory(){}
-	
-	public static YJsonValue create(JSONValue json){
-		if (json.isArray() != null){
+	private YJsJsonFactory() {
+	}
+
+	public static YJsonValue create(JSONValue json) {
+		if (json.isArray() != null) {
 			return new YJsJsonArray(json.isArray());
 		}
-		if (json.isString() != null){
+		if (json.isString() != null) {
 			return new YJsJsonString(json.isString());
 		}
-		if (json.isNumber() != null){
+		if (json.isNumber() != null) {
 			return new YJsJsonNumber(json.isNumber());
 		}
-		if (json.isObject() != null){
+		if (json.isObject() != null) {
 			return new YJsJsonObject(json.isObject());
 		}
-		if(json.isBoolean() != null){
+		if (json.isBoolean() != null) {
 			return new YJsJsonBoolean(json.isBoolean());
 		}
 		return new YJsJsonValue(json);
 	}
-	
-	public static YJsonArray createArray(){
+
+	public static YJsonArray createArray() {
 		return new YJsJsonArray(new JSONArray());
 	}
-	
-	public static YJsonString createString(String v){
+
+	public static YJsonArray createArray(JSONArray jsonArray) {
+		return new YJsJsonArray(jsonArray);
+	}
+
+	public static YJsonString createString(String v) {
 		return new YJsJsonString(new JSONString(v));
 	}
 
@@ -51,8 +56,8 @@ public final class YJsJsonFactory {
 	public static YJsonObject createObject() {
 		return new YJsJsonObject(new JSONObject());
 	}
-	
-	public static YJsonBoolean createBoolean(boolean bool){
+
+	public static YJsonBoolean createBoolean(boolean bool) {
 		return new YJsJsonBoolean(JSONBoolean.getInstance(bool));
 	}
 }

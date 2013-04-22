@@ -1,10 +1,9 @@
 package eu.ydp.gwtutil.client.state;
 
-import static junitparams.JUnitParamsRunner.$;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static junitparams.JUnitParamsRunner.*;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 
@@ -24,62 +23,57 @@ import eu.ydp.gwtutil.json.YNativeJsonFactory;
 
 @RunWith(JUnitParamsRunner.class)
 public class AbstractStateHelperTest extends AbstractTestBase {
-	
-	
-	private IJSONService jsonService;	
-	
-	@Override	
+
+	private IJSONService jsonService;
+
+	@Override
 	public void setUp() {
-		
+
 		super.setUp();
 		jsonService = injector.getInstance(IJSONService.class);
 	}
-	
+
 	@Test
-	public void testImportState(){
-		//given
+	public void testImportState() {
+		// given
 		AbstractStateHelper helper = mock(AbstractStateHelper.class);
-		YJsonValue inState = YNativeJsonFactory.createObject();		
+		YJsonValue inState = YNativeJsonFactory.createObject();
 		when(helper.importState(inState)).thenCallRealMethod();
 		when(helper.prepareStateConverters()).thenReturn(new ArrayList<StateConverter>());
-		
-		//when
+
+		// when
 		YJsonValue outState = helper.importState(inState);
-		
-		//then
-		assertThat(inState, equalTo(outState));		
-		
-	}	
-	
+
+		// then
+		assertThat(inState, equalTo(outState));
+
+	}
+
 	@Test
-	@Parameters(method="exportStateParams")
-	public void testExportState(YJsonValue inState){
-		//given
-		AbstractStateHelper helper = mock(AbstractStateHelper.class);		
+	@Parameters(method = "exportStateParams")
+	public void testExportState(YJsonValue inState) {
+		// given
+		AbstractStateHelper helper = mock(AbstractStateHelper.class);
 		helper.jsonService = jsonService;
 		when(helper.exportState(inState)).thenCallRealMethod();
-		when(helper.getVersion()).thenCallRealMethod();
-		
-		//when
+		when(helper.getTargetVersion()).thenCallRealMethod();
+
+		// when
 		YJsonValue exportedState = helper.exportState(inState);
-		
-		//then
-		if(inState instanceof YJsonArray){
+
+		// then
+		if (inState instanceof YJsonArray) {
 			assertThat(exportedState, equalTo(inState));
-		}
-		else{
+		} else {
 			YJsonNumber version = exportedState.isObject().get(StateVersion.VERSION_FIELD).isNumber();
-			assertThat(version.numberValue().intValue(), equalTo(helper.getVersion()));
+			assertThat(version.numberValue().intValue(), equalTo(helper.getTargetVersion()));
 		}
-		
+
 	}
-	
+
 	@SuppressWarnings("unused")
-	private Object[] exportStateParams() {		
-        return $(
-                     $(YNativeJsonFactory.createObject()),
-                     $(YNativeJsonFactory.createArray())                     
-                );
-    }
+	private Object[] exportStateParams() {
+		return $($(YNativeJsonFactory.createObject()), $(YNativeJsonFactory.createArray()));
+	}
 
 }

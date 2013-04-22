@@ -148,7 +148,7 @@ public class StateImporterTest {
 	
 	private StateConverter prepareStateConverter(int version, YJsonValue inState, YJsonValue outState){
 		IStateConvertionStrategy strategy = mock(IStateConvertionStrategy.class);
-		when(strategy.getVersion()).thenReturn(version);		
+		when(strategy.getStartVersion()).thenReturn(version);		
 		when(strategy.convert(inState)).thenReturn(outState);
 			 
 		
