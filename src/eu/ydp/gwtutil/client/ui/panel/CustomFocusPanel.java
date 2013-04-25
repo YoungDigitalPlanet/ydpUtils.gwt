@@ -8,7 +8,9 @@ public class CustomFocusPanel extends FocusPanel {
 	
 	public CustomFocusPanel() {
 		super();
-		InputToButtonReplacer.changeInputTypeToButton(this);
+		InputToButtonReplacer replacer = new InputToButtonReplacer();
+		replacer.changeInputTypeToButton(this);
+		
 	}
 
 }

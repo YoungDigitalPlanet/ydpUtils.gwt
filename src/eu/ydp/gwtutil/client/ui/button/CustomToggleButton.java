@@ -8,7 +8,8 @@ public class CustomToggleButton extends ToggleButton {
 	
 	public CustomToggleButton() {
 		super();
-		InputToButtonReplacer.changeInputTypeToButton(this);
+		InputToButtonReplacer replacer = new InputToButtonReplacer();
+		replacer.changeInputTypeToButton(this);
 	}
 
 }
