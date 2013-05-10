@@ -258,4 +258,19 @@ public final class XMLUtils {
 		return mapParams;		
 		
 	}
+	
+	public static NodeList getChildrenByTagName(Element node, String name) {
+				
+		YNodeListImpl nodeList = new YNodeListImpl();
+		NodeList children = node.getChildNodes();
+		Node child;
+	    for(int i = 0; i < children.getLength(); i++ ){
+	    	child = children.item(i);
+	    	if(child.getNodeType() == Node.ELEMENT_NODE && name.equals(child.getNodeName())) {
+	    		nodeList.add((Element)child);
+	    	}
+	    }		
+		
+	    return nodeList;
+	  }
 }
