@@ -263,9 +263,9 @@ public final class XMLUtils {
 				
 		YNodeListImpl nodeList = new YNodeListImpl();
 		NodeList children = node.getChildNodes();
-		Node child;
+		
 	    for(int i = 0; i < children.getLength(); i++ ){
-	    	child = children.item(i);
+	    	Node child = children.item(i);
 	    	if(child.getNodeType() == Node.ELEMENT_NODE && name.equals(child.getNodeName())) {
 	    		nodeList.add((Element)child);
 	    	}
