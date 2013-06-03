@@ -1,10 +1,22 @@
 package eu.ydp.gwtutil.client.event.factory;
 
 import com.google.gwt.event.dom.client.TouchEvent;
+import com.google.gwt.user.client.ui.IsWidget;
 
 import eu.ydp.gwtutil.client.util.UserAgentChecker;
 
 public class UserInteractionHandlerFactory {
+	
+	public void applyUserClickHandler(Command command, IsWidget widget) {
+		EventHandlerProxy proxy;
+		if (isTouchSupported()) {
+			proxy = new ClickByTouchProxy(command);
+		} else {
+			proxy = new ClickEventProxy(command);
+		}
+		proxy.apply(widget.asWidget());
+	}
+	
 	public EventHandlerProxy createUserClickHandler(Command command) {
 		if (isTouchSupported()) {
 			return new ClickByTouchProxy(command);
