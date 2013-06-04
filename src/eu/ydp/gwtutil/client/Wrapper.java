@@ -5,6 +5,12 @@ public class Wrapper<T>{
 	public static <T> Wrapper<T> of(Class<T> cls){
 		return new Wrapper<T>();
 	}
+
+	public static <T> Wrapper<T> of(T obj){
+		Wrapper<T> wrapper = new Wrapper<T>();
+		wrapper.setInstance(obj);
+		return wrapper;
+	}
 	
 	/**
 	 * @return {@link Wrapper} that throws {@link NullPointerException} in case when {@link #getInstance()} is called before instance has been set with {@link #setInstance(Object)}
