@@ -21,6 +21,7 @@ public class UserAgentCheckerJUnitTest {
 		browsers.put("Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))", UserAgent.IE9);
 		browsers.put("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; Media Center PC 6.0; InfoPath.3; MS-RTC LM 8; Zune 4.7)",
 				UserAgent.IE9);
+		browsers.put("Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)", UserAgent.IE10);
 		return browsers;
 	}
 
