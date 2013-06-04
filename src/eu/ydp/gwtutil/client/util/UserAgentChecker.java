@@ -70,6 +70,7 @@ public class UserAgentChecker {
 		GECKO1_8("gecko1_8", "^(((?!.*like).*)(.*gecko.*))$"),
 		OPERA("opera", ".*opera.*"),
 		IE9("ie9", ".*msie[ ]*9.*"),
+		IE10("ie10", ".*msie[ ]*10.*"),
 		IE8("ie8",".*msie[ ]*[78]{1}.*trident\\/4.*"),
 		SAFARI("safari", ".*webkit.*"),
 		ALL("all", ".*");
