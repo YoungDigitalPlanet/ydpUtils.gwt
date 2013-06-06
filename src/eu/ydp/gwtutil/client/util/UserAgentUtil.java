@@ -14,5 +14,6 @@ public interface UserAgentUtil {
 	public MobileUserAgent getMobileUserAgent();
 	public boolean isLocal();
 	public boolean isAIR();
+	boolean isInsideIframe();
 
 }

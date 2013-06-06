@@ -2,13 +2,17 @@ package eu.ydp.gwtutil.client.util;
 
 import com.google.inject.Inject;
 
+import eu.ydp.gwtutil.client.debug.gwtlogger.Logger;
 import eu.ydp.gwtutil.client.util.UserAgentChecker.BrowserUserAgent;
 import eu.ydp.gwtutil.client.util.UserAgentChecker.MobileUserAgent;
 
 public class UserAgentUtilImpl implements UserAgentUtil {
+	
+	private static final Logger LOGGER = new Logger();
+
 	@Inject
 	protected BrowserNativeInterface nativeInterface;
-
+	
 	protected static Boolean isStackAndroidBrowser = null;
 	protected static MobileUserAgent mobileUserAgent = null;
 
@@ -86,6 +90,31 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 		return nativeInterface.isLocal();
 	}
 
+	
+	/*
+	 * It's not proven that this method is working correctly on all browsers. If specific browser is not listed below as tested, it's recommended to test it before use.
+	 * 
+	 */
+	@Override
+	public boolean isInsideIframe(){
+		boolean isInsideIframe = !isCurrentWindowTop();
+		
+		LOGGER.info("UserAgentUtil.isInsideIframe - returned "+isInsideIframe);
+		return isInsideIframe;
+	}
+	
+	/*
+	 * It's not proven that this method is working correctly on all browsers. If specific browser is not listed below as tested, it's recommended to test it before use.
+	 * 
+	 */
+	public native boolean isCurrentWindowTop() /*-{
+		if(top === self){
+			return true;
+		}else{
+			return false;
+		}
+	}-*/;
+	
 	@Override
 	public native boolean isAIR() /*-{
 		return $wnd.navigator.isAIR;
