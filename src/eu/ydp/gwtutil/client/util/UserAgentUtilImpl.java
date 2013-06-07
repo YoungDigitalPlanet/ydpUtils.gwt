@@ -91,8 +91,8 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 	}
 
 	
-	/*
-	 * It's not proven that this method is working correctly on all browsers. If specific browser is not listed below as tested, it's recommended to test it before use.
+	/**
+	 * It's not proven that this method is working correctly on all browsers. Checked for Safari.
 	 * 
 	 */
 	@Override
@@ -103,8 +103,8 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 		return isInsideIframe;
 	}
 	
-	/*
-	 * It's not proven that this method is working correctly on all browsers. If specific browser is not listed below as tested, it's recommended to test it before use.
+	/**
+	 * It's not proven that this method is working correctly on all browsers. Checked for Safari.
 	 * 
 	 */
 	public native boolean isCurrentWindowTop() /*-{
