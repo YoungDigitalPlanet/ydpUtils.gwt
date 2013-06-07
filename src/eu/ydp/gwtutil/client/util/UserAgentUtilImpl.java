@@ -12,7 +12,7 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 
 	@Inject
 	protected BrowserNativeInterface nativeInterface;
-	
+
 	protected static Boolean isStackAndroidBrowser = null;
 	protected static MobileUserAgent mobileUserAgent = null;
 
@@ -119,5 +119,10 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 	public native boolean isAIR() /*-{
 		return $wnd.navigator.isAIR;
 	}-*/;
+
+	@Override
+	public boolean isIE() {
+		return nativeInterface.isUserAgent(".*msie[ ]*[0-9]{1,2}.*trident.*", getUserAgentStrting());
+	}
 
 }

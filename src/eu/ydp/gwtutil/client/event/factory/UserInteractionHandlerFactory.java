@@ -6,7 +6,7 @@ import com.google.gwt.user.client.ui.IsWidget;
 import eu.ydp.gwtutil.client.util.UserAgentChecker;
 
 public class UserInteractionHandlerFactory {
-	
+
 	public void applyUserClickHandler(Command command, IsWidget widget) {
 		EventHandlerProxy proxy;
 		if (isTouchSupported()) {
@@ -16,7 +16,7 @@ public class UserInteractionHandlerFactory {
 		}
 		proxy.apply(widget.asWidget());
 	}
-	
+
 	public EventHandlerProxy createUserClickHandler(Command command) {
 		if (isTouchSupported()) {
 			return new ClickByTouchProxy(command);

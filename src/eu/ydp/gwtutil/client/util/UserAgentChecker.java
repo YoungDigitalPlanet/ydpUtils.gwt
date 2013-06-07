@@ -69,9 +69,9 @@ public class UserAgentChecker {
 	public enum UserAgent implements BrowserUserAgent{
 		GECKO1_8("gecko1_8", "^(((?!.*like).*)(.*gecko.*))$"),
 		OPERA("opera", ".*opera.*"),
-		IE9("ie9", ".*msie[ ]*9.*"),
-		IE10("ie10", ".*msie[ ]*10.*"),
-		IE8("ie8",".*msie[ ]*[78]{1}.*trident\\/4.*"),
+		IE8("ie8",".*msie[ ]*[78]{1}.*trident.*"),
+		IE9("ie9", ".*msie[ ]*9.*trident.*"),
+		IE10("ie10", ".*msie[ ]*10.*trident.*"),
 		SAFARI("safari", ".*webkit.*"),
 		ALL("all", ".*");
 		private final String tagName, regexPattern;
@@ -198,6 +198,10 @@ public class UserAgentChecker {
 	 */
 	public static boolean isAIR() {
 		return userAgentUtilImpl.isAIR();
+	}
+
+	public static boolean isIE(){
+		return userAgentUtilImpl.isIE();
 	}
 
 }

@@ -1,10 +1,15 @@
 package eu.ydp.gwtutil.client.util;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.google.common.collect.Sets;
 
 import eu.ydp.gwtutil.client.util.UserAgentChecker.MobileUserAgent;
 import eu.ydp.gwtutil.client.util.UserAgentChecker.UserAgent;
@@ -18,7 +23,8 @@ public class UserAgentCheckerJUnitTest {
 		browsers.put("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:14.0) Gecko/20100101 Firefox/14.0.1", UserAgent.GECKO1_8);
 		browsers.put("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; de) Opera 11.51", UserAgent.OPERA);
 		browsers.put("Opera/9.80 (X11; Linux i686; U; hu) Presto/2.9.168 Version/11.50", UserAgent.OPERA);
-		browsers.put("Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))", UserAgent.IE9);
+		browsers.put("Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; InfoPath.3; Creative AutoUpdate v1.40.02)", UserAgent.IE8);
+		browsers.put("Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Win64; x64; Trident/4.0; .NET CLR 2.0.50727; SLCC2; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; Tablet PC 2.0)", UserAgent.IE8);
 		browsers.put("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; Media Center PC 6.0; InfoPath.3; MS-RTC LM 8; Zune 4.7)",
 				UserAgent.IE9);
 		browsers.put("Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)", UserAgent.IE10);
@@ -85,6 +91,17 @@ public class UserAgentCheckerJUnitTest {
 		}
 	}
 
+	@Test
+	public void userAgentIE() {
+		Set<UserAgent> ieAgents = Sets.newHashSet(UserAgent.IE8,UserAgent.IE9, UserAgent.IE10);
+		for (Map.Entry<String, UserAgent> ua : getDesktop().entrySet()) {
+			BrowserNativeInterface nativeInterface = UserAgentCheckerNativeInterfaceMock.getNativeInterfaceMock(ua.getKey());
+			UserAgentChecker.setNativeInterface(nativeInterface);
+			System.out.println(ieAgents.contains(ua.getKey()) +"  "+ UserAgentChecker.isIE()+" "+ua.getValue()+" "+ua.getKey().toLowerCase());
+			assertTrue(ieAgents.contains(ua.getValue()) == UserAgentChecker.isIE());
+
+		}
+	}
 	@Test
 	public void stackAndroidBrowserUserAgentTest() {
 		Map<String, MobileUserAgent> androidUserAgents = getMobile();
