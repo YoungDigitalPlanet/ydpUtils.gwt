@@ -32,7 +32,7 @@ public class UserAgentDesktopCheckerJUnitTest {
 
 	private Set<String> getIe9Desktop() {
 		Set<String> browsers = new HashSet<String>();
-		browsers.add("Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))");
+		browsers.add("Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; Trident/5.0; en-US))");
 		browsers.add("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; Media Center PC 6.0; InfoPath.3; MS-RTC LM 8; Zune 4.7)");
 		browsers.add("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET CLR 2.0.50727; Media Center PC 6.0)");
 		browsers.add("Mozilla/4.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/4.0; FDM; MSIECrawler; Media Center PC 5.0)");
