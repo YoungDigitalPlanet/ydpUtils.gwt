@@ -1,0 +1,8 @@
+build/
+dist/
+gwt-unitCache/
+ivy-lib/
+reports/
+test-classes/
+war/eu.ydp.gwtutil.YdpGwtUtil.JUnit/
+war/WEB-INF/deploy/
