@@ -1,5 +1,14 @@
 package eu.ydp.gwtutil.xml;
 
+import java.io.StringWriter;
+
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.xml.client.CDATASection;
 import com.google.gwt.xml.client.Comment;
 import com.google.gwt.xml.client.Document;
@@ -9,6 +18,8 @@ import com.google.gwt.xml.client.Node;
 import com.google.gwt.xml.client.NodeList;
 import com.google.gwt.xml.client.ProcessingInstruction;
 import com.google.gwt.xml.client.Text;
+
+import eu.ydp.gwtutil.client.debug.logger.Debug;
 
 public class DocumentWrapper extends NodeWrapper implements Document {
 
@@ -67,5 +78,10 @@ public class DocumentWrapper extends NodeWrapper implements Document {
 	@Override
 	public Node importNode(Node importedNode, boolean deep) {
 		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public String toString() {
+		return XMLParser.nodeToString(document);
 	}
 }
