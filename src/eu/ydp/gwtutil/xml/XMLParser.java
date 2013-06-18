@@ -1,10 +1,18 @@
 package eu.ydp.gwtutil.xml;
 
 import java.io.StringReader;
+import java.io.StringWriter;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
+import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 
 import com.google.gwt.xml.client.Document;
@@ -36,6 +44,19 @@ public final class XMLParser {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static String nodeToString( Node node ){
+		StringWriter sw = new StringWriter();
+		try {
+			Transformer t = TransformerFactory.newInstance().newTransformer();
+			t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+			t.setOutputProperty(OutputKeys.INDENT, "yes");
+			t.transform(new DOMSource(node), new StreamResult(sw));
+		} catch (TransformerException te) {
+			System.out.println("nodeToString Transformer Exception"); // NOPMD
+		}
+		return sw.toString();
 	}
 
 }
