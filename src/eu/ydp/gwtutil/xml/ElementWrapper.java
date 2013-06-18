@@ -69,15 +69,6 @@ public class ElementWrapper extends NodeWrapper implements Element {
 	
 	@Override
 	public String toString(){
-		StringWriter sw = new StringWriter();
-		try {
-			Transformer t = TransformerFactory.newInstance().newTransformer();
-			t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-			t.setOutputProperty(OutputKeys.INDENT, "yes");
-			t.transform(new DOMSource(node), new StreamResult(sw));
-		} catch (TransformerException te) {
-			System.out.println("nodeToString Transformer Exception"); // NOPMD
-		}
-		return sw.toString();
+		return XMLParser.nodeToString(node);
 	}
 }
