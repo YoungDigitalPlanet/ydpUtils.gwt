@@ -10,15 +10,17 @@ import com.google.gwt.core.client.JsArrayString;
 public class CollectionsUtil {
 
 	public static <T> Collection<T> fill(Collection<T> collection, T value, int count){
-		for (int i = 0 ; i < count ; i ++ )
+		for (int i = 0 ; i < count ; i ++ ) {
 			collection.add(value);
+		}
 		return collection;
 	}
 
 	public static <T> List<T> fillList(T value, int count){
 		List<T> collection = new ArrayList<T>();
-		for (int i = 0 ; i < count ; i ++ )
+		for (int i = 0 ; i < count ; i ++ ) {
 			collection.add(value);
+		}
 		return collection;
 	}
 	
@@ -33,7 +35,7 @@ public class CollectionsUtil {
 		return -1;
 	}
 	
-	public static int intCollectionSum(Collection<? extends Number> collection){
+	public static int intCollectionSum(Iterable<? extends Number> collection) {
 		int sum = 0;
 		for (Number value : collection){
 			sum += value.intValue();
