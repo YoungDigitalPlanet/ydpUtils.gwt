@@ -3,7 +3,7 @@ package eu.ydp.gwtutil.client.predicate;
 import javax.annotation.Nullable;
 
 import com.google.common.base.Predicate;
-import com.google.gwt.thirdparty.guava.common.base.Strings;
+import com.google.common.base.Strings;
 
 public class StringPredicates {
 	/**
