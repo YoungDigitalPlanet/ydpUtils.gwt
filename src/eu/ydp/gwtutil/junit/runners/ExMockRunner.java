@@ -27,6 +27,8 @@ import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.MultipleFailureException;
 import org.junit.runners.model.Statement;
 
+import eu.ydp.gwtutil.junit.runners.exmockrunner.JAssistClassModifier;
+
 /**
  * Implements the JUnit 4 standard test case class model, as defined by the annotations in the org.junit package. Many users will never notice this class: it is now the default test class runner, but it should have exactly the same behavior as the old test class runner ({@code JUnit4ClassRunner}).
  *
@@ -45,8 +47,8 @@ public class ExMockRunner extends ParentRunner<FrameworkMethod> {
 	 * @throws InitializationError
 	 *             if the test class is malformed.
 	 */
-	public ExMockRunner(Class<?> klass) throws InitializationError {
-		super(new JAssistClassLoader(klass).getModifyClass());
+	public ExMockRunner(Class<?> clazz) throws InitializationError {
+		super(new JAssistClassModifier(clazz).getModifyClass());
 	}
 
 	//
