@@ -22,22 +22,26 @@ class MethodReturnTypeMapper {
 	}
 
 	private boolean isRealNumberReturnType(CtMethod method) throws NotFoundException {
-		return Type.get(method.getReturnType()).equals(Type.FLOAT)
-			|| Type.get(method.getReturnType()).equals(Type.DOUBLE);
+		Type returnType = Type.get(method.getReturnType());
+		return returnType.equals(Type.FLOAT)
+			|| returnType.equals(Type.DOUBLE);
 	}
 
 	private boolean isNumberReturnType(CtMethod method) throws NotFoundException {
-		return Type.get(method.getReturnType()).equals(Type.INTEGER)
-			|| Type.get(method.getReturnType()).equals(Type.SHORT)
-			|| Type.get(method.getReturnType()).equals(Type.BYTE)
-			|| Type.get(method.getReturnType()).equals(Type.LONG);
+		Type returnType = Type.get(method.getReturnType());
+		return returnType.equals(Type.INTEGER)
+			|| returnType.equals(Type.SHORT)
+			|| returnType.equals(Type.BYTE)
+			|| returnType.equals(Type.LONG);
 	}
 
 	private boolean isCharReturnType(CtMethod method) throws NotFoundException {
-		return Type.get(method.getReturnType()).equals(Type.CHAR);
+		Type returnType = Type.get(method.getReturnType());
+		return returnType.equals(Type.CHAR);
 	}
 
 	private boolean isBooleanReturnType(CtMethod method) throws NotFoundException {
-		return Type.get(method.getReturnType()).equals(Type.BOOLEAN);
+		Type returnType = Type.get(method.getReturnType());
+		return returnType.equals(Type.BOOLEAN);
 	}
 }

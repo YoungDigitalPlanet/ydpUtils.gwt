@@ -21,15 +21,13 @@ class JAssistClassConverter {
 	}
 
 	public CtClass prepareClass(ClassPool pool, String clazz) throws NotFoundException, CannotCompileException {
+		CtClass ctClass = pool.get(clazz);
 		if (toModifyClassFinder.isModifyNeeded(clazz)) {
-			CtClass ctClass = pool.get(clazz);
 			defrostIfNeeded(ctClass);
 			removeFinal(ctClass);
 			removeNative(ctClass);
-			return ctClass;
-		} else {
-			return pool.get(clazz);
 		}
+		return ctClass;
 	}
 
 	private void defrostIfNeeded(CtClass ctClass) {
