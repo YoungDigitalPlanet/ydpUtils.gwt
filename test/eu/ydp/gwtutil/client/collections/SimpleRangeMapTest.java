@@ -12,7 +12,7 @@ public class SimpleRangeMapTest {
 
 	@Test
 	public void get() throws Exception {
-		SimpleRangeMap<Integer, String> instance = SimpleRangeMap.create();
+		SimpleRangeMap<Integer, String> instance = SimpleRangeMap.<Integer, String>create();
 		String value = "1-10";
 		instance.put(Range.closed(1, 10), value);
 		for (int x = 1; x <= 10; ++x) {
@@ -50,7 +50,7 @@ public class SimpleRangeMapTest {
 
 	@Test
 	public void create() throws Exception {
-		assertNotNull(SimpleRangeMap.create());
+		assertNotNull(SimpleRangeMap.<Integer, String>create());
 	}
 
 }
