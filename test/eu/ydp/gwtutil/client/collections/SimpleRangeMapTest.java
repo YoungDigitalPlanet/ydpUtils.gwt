@@ -30,7 +30,7 @@ public class SimpleRangeMapTest {
 
 	@Test
 	public void getMultipleRange() throws Exception {
-		SimpleRangeMap<Integer, String> instance = SimpleRangeMap.create();
+		SimpleRangeMap<Integer, String> instance = SimpleRangeMap.<Integer, String>create();
 		String value1_10 = "1-10";
 		instance.put(Range.closed(1, 10), value1_10);
 		String value12_17 = "12-18";
