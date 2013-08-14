@@ -5,7 +5,7 @@ import java.util.Map;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Range;
 
-public class SimpleRangeMap<K extends Comparable<?>, V> {
+public class SimpleRangeMap<K extends Comparable<? extends K>, V> {
 	private final Map<Range<K>, V> mapWithRange = Maps.newHashMap();
 
 	public void put(Range<K> range, V value) {
@@ -21,7 +21,7 @@ public class SimpleRangeMap<K extends Comparable<?>, V> {
 		return null;
 	}
 
-	public static <K extends Comparable<?>, V> SimpleRangeMap<K, V> create(){
+	public static <K extends Comparable<? extends K>, V> SimpleRangeMap<K, V> create(){
 		return new SimpleRangeMap<K, V>();
 	}
 }
