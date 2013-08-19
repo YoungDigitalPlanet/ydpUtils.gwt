@@ -23,6 +23,7 @@
 	<dependency org="org.mockito" name="mockito-all" rev="1.9.0" conf="test->default"/>
 	<dependency org="com.google.gwt.inject" name="gin" rev="1.5.0"  conf="*->default"/>
 	<dependency org="org.javassist" name="javassist" rev="3.17.1-GA"  conf="*->default"/>
+	<dependency org="org.easytesting" name="fest-assert-core" rev="2.0M10" conf="test->default"/>
 	<dependency name="JUnitParams" transitive="false" rev="1.0.1" org="pl.pragmatists" conf="test->default" />
   </dependencies>
 </ivy-module>
