@@ -9,7 +9,7 @@ import com.google.inject.Module;
 public class AbstractMockingTestBase<T extends Module & Mocking> {
 
 	protected Injector injector;
-	private Class<T> testModuleClass;
+	private final Class<T> testModuleClass;
 	
 	public AbstractMockingTestBase(Class<T> testModuleClass){
 		this.testModuleClass = testModuleClass;
@@ -30,6 +30,26 @@ public class AbstractMockingTestBase<T extends Module & Mocking> {
 		} catch (Exception e) {
 			throw new RuntimeException("Problem while creating instance of Guice module. Make sure that there is no-arg constructor available in the module.", e);
 		}
+	}
+	
+	private T createRealInstance(Class<?>... classesToMock){
+		try {
+			T inst =  testModuleClass.getConstructor().newInstance();
+			inst.mockOnlySelected(classesToMock);
+			return inst;
+		} catch (ClassCastException e) {
+			throw new IllegalArgumentException("Problem while creating instance of Guice module. Arguments mismatch. An array or arrays of Class objects was expected.", e);
+		} catch (Exception e) {
+			throw new RuntimeException("Problem while creating instance of Guice module. Make sure that there is no-arg constructor available in the module.", e);
+		}
+	}
+
+	/**
+	 * <p>Setup test class, all injections will be done according to the Guice test
+	 * module.</p>
+	 */
+	public void setUpAllRealExcept(Class<?>... classesToMock) {
+		injector = Guice.createInjector(createRealInstance(classesToMock));
 	}
 
 	/**
