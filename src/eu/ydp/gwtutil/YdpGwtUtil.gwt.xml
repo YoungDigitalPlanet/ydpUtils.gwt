@@ -4,7 +4,7 @@
     <inherits name="com.google.gwt.logging.Logging"/>
     <inherits name="javax.annotation.Annotation"/>
 	<inherits name="com.google.common.collect.Collect"/>
-	
+
 	<source path='client' />
 
 	<define-property name="mobile.user.agent" values="android23" />
@@ -22,7 +22,7 @@
 	<property-provider name="mobile.user.agent" generator="eu.ydp.gwtutil.user.rebind.MobileUserAgentPropertyGenerator" />
 
 	<collapse-property name="mobile.user.agent" values="*" />
-	
+
 	<script src="swfobject/swfobject.js" />
 
 	<!-- Debug -->
@@ -51,19 +51,19 @@
 			<when-property-is name="mobile.user.agent" value="chrome" />
 		</any>
 	</replace-with>
-	
+
   <set-property name="gwt.logging.enabled" value="TRUE"/>
-  <set-property name="gwt.logging.popupHandler" value="DISABLED" />    
+  <set-property name="gwt.logging.popupHandler" value="DISABLED" />
   <set-property name="gwt.logging.consoleHandler" value="DISABLED" />
-  <set-property name="gwt.logging.developmentModeHandler" value="DISABLED" />  
+  <set-property name="gwt.logging.developmentModeHandler" value="DISABLED" />
   <set-property name="gwt.logging.systemHandler" value="DISABLED" />
-  
+
   <collapse-property name="gwt.logging.systemHandler" values="*" />
   <collapse-property name="gwt.logging.developmentModeHandler" values="*" />
   <collapse-property name="gwt.logging.consoleHandler" values="*" />
   <collapse-property name="gwt.logging.popupHandler" values="*" />
   <collapse-property name="gwt.logging.enabled" values="*" />
-  
+
   <define-property name="debugMode" values="none,popup,console,both" />
   <property-provider name="debugMode"><![CDATA[
        {
@@ -74,32 +74,32 @@
      ]]>
   </property-provider>
   <collapse-property name="debugMode" values="*" />
-  
+
   <set-property name="gwt.logging.enabled" value="FALSE">
   	<when-property-is name="debugMode" value="none"/>
   </set-property>
-  
+
   <set-property name="gwt.logging.popupHandler" value="ENABLED">
   	<any>
   		<when-property-is name="debugMode" value="popup"/>
   		<when-property-is name="debugMode" value="both"/>
-  	</any>  	
+  	</any>
   </set-property>
   <set-property name="gwt.logging.consoleHandler" value="ENABLED">
   	<any>
   		<when-property-is name="debugMode" value="console"/>
   		<when-property-is name="debugMode" value="both"/>
-  	</any>  	
+  	</any>
   </set-property>
-    
+
   <generate-with class="eu.ydp.gwtutil.user.rebind.constants.StringConstantsGenerator">
 	<when-type-assignable class="eu.ydp.gwtutil.client.constants.StringConstants" />
   </generate-with>
-  
+
   <replace-with class="eu.ydp.gwtutil.client.xml.proxy.XMLProxyStandard">
     <when-type-is class="eu.ydp.gwtutil.client.xml.proxy.XMLProxy"/>
   </replace-with>
-  
+
   <replace-with class="eu.ydp.gwtutil.client.xml.proxy.XMLProxyIE6">
     <when-type-is class="eu.ydp.gwtutil.client.xml.proxy.XMLProxy"/>
     <any>
@@ -108,12 +108,56 @@
       <when-property-is name="user.agent" value="ie9"/>
     </any>
   </replace-with>
-  
-  <define-linker name="xsiframescripts" class="eu.ydp.gwtutil.core.linker.CrossSiteIframeWithScriptsLinker" />
+
+		<!-- ANIMATIONS -->
+
+	<replace-with class="com.google.gwt.user.client.impl.DOMImplMobileSafari">
+		<when-type-is class="com.google.gwt.user.client.impl.DOMImpl" />
+		<all>
+			<when-property-is name="user.agent" value="safari" />
+			<when-property-is name="mobile.user.agent" value="safari" />
+		</all>
+	</replace-with>
+
+	<replace-with class="com.google.gwt.user.client.impl.DOMImplSafariWithTransistion">
+		<when-type-is class="com.google.gwt.user.client.impl.DOMImpl" />
+		<all>
+			<when-property-is name="user.agent" value="safari" />
+		</all>
+	</replace-with>
+
+	<replace-with class="com.google.gwt.user.client.impl.DOMImplMozillaWithTransistions">
+		<when-type-is class="com.google.gwt.user.client.impl.DOMImpl" />
+		<all>
+			<when-property-is name="user.agent" value="gecko1_8" />
+		</all>
+	</replace-with>
+
+	<replace-with class="eu.ydp.gwtutil.client.event.animation.EventTypesDefault">
+		<when-type-is class="eu.ydp.gwtutil.client.event.animation.EventTypes" />
+	</replace-with>
+
+	<replace-with class="eu.ydp.gwtutil.client.event.animation.MozEventTypes">
+		<when-type-is class="eu.ydp.gwtutil.client.event.animation.EventTypes" />
+		<all>
+			<when-property-is name="user.agent" value="gecko1_8" />
+		</all>
+	</replace-with>
+
+	<replace-with class="eu.ydp.gwtutil.client.event.animation.SafariEventTypes">
+		<when-type-is class="eu.ydp.gwtutil.client.event.animation.EventTypes" />
+		<all>
+			<when-property-is name="user.agent" value="safari" />
+		</all>
+	</replace-with>
+
+	<!-- END ANIMATIONS -->
+
   <replace-with class="com.google.gwt.core.client.impl.ScriptTagLoadingStrategy">
     <when-type-is
       class="com.google.gwt.core.client.impl.AsyncFragmentLoader.LoadingStrategy" />
     <when-linker-added name="xsiframescripts" />
   </replace-with>
-	
+
+  <define-linker name="xsiframescripts" class="eu.ydp.gwtutil.core.linker.CrossSiteIframeWithScriptsLinker" />
 </module>
