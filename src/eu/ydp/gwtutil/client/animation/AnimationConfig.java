@@ -1,8 +1,13 @@
 package eu.ydp.gwtutil.client.animation;
 
+import static com.google.common.base.Objects.equal;
+
+import com.google.common.base.Objects;
+
 import eu.ydp.gwtutil.client.util.geom.Size;
 
 public class AnimationConfig {
+	
 	private static final int MS_IN_SECONDS = 1000;
 	private final int fps;
 	private final Size frameSize;
@@ -33,4 +38,28 @@ public class AnimationConfig {
 	public String getSource() {
 		return source;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(fps, frameSize, source);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof AnimationConfig)) {
+			return false;
+		}
+		AnimationConfig other = (AnimationConfig) obj;
+		return  equal(fps, other.fps)  &&  
+				equal(frameSize, other.frameSize)  &&  
+				equal(source, other.source);
+	}
+	
+	
 }
