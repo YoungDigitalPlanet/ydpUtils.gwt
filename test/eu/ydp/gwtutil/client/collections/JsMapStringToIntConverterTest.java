@@ -54,7 +54,7 @@ public class JsMapStringToIntConverterTest extends GWTTestCase {
 		MapStringToInt jsMap = converter.toJsMap(map);
 
 		// then
-		assertEquals(2, jsMap.keys().size());
+		assertEquals(2, jsMap.keySet().size());
 		assertEquals(VALUE_0, jsMap.get(KEY_0));
 		assertEquals(VALUE_1, jsMap.get(KEY_1));
 	}
@@ -67,7 +67,7 @@ public class JsMapStringToIntConverterTest extends GWTTestCase {
 		MapStringToInt jsMap = converter.toJsMap(map);
 
 		// then
-		assertEquals(0, jsMap.keys().size());
+		assertEquals(0, jsMap.keySet().size());
 	}
 
 }

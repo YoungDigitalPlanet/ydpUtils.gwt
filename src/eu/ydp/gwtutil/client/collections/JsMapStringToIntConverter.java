@@ -17,7 +17,7 @@ public class JsMapStringToIntConverter {
 
 	public Map<String, Integer> toMap(MapStringToInt jsMap){
 		Map<String, Integer> map = Maps.newHashMap();
-		for (String key : jsMap.keys()){
+		for (String key : jsMap.keySet()){
 			map.put(key, jsMap.get(key));
 		}
 		return map;
