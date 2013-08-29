@@ -3,11 +3,13 @@ package eu.ydp.gwtutil.test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
 
 import org.mockito.MockSettings;
 
+import com.google.common.collect.Lists;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
@@ -20,6 +22,8 @@ import com.google.inject.Singleton;
 public abstract class AbstractMockingTestModule extends AbstractTestModule implements Mocking {
 
 	private List<Class<?>> classToSpy;
+	private List<Class<?>> classToMock = Lists.newArrayList();
+	private boolean mockSelected;
 	
 	public AbstractMockingTestModule(){
 		super();
@@ -44,6 +48,12 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule imple
 	@Override
 	public final void setSpyClasses(Class<?>[] classesToSpy) {
 		this.classToSpy = Arrays.asList(classesToSpy);
+	}
+
+	@Override
+	public void mockOnlySelected(Class<?>[] classesToMock) {
+		this.classToMock = Arrays.asList(classesToMock);
+		this.mockSelected = true;
 	}
 
 	/**
@@ -82,7 +92,7 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule imple
 	 * @param settings Mockito mock settings
 	 */
 	public <T> void bindToClassOrMockProvider(final Class<T> clazz, final Class<? extends T> to, final MockSettings settings) {
-		if (isIgnoreClass(clazz)) {
+		if (isIgnoreClass(clazz)  ||  isImplicitlyRealAndInstantiable(clazz, to)) {
 			if (to == null){
 				binder.bind(clazz);
 			} else {
@@ -128,7 +138,7 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule imple
 	 * @param to Class to bind to.
 	 */
 	public <T> void bindToSingletonOrMockInstance(final Class<T> clazz, final Class<? extends T> to, final MockSettings settings) {
-		if (isIgnoreClass(clazz)) {
+		if (isIgnoreClass(clazz)  ||  isImplicitlyRealAndInstantiable(clazz, to) ) {
 			if (to == null){
 				binder.bind(clazz).in(Singleton.class);
 			} else {
@@ -137,6 +147,26 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule imple
 		} else {
 			binder.bind(clazz).toInstance(createMock(clazz, settings));
 		}
+	}
+
+	private <T> boolean isImplicitlyRealAndInstantiable(final Class<T> clazz, final Class<? extends T> to) {
+		return isImplicitlyReal(clazz)  &&  (isInstantiable(clazz)  ||  isInstantiable(to));
+	}
+	
+	private <T> boolean isImplicitlyReal(final Class<T> clazz) {
+		return mockSelected  &&  !classToMock.contains(clazz);
+	}
+	
+	private <T> boolean isInstantiable(final Class<T> clazz){
+		if (clazz == null){
+			return false;
+		}
+		boolean hasNoArgCtor = false;
+		try {
+			clazz.getConstructor();
+			hasNoArgCtor = true;
+		} catch (Exception e){}
+		return !clazz.isInterface()  &&  !Modifier.isAbstract(clazz.getModifiers())  &&  hasNoArgCtor;
 	}
 	
 	protected <T> Provider<T> createMockProvider(final Class<T> clazz){

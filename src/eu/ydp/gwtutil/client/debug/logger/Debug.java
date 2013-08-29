@@ -9,7 +9,7 @@ public final class Debug {
 	private static Logger debug = null;  // NOPMD
 
 	private Debug(){}
-	
+
 	public static void log(Object text) {
 		getLogger().log(String.valueOf(text.toString()));
 	}

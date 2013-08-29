@@ -9,27 +9,47 @@ import com.google.inject.Module;
 public class AbstractMockingTestBase<T extends Module & Mocking> {
 
 	protected Injector injector;
-	private Class<T> testModuleClass;
+	private final Class<T> testModuleClass;
 	
 	public AbstractMockingTestBase(Class<T> testModuleClass){
 		this.testModuleClass = testModuleClass;
 	}
 
-	T createInstance(Object... args) {
+	private T createInstance(Object... args) {
+		T inst = instantiateModuleClass();
+		if (args.length == 2  &&  args[0].getClass().equals(Class[].class)  &&  args[1].getClass().equals(Class[].class)) {
+			inst.setIgnoreClasses((Class<?>[]) args[0]);
+			inst.setSpyClasses((Class<?>[]) args[1]);
+		} else if (args.length > 0){
+			inst.setIgnoreClasses((Class<?>[]) args);
+		}
+		return inst;
+	}
+	
+	private T createRealInstance(Class<?>... classesToMock){
+		T inst = instantiateModuleClass();
+		inst.mockOnlySelected(classesToMock);
+		return inst;
+	}
+
+	private T instantiateModuleClass() {
+		T inst;
 		try {
-			T inst =  testModuleClass.getConstructor().newInstance();
-			if (args.length == 2  &&  args[0].getClass().equals(Class[].class)  &&  args[1].getClass().equals(Class[].class)) {
-				inst.setIgnoreClasses((Class<?>[]) args[0]);
-				inst.setSpyClasses((Class<?>[]) args[1]);
-			} else if (args.length > 0){
-				inst.setIgnoreClasses((Class<?>[]) args);
-			}
-			return inst;
+			inst =  testModuleClass.getConstructor().newInstance();
 		} catch (ClassCastException e) {
 			throw new IllegalArgumentException("Problem while creating instance of Guice module. Arguments mismatch. An array or arrays of Class objects was expected.", e);
 		} catch (Exception e) {
 			throw new RuntimeException("Problem while creating instance of Guice module. Make sure that there is no-arg constructor available in the module.", e);
 		}
+		return inst;
+	}
+
+	/**
+	 * <p>Setup test class, all injections will be done according to the Guice test
+	 * module.</p>
+	 */
+	public void setUpAllRealExcept(Class<?>... classesToMock) {
+		injector = Guice.createInjector(createRealInstance(classesToMock));
 	}
 
 	/**

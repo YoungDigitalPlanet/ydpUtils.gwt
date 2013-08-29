@@ -20,4 +20,6 @@ public interface Mocking {
 	 *            Array of classes.
 	 */
 	void setSpyClasses(Class<?>[] classesToSpy);
+	
+	void mockOnlySelected(Class<?>[] classesToMock);
 }
