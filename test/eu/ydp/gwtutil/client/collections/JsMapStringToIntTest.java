@@ -1,6 +1,7 @@
 package eu.ydp.gwtutil.client.collections;
 
 import java.util.List;
+import java.util.Set;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.junit.client.GWTTestCase;
@@ -31,7 +32,7 @@ public class JsMapStringToIntTest extends GWTTestCase {
 		mapStringToInt.put("key2", 2);
 		mapStringToInt.put("key3", 3);
 		
-		List<String> keys = mapStringToInt.keys();
+		Set<String> keys = mapStringToInt.keySet();
 		assertEquals(3, keys.size());
 		assertTrue(keys.contains("key1"));
 		assertTrue(keys.contains("key2"));

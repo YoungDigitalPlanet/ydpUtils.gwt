@@ -1,19 +1,30 @@
 package eu.ydp.gwtutil.client.collections;
 
 import java.util.List;
+import java.util.Set;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayString;
 
 public class JsMapStringToInt extends JavaScriptObject implements MapStringToInt{
 
 	protected JsMapStringToInt() {}
+
+	@Override
+	public final boolean containsKey(String key) {
+		return containsKeyNative(key);
+	}
+	
+	public final native boolean containsKeyNative(String key) /*-{
+		return !!this[key];
+	}-*/;
 	
 	@Override
-	public final List<String> keys() {
+	public final Set<String> keySet() {
 		JsArrayString jsKeys = jsKeys();
-		List<String> keys = Lists.newArrayList();
+		Set<String> keys = Sets.newHashSet();
 		
 		for(int i=0; i<jsKeys.length(); i++) {
 			String key = jsKeys.get(i);
@@ -30,7 +41,7 @@ public class JsMapStringToInt extends JavaScriptObject implements MapStringToInt
 	@Override
 	public final List<Integer> values() {
 		List<Integer> values = Lists.newArrayList();
-		List<String> keys = keys();
+		Set<String> keys = keySet();
 		
 		for (String key : keys) {
 			Integer value = get(key);
