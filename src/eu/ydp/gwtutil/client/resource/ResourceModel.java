@@ -1,4 +1,4 @@
-package com.google.gwt.user.client.resource;
+package eu.ydp.gwtutil.client.resource;
 
 import eu.ydp.gwtutil.client.PathUtil;
 

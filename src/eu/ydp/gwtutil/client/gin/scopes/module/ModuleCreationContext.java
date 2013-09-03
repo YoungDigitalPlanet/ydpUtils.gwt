@@ -1,7 +1,8 @@
 package eu.ydp.gwtutil.client.gin.scopes.module;
 
-import com.google.gwt.user.client.resource.ResourceModel;
 import com.google.gwt.xml.client.Element;
+
+import eu.ydp.gwtutil.client.resource.ResourceModel;
 
 public class ModuleCreationContext {
 
