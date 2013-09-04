@@ -13,6 +13,8 @@ import com.google.common.collect.Lists;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
+import eu.ydp.gwtutil.client.gin.scopes.module.ModuleScoped;
+
 /**
  * Guice Module for testing purposes that offers binding to Mockito mock objects.
  * 
@@ -102,7 +104,7 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule imple
 			binder.bind(clazz).toProvider(createMockProvider(clazz, settings));
 		}
 	}	
-
+	
 	/**
 	 * If ignored binds the class as Singleton. If not ignored binds to mock instance.
 	 * 
@@ -148,7 +150,34 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule imple
 			binder.bind(clazz).toInstance(createMock(clazz, settings));
 		}
 	}
+	
+	
+	
+	
+	public <T> void bindToSingletonInModuleScoped(final Class<T> clazz, final Class<? extends T> to) {
+		bindToSingletonInModuleScoped(clazz, to, null);
+	}
+	
+	public <T> void bindToSingletonInModuleScoped(final Class<T> clazz) {
+		bindToSingletonInModuleScoped(clazz, null, null);
+	}
+	
+	
+	public <T> void bindToSingletonInModuleScoped(final Class<T> clazz, final Class<? extends T> to, final MockSettings settings) {
+		if (isIgnoreClass(clazz)  ||  isImplicitlyRealAndInstantiable(clazz, to) ) {
+			if (to == null){
+				binder.bind(clazz).annotatedWith(ModuleScoped.class).to(clazz);
+			} else {
+				binder.bind(clazz).annotatedWith(ModuleScoped.class).to(to);
+			}
+		} else {
+			binder.bind(clazz).annotatedWith(ModuleScoped.class).toInstance(createMock(clazz, settings));
+		}
+	}
 
+	
+	
+	
 	private <T> boolean isImplicitlyRealAndInstantiable(final Class<T> clazz, final Class<? extends T> to) {
 		return isImplicitlyReal(clazz)  &&  (isInstantiable(clazz)  ||  isInstantiable(to));
 	}
