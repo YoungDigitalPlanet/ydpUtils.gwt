@@ -16,8 +16,7 @@ import com.google.inject.Singleton;
 import eu.ydp.gwtutil.client.gin.scopes.module.ModuleScoped;
 
 /**
- * Guice Module for testing purposes that offers binding to Mockito mock
- * objects.
+ * Guice Module for testing purposes that offers binding to Mockito mock objects.
  * 
  * @author Rafal Rybacki rrybacki@ydp.com.pl
  * 
@@ -70,8 +69,7 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule imple
 	}
 
 	/**
-	 * If ignored binds the class to the specified class. If not ignored binds
-	 * to mock provider.
+	 * If ignored binds the class to the specified class. If not ignored binds to mock provider.
 	 * 
 	 * @param clazz
 	 *            Class to bind.
@@ -81,8 +79,7 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule imple
 	}
 
 	/**
-	 * If ignored binds the class. If not ignored binds to mock provider. Allows
-	 * for the specification of the answer,
+	 * If ignored binds the class. If not ignored binds to mock provider. Allows for the specification of the answer,
 	 * 
 	 * @param clazz
 	 *            Class to bind.
@@ -94,8 +91,7 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule imple
 	}
 
 	/**
-	 * If ignored binds the class to specified class. If not ignored binds to
-	 * mock provider. Allows for the specification of the answer,
+	 * If ignored binds the class to specified class. If not ignored binds to mock provider. Allows for the specification of the answer,
 	 * 
 	 * @param clazz
 	 *            Class to bind.
@@ -117,8 +113,7 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule imple
 	}
 
 	/**
-	 * If ignored binds the class as Singleton. If not ignored binds to mock
-	 * instance.
+	 * If ignored binds the class as Singleton. If not ignored binds to mock instance.
 	 * 
 	 * @param clazz
 	 *            Class to bind.
@@ -128,8 +123,7 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule imple
 	}
 
 	/**
-	 * If ignored binds the class as Singleton. If not ignored binds to mock
-	 * instance.
+	 * If ignored binds the class as Singleton. If not ignored binds to mock instance.
 	 * 
 	 * @param clazz
 	 *            Class to bind.
@@ -139,8 +133,7 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule imple
 	}
 
 	/**
-	 * If ignored binds the class as Singleton. If not ignored binds to mock
-	 * instance.
+	 * If ignored binds the class as Singleton. If not ignored binds to mock instance.
 	 * 
 	 * @param clazz
 	 *            Class to bind.
@@ -152,8 +145,7 @@ public abstract class AbstractMockingTestModule extends AbstractTestModule imple
 	}
 
 	/**
-	 * If ignored binds the class as Singleton to the provided 'to' class. If
-	 * not ignored binds to mock instance.
+	 * If ignored binds the class as Singleton to the provided 'to' class. If not ignored binds to mock instance.
 	 * 
 	 * @param clazz
 	 *            Class to bind.
