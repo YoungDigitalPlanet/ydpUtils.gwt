@@ -20,16 +20,16 @@ public class BrowserNativeInterfaceImpl implements BrowserNativeInterface {
 
 	@Override
 	public native int getScreenWidth()/*-{
-		return screen.width;
+		return $wnd.screen.width;
 	}-*/;
 
 	@Override
 	public native int getScreenHeight()/*-{
-		return screen.height;
+		return $wnd.screen.height;
 	}-*/;
 
 	@Override
 	public native double getPixelRatio()/*-{
-		return (window.devicePixelRatio || 1);
+		return ($wnd.devicePixelRatio || 1);
 	}-*/;
 }
