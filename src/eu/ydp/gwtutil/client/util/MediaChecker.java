@@ -22,16 +22,17 @@ public final class MediaChecker {
 	}
 
 	private static boolean isHtml5AudioSupport(String type){
-		return Audio.isSupported()  &&  !cannotPlay(type)  &&  !NO.equals(Audio.createIfSupported().canPlayType(type));
+		return Audio.isSupported()  &&  canPlay(type)  &&  !NO.equals(Audio.createIfSupported().canPlayType(type));
 	}
 
 	/**
 	 * HACK : android v.404 zwraca pusty string ale potrafi odtworzyc dzwiek
 	 */
-	private static boolean cannotPlay(String type) {
+	private static boolean canPlay(String type) {
 		String canPlayType = Audio.createIfSupported().canPlayType(type);
 		boolean isAndroid404 = UserAgentChecker.isUserAgent(RuntimeMobileUserAgent.ANDROID404);
-		return MediaElement.CANNOT_PLAY.equals(canPlayType) && !isAndroid404;
+		
+		return !MediaElement.CANNOT_PLAY.equals(canPlayType) || isAndroid404 || 
+				(UserAgentChecker.isAndroidBrowser() && UserAgentChecker.isLocal() );
 	}
-
 }

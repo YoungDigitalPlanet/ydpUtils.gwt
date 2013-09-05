@@ -154,6 +154,10 @@ public class UserAgentChecker {
 	public static boolean isStackAndroidBrowser() {
 		return userAgentUtilImpl.isStackAndroidBrowser();
 	}
+	
+	public static boolean isAndroidBrowser() {
+		return userAgentUtilImpl.isAndroidBrowser();
+	}
 
 	public static boolean isUserAgent(BrowserUserAgent userAgent) {
 		return userAgentUtilImpl.isUserAgent(userAgent);
