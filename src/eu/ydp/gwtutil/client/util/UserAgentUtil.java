@@ -8,6 +8,7 @@ public interface UserAgentUtil {
 	public boolean isMobileUserAgent(MobileUserAgent... userAgent);
 	public boolean isMobileUserAgent();
 	public boolean isStackAndroidBrowser();
+	public boolean isAndroidBrowser();
 	public boolean isUserAgent(BrowserUserAgent userAgent) ;
 	public boolean isUserAgent(BrowserUserAgent... userAgents);
 	public String getUserAgentStrting();
