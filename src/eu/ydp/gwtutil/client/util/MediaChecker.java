@@ -22,7 +22,7 @@ public final class MediaChecker {
 	}
 
 	private static boolean isHtml5AudioSupport(String type){
-		return Audio.isSupported()  &&  canPlay(type)  &&  !NO.equals(Audio.createIfSupported().canPlayType(type));
+		return Audio.isSupported()  &&  ( canPlay(type) || isLocallyMP3OnAndroid(type) )  &&  !NO.equals(Audio.createIfSupported().canPlayType(type));
 	}
 
 	/**
@@ -32,7 +32,10 @@ public final class MediaChecker {
 		String canPlayType = Audio.createIfSupported().canPlayType(type);
 		boolean isAndroid404 = UserAgentChecker.isUserAgent(RuntimeMobileUserAgent.ANDROID404);
 		
-		return !MediaElement.CANNOT_PLAY.equals(canPlayType) || isAndroid404 || 
-				(UserAgentChecker.isAndroidBrowser() && UserAgentChecker.isLocal() );
+		return !MediaElement.CANNOT_PLAY.equals(canPlayType) || isAndroid404;
+	}
+
+	private static boolean isLocallyMP3OnAndroid(String type) {
+		return UserAgentChecker.isAndroidBrowser() && UserAgentChecker.isLocal() && type.equals(MP3);
 	}
 }
