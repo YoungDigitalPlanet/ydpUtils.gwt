@@ -15,11 +15,13 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 
 	protected static Boolean isStackAndroidBrowser = null;
 	protected static MobileUserAgent mobileUserAgent = null;
+	protected static Boolean isAndroidBrowser = null;
 
 	protected static final MobileUserAgent[] ANDROID_USER_AGENTS = new MobileUserAgent[] {
 		    MobileUserAgent.ANDROID23, MobileUserAgent.ANDROID3,
 			MobileUserAgent.ANDROID321, MobileUserAgent.ANDROID4,
 			MobileUserAgent.ANDROID_OTHER };
+
 
 	public void setNativeInterface(BrowserNativeInterface nativeInterface) {
 		this.nativeInterface = nativeInterface;
@@ -50,6 +52,15 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 		return isStackAndroidBrowser;
 	}
 
+	@Override
+	public boolean isAndroidBrowser() {
+		if (isAndroidBrowser == null) {
+			isAndroidBrowser = isMobileUserAgent(ANDROID_USER_AGENTS);
+		}
+
+		return isAndroidBrowser;
+	}
+	
 	@Override
 	public boolean isUserAgent(BrowserUserAgent userAgent) {
 		return nativeInterface.isUserAgent(userAgent.getRegexPattern(), getUserAgentStrting());
