@@ -138,7 +138,7 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 
 	@Override
 	public boolean isUserAgentMatching(String pattern) {
-		return nativeInterface.isUserAgent(pattern, getUserAgentStrting());
+		return nativeInterface.isUserAgent(pattern.toLowerCase(), getUserAgentStrting());
 	}
 
 }
