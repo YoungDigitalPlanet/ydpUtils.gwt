@@ -133,7 +133,12 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 
 	@Override
 	public boolean isIE() {
-		return nativeInterface.isUserAgent(".*msie[ ]*[0-9]{1,2}.*trident.*", getUserAgentStrting());
+		return isUserAgentMatching(".*msie[ ]*[0-9]{1,2}.*trident.*");
+	}
+
+	@Override
+	public boolean isUserAgentMatching(String pattern) {
+		return nativeInterface.isUserAgent(pattern.toLowerCase(), getUserAgentStrting());
 	}
 
 }

@@ -19,4 +19,19 @@ public interface BrowserNativeInterface {
 	 * @return
 	 */
 	public boolean isLocal();
+	
+	/**
+	 * Szerokosc urzadzenia
+	 */
+	public int getScreenWidth();
+
+	/**
+	 * Wysokosc urzadzenia
+	 */
+	public int getScreenHeight();
+	
+	/**
+	 * Gestosc pikseli wyswietlacza
+	 */
+	public double getPixelRatio();
 }
