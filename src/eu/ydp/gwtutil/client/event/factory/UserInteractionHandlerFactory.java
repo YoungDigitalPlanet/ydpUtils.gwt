@@ -57,6 +57,30 @@ public class UserInteractionHandlerFactory {
 		}
 	}
 
+	public EventHandlerProxy createUserMoveHandler(Command command) {
+		if (isTouchSupported()) {
+			return new TouchMoveEventProxy(command);
+		} else {
+			return new MouseMoveEventProxy(command);
+		}
+	}
+
+	public EventHandlerProxy createUserUpHandler(Command command) {
+		if (isTouchSupported()) {
+			return new TouchEndEventProxy(command);
+		} else {
+			return new MouseUpEventProxy(command);
+		}
+	}
+
+	public EventHandlerProxy createUserDownHandler(Command command) {
+		if (isTouchSupported()) {
+			return new TouchDownEventProxy(command);
+		} else {
+			return new MouseDownEventProxy(command);
+		}
+	}
+
 	private boolean isTouchSupported() {
 		return UserAgentChecker.isMobileUserAgent() && TouchEvent.isSupported();
 	}
