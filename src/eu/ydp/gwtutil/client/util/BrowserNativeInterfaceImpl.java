@@ -18,4 +18,18 @@ public class BrowserNativeInterfaceImpl implements BrowserNativeInterface {
 		return (window.location.href.indexOf("file://") == 0) ? true : false;
 	}-*/;
 
+	@Override
+	public native int getScreenWidth()/*-{
+		return $wnd.screen.width;
+	}-*/;
+
+	@Override
+	public native int getScreenHeight()/*-{
+		return $wnd.screen.height;
+	}-*/;
+
+	@Override
+	public native double getPixelRatio()/*-{
+		return ($wnd.devicePixelRatio || 1);
+	}-*/;
 }

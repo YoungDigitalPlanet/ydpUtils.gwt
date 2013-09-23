@@ -17,5 +17,5 @@ public interface UserAgentUtil {
 	public boolean isAIR();
 	public boolean isIE();
 	boolean isInsideIframe();
-
+	public boolean isUserAgentMatching(String pattern);
 }
