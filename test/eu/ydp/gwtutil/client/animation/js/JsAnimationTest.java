@@ -1,12 +1,5 @@
 package eu.ydp.gwtutil.client.animation.js;
 
-import static org.fest.assertions.api.Assertions.assertThat;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -14,6 +7,8 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import static org.fest.assertions.api.Assertions.*;
+import static org.mockito.Mockito.*;
 import eu.ydp.gwtutil.client.animation.AnimationConfig;
 import eu.ydp.gwtutil.client.animation.AnimationEndHandler;
 import eu.ydp.gwtutil.client.animation.AnimationRuntimeConfig;
@@ -32,7 +27,6 @@ public class JsAnimationTest {
 	@Before
 	public void setUp(){
 		doAnswer(new Answer<Void>() {
-
 			@Override
 			public Void answer(InvocationOnMock invocation) throws Throwable {
 				listener = (FrameworkAnimationListener)invocation.getArguments()[0];
@@ -49,7 +43,8 @@ public class JsAnimationTest {
 		final String SOURCE = "image.png";
 		final int FPS = 25;
 		final int FRAME_WIDHT = 20;
-		final AnimationConfig config = new AnimationConfig(FPS, new Size(FRAME_WIDHT, 40), SOURCE);
+		final Size FRAME_SIZE = new Size(FRAME_WIDHT, 40);
+		final AnimationConfig config = new AnimationConfig(FPS, FRAME_SIZE, SOURCE);
 		AnimationEndHandler handler = mock(AnimationEndHandler.class);
 		AnimationRuntimeConfig runtimeConfig = new AnimationRuntimeConfig(IMAGE_SIZE, 5, config, holder);
 		animation.setRuntimeConfiguration(runtimeConfig);
@@ -59,7 +54,7 @@ public class JsAnimationTest {
 
 		// then
 
-		verify(holder).setBackgroundImage(SOURCE, IMAGE_SIZE);
+		verify(holder).setBackgroundImage(SOURCE, FRAME_SIZE);
 		verify(holder).setAnimationLeft(0);
 		verify(fwAnim).run(200);
 
@@ -162,7 +157,7 @@ public class JsAnimationTest {
 		// when
 		listener.onUpdate(0.2);
 		animation.terminate();
-
+		
 		// thent
 		verify(fwAnim).cancel();
 		ArgumentCaptor<Integer> ac = ArgumentCaptor.forClass(Integer.class);
