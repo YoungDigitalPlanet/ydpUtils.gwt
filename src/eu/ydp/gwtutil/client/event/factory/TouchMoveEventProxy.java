@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class TouchMoveEventProxy implements EventHandlerProxy {
 
 	private final Command command;
-	private final TouchHandlerChecker touchHandlerChecker = new TouchHandlerChecker();
+	private final TouchEventChecker touchEventChecker = new TouchEventChecker();
 
 	public TouchMoveEventProxy(Command command) {
 		this.command = command;
@@ -19,7 +19,7 @@ public class TouchMoveEventProxy implements EventHandlerProxy {
 
 			@Override
 			public void onTouchMove(TouchMoveEvent event) {
-				if (touchHandlerChecker.isOnlyOneFinger(event)) {
+				if (touchEventChecker.isOnlyOneFinger(event)) {
 					command.execute(event.getNativeEvent());
 				}
 			}
