@@ -47,7 +47,7 @@ public class JsAnimation implements AnimationWithRuntimeConfig {
 
 	private void initHolder() {
 		String src = getAnimateConfig().getSource();
-		Size size = animationRuntimeConfig.getImageSize();
+		Size size = animationRuntimeConfig.getAnimationConfig().getFrameSize();
 
 		getAnimationHolder().setBackgroundImage(src, size);
 		getAnimationHolder().setAnimationLeft(0);
