@@ -4,18 +4,23 @@ import com.google.gwt.event.dom.client.TouchStartEvent;
 import com.google.gwt.event.dom.client.TouchStartHandler;
 import com.google.gwt.user.client.ui.Widget;
 
-class TouchStartEventProxy implements EventHandlerProxy{
+class TouchStartEventProxy implements EventHandlerProxy {
 	private final Command command;
+	private final TouchHandlerChecker touchHandlerChecker = new TouchHandlerChecker();
+
 	public TouchStartEventProxy(Command command) {
-		this.command= command;
+		this.command = command;
 	}
+
 	@Override
-	public void apply(Widget widget){
+	public void apply(Widget widget) {
 		widget.addDomHandler(new TouchStartHandler() {
 
 			@Override
 			public void onTouchStart(TouchStartEvent event) {
-				command.execute(event.getNativeEvent());
+				if (touchHandlerChecker.isOnlyOneFinger(event)) {
+					command.execute(event.getNativeEvent());
+				}
 			}
 		}, TouchStartEvent.getType());
 	}
