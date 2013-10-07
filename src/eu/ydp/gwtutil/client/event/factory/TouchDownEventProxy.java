@@ -8,6 +8,8 @@ public class TouchDownEventProxy implements EventHandlerProxy {
 
 	private final Command command;
 
+	private final TouchEventChecker touchEventChecker = new TouchEventChecker();
+
 	public TouchDownEventProxy(Command command) {
 		this.command = command;
 	}
@@ -18,7 +20,9 @@ public class TouchDownEventProxy implements EventHandlerProxy {
 
 			@Override
 			public void onTouchStart(TouchStartEvent event) {
-				command.execute(event.getNativeEvent());
+				if (touchEventChecker.isOnlyOneFinger(event)) {
+					command.execute(event.getNativeEvent());
+				}
 			}
 		}, TouchStartEvent.getType());
 	}
