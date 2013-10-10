@@ -15,8 +15,4 @@ public class TouchEventChecker {
 	public boolean isOnlyOneFinger(JsArray<Touch> touches) {
 		return touches != null && touches.length() == 1;
 	}
-
-	public boolean isOnlyOneFingerTouchOrMouseClick(JsArray<Touch> touches) {
-		return touches == null || touches.length() == 1;
-	}
 }
