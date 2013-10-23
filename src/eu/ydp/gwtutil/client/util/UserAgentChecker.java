@@ -35,6 +35,7 @@ public class UserAgentChecker {
 		ANDROID321("android321", "android[ ]*3.2.1[.0-9a-z -]*"),
 		ANDROID3("android3", "android[ ]*3[.0-9a-z -]*"),
 		ANDROID4("android4", "android[ ]*4[.0-9a-z -]*"),
+		ANDROID_DESKTOP_MODE("android_desktop_mode", "mozilla.*x11; linux.*chrome\\/1[1-9]"),
 		ANDROID_OTHER("android_other", "android[ ]*[5-9][.0-9a-z -]*"),  // watch this regex when adding rule for subsequent Android version
 		UNKNOWN("unknown", ".*");
 		private final String tagName, regexPattern;
