@@ -67,6 +67,7 @@ public class UserAgentCheckerJUnitTest {
 				MobileUserAgent.SAFARI);
 		browsers.put("Mozilla/5.0 (Windows; U; en-US) AppleWebKit/531.9 (KHTML, like Gecko) AdobeAIR/2.5.1", MobileUserAgent.AIR);
 		browsers.put("Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en) AppleWebKit/531.9 (KHTML, like Gecko) AdobeAIR/2.5.1", MobileUserAgent.AIR);
+		browsers.put("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.34 Safari/534.24", MobileUserAgent.ANDROID_DESKTOP_MODE);
 
 		return browsers;
 	}
