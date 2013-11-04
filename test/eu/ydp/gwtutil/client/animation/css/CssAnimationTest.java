@@ -23,22 +23,23 @@ import eu.ydp.gwtutil.client.util.geom.Size;
 @RunWith(MockitoJUnitRunner.class)
 public class CssAnimationTest {
 
-	private @Mock
-	AnimationHolder animationHolder;
-	private @Mock
-	CssAnimationClassBuilder cssAnimationClassBuilder;
+	@Mock
+	private AnimationEndHandler animationEndHandler;
+	@Mock
+	private	AnimationHolder animationHolder;
+	@Mock
+	private	CssAnimationClassBuilder cssAnimationClassBuilder;
 	private @InjectMocks
 	CssAnimation cssAnimation;
+	
+	private HandlerRegistration endHandlerRegistration;
 	private AnimationRuntimeConfig animationRuntimeConfig;
 	AnimationEndHandler inlineEndHandler;
-	private AnimationEndHandler animationEndHandler;
 	private Size FRAME_SIZE = new Size(20, 40);
 	private final String ANIMATION_STYLE_NAME = "styleName";
-	private HandlerRegistration endHandlerRegistration;
 
 	@Before
 	public void setUp() {
-		animationEndHandler = mock(AnimationEndHandler.class);
 		endHandlerRegistration = mock(HandlerRegistration.class);
 		animationRuntimeConfig = createAnimationRuntimeConfig();
 		cssAnimation.setRuntimeConfiguration(animationRuntimeConfig);
@@ -56,6 +57,20 @@ public class CssAnimationTest {
 		verify(animationHolder).setAnimationStyleName(ANIMATION_STYLE_NAME, FRAME_SIZE);
 	}
 
+
+	@Test
+	public void shouldRemoveAnimationStyleOnEndEvent() {
+		mockAnimationStyleInBuilder();
+
+		cssAnimation.start(animationEndHandler);
+
+		// when
+		inlineEndHandler.onEnd();
+
+		// then
+		verify(animationHolder).removeAnimationStyleName(ANIMATION_STYLE_NAME);
+	}
+	
 	@Test
 	public void shouldEndAnimationOnEndEvent() {
 		mockAnimationStyleInBuilder();
@@ -67,10 +82,23 @@ public class CssAnimationTest {
 
 		// then
 		verify(endHandlerRegistration).removeHandler();
-		verify(animationHolder).removeAnimationStyleName(ANIMATION_STYLE_NAME);
 		verify(animationEndHandler).onEnd();
 	}
 
+	
+	@Test
+	public void shouldRemoveAnimationStyleWhenTerminateAfterStart() {
+		// given
+		mockAnimationStyleInBuilder();
+		cssAnimation.start(animationEndHandler);
+
+		// when
+		cssAnimation.terminate();
+
+		// then
+		verify(animationHolder).removeAnimationStyleName(ANIMATION_STYLE_NAME);
+	}
+	
 	@Test
 	public void shouldRemoveAnimationWhenTerminateAfterStart() {
 		// given
@@ -81,8 +109,8 @@ public class CssAnimationTest {
 		cssAnimation.terminate();
 
 		// then
-		verify(animationHolder).removeAnimationStyleName(ANIMATION_STYLE_NAME);
 		verify(endHandlerRegistration).removeHandler();
+		verify(animationEndHandler,never()).onEnd();
 	}
 
 	@Test
@@ -94,7 +122,7 @@ public class CssAnimationTest {
 		cssAnimation.terminate();
 
 		// then
-		verify(animationHolder, never()).removeAnimationStyleName(ANIMATION_STYLE_NAME);
+		verify(animationHolder, never()).removeAnimationStyleName(anyString());
 		verify(endHandlerRegistration, never()).removeHandler();
 
 	}
