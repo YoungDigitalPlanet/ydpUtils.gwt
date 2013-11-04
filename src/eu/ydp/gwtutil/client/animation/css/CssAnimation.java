@@ -51,7 +51,7 @@ public class CssAnimation implements AnimationWithRuntimeConfig {
 	@Override
 	public void terminate() {
 		removeAnimationStyleName();
-		endHandlerRegistration.removeHandler();
+		removeEndHandlerRegistrationIfExists();// Null protection added here for IOS. Unnecessary in other cases.
 	}
 
 	private void removeAnimationStyleName() {
@@ -61,12 +61,16 @@ public class CssAnimation implements AnimationWithRuntimeConfig {
 	}
 
 	private void animationEnd() {
-		if (endHandlerRegistration != null) {
-			endHandlerRegistration.removeHandler();
-		}
+		removeEndHandlerRegistrationIfExists();
 		removeAnimationStyleName();
 		if (animationEndHandler != null) {
 			animationEndHandler.onEnd();
+		}
+	}
+	
+	private void removeEndHandlerRegistrationIfExists() {
+		if (endHandlerRegistration != null) {
+			endHandlerRegistration.removeHandler();
 		}
 	}
 
