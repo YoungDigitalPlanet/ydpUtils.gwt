@@ -31,7 +31,7 @@ public class CssAnimationTest {
 	private	CssAnimationClassBuilder cssAnimationClassBuilder;
 	private @InjectMocks
 	CssAnimation cssAnimation;
-	
+
 	private HandlerRegistration endHandlerRegistration;
 	private AnimationRuntimeConfig animationRuntimeConfig;
 	AnimationEndHandler inlineEndHandler;
@@ -40,11 +40,11 @@ public class CssAnimationTest {
 
 	@Before
 	public void setUp() {
-		endHandlerRegistration = mock(HandlerRegistration.class);
 		animationRuntimeConfig = createAnimationRuntimeConfig();
 		cssAnimation.setRuntimeConfiguration(animationRuntimeConfig);
 		mockInlineEndHandler();
 	}
+
 
 	@Test
 	public void shouldPlayAnimationWhenStart() {
@@ -99,6 +99,7 @@ public class CssAnimationTest {
 		verify(animationHolder).removeAnimationStyleName(ANIMATION_STYLE_NAME);
 	}
 	
+	
 	@Test
 	public void shouldRemoveAnimationWhenTerminateAfterStart() {
 		// given
@@ -123,8 +124,6 @@ public class CssAnimationTest {
 
 		// then
 		verify(animationHolder, never()).removeAnimationStyleName(anyString());
-		verify(endHandlerRegistration, never()).removeHandler();
-
 	}
 
 	private AnimationRuntimeConfig createAnimationRuntimeConfig() {
