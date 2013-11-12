@@ -5,11 +5,12 @@ import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.Widget;
 
 public class InputToButtonReplacer {
-	
-	public void changeInputTypeToButton(Focusable focusable) {
-		Element element = ((Widget)focusable).getElement();
-		Element elementInput = (Element)element.getChild(0);
-		elementInput.setAttribute("type", "button");
-	}
 
+	public void changeInputTypeChildToButton(Focusable focusable) {
+		Element element = ((Widget) focusable).getElement();
+		if (element.getChildCount() > 0) {
+			Element elementInput = (Element) element.getChild(0);
+			elementInput.setAttribute("type", "button");
+		}
+	}
 }
