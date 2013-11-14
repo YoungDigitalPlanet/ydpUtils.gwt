@@ -6,7 +6,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public final class Debug {
-	private static Logger debug = null; // NOPMD
+	private static Logger logger = null; // NOPMD
 
 	private Debug() {
 	}
@@ -24,14 +24,14 @@ public final class Debug {
 	}
 
 	private static Logger getLogger() {
-		if (debug == null) {
+		if (logger == null) {
 			// debug = GWT.create(Logger.class);
-			debug = GWT.create(LoggerMobile.class);
+			logger = GWT.create(LoggerDOM.class);
 
-			if (debug instanceof IsWidget) {
-				RootPanel.get().add((Widget) debug);
+			if (logger instanceof IsWidget) {
+				RootPanel.get().add((Widget) logger);
 			}
 		}
-		return debug;
+		return logger;
 	}
 }
