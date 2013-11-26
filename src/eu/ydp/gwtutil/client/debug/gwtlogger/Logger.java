@@ -1,69 +1,78 @@
 package eu.ydp.gwtutil.client.debug.gwtlogger;
 
-
+/**
+ * 
+ * @deprecated use {@link eu.ydp.gwtutil.client.debug.log.Logger} instead
+ */
+@Deprecated
 public class Logger implements ILogger {
 
-	java.util.logging.Logger  logger;
+	java.util.logging.Logger logger;
 
-	public Logger(){
+	@Deprecated
+	public Logger() {
 		this.logger = java.util.logging.Logger.getLogger("");
 	}
 
 	@Override
+	@Deprecated
 	public void fine(String message) {
 		this.logger.fine(message);
 	}
 
-	public void fineIf(boolean azzert,String message) {
-		if(azzert){
+	@Deprecated
+	public void fineIf(boolean azzert, String message) {
+		if (azzert) {
 			fine(message);
 		}
 	}
 
 	@Override
+	@Deprecated
 	public void info(String message) {
 		this.logger.info(message);
 
 	}
 
-	public void infoIf(boolean azzert,String message) {
-		if(azzert){
+	@Deprecated
+	public void infoIf(boolean azzert, String message) {
+		if (azzert) {
 			info(message);
 		}
-
 	}
 
 	@Override
+	@Deprecated
 	public void severe(String message) {
 		this.logger.severe(message);
 	}
 
-
-	public void severeIf(boolean azzert,String message) {
-		if(azzert){
-		  severe(message);
+	@Deprecated
+	public void severeIf(boolean azzert, String message) {
+		if (azzert) {
+			severe(message);
 		}
 	}
 
 	@Override
+	@Deprecated
 	public void warning(String message) {
 		this.logger.warning(message);
 	}
 
-	public void warningIf(boolean azzert, String message){
-		if(azzert){
+	@Deprecated
+	public void warningIf(boolean azzert, String message) {
+		if (azzert) {
 			warning(message);
 		}
 	}
 
-	public void methodLog(String className, String methodName, Object ... args){
+	@Deprecated
+	public void methodLog(String className, String methodName, Object... args) {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Calling: ")
-			.append(className)
-			.append(".")
-			.append(methodName);
+		builder.append("Calling: ").append(className).append(".").append(methodName);
 
-		if(args != null){
+		if (args != null) {
 			appendArguments(builder, args);
 		}
 
@@ -73,14 +82,10 @@ public class Logger implements ILogger {
 	private void appendArguments(StringBuilder builder, Object... args) {
 		builder.append(" with args: ");
 		for (Object argument : args) {
-			if(argument == null){
+			if (argument == null) {
 				builder.append("null, ");
-			}else{
-				builder.append("{@")
-					.append(argument.hashCode())
-					.append("@ - ")
-					.append(argument.toString())
-					.append("},");
+			} else {
+				builder.append("{@").append(argument.hashCode()).append("@ - ").append(argument.toString()).append("},");
 			}
 		}
 	}
