@@ -31,7 +31,7 @@ public class Logger {
 
 	private void writeLog(LogLevel level, String message) {
 		if (isLevelLogable(level)) {
-			appender.appendeMessage(message);
+			appender.appendMessage(message);
 		}
 	}
 
