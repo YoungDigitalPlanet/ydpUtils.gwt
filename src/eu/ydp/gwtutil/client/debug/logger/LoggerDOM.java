@@ -9,6 +9,11 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * 
+ * @deprecated use {@link eu.ydp.gwtutil.client.debug.log.Logger} instead
+ */
+@Deprecated
 public class LoggerDOM extends Composite implements Logger {
 
 	private static DebugUiBinder uiBinder = GWT.create(DebugUiBinder.class);
@@ -19,9 +24,10 @@ public class LoggerDOM extends Composite implements Logger {
 	interface DebugUiBinder extends UiBinder<Widget, LoggerDOM> {
 	}
 
+	@Deprecated
 	public LoggerDOM() {
 		initWidget(uiBinder.createAndBindUi(this));
-		//this.setText("Console log");
+		// this.setText("Console log");
 	}
 
 	@Override
@@ -30,11 +36,12 @@ public class LoggerDOM extends Composite implements Logger {
 	}
 
 	@Override
+	@Deprecated
 	public void log(String text) {
 		StringBuilder builder = new StringBuilder(text);
 		builder.append("\n");
 		builder.append(consoleText.getText());
-		consoleText.setText( builder.toString());
+		consoleText.setText(builder.toString());
 	}
 
 	@UiHandler("clearButton")
@@ -48,4 +55,3 @@ public class LoggerDOM extends Composite implements Logger {
 	}
 
 }
-
