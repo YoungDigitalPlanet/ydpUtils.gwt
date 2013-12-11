@@ -1,13 +1,13 @@
 package eu.ydp.gwtutil.client.debug.logger;
 
-
 /**
- * Logger that uses custom functionalities, 
- * configured through .gwt.xml file, 
- * see YdpGwtUtil.gwt.xml
+ * 
+ * @deprecated use {@link eu.ydp.gwtutil.client.debug.log.Logger} instead
  */
+@Deprecated
 public interface Logger {
 
+	@Deprecated
 	public abstract void log(String text);
 
 }
