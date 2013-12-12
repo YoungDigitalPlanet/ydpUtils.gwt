@@ -1,14 +1,21 @@
 package eu.ydp.gwtutil.client.debug.gwtlogger;
 
 /**
- * Logger that uses functionalities provided by GWK SDK, 
- * configured in Host Page through JavaScript, 
- * see YdpGwtUtil.gwt.xml
+ * 
+ * @deprecated use {@link eu.ydp.gwtutil.client.debug.log.Logger} instead
  */
+@Deprecated
 public interface ILogger {
 
+	@Deprecated
 	void fine(String message);
+
+	@Deprecated
 	void info(String message);
+
+	@Deprecated
 	void severe(String message);
+
+	@Deprecated
 	void warning(String message);
 }
