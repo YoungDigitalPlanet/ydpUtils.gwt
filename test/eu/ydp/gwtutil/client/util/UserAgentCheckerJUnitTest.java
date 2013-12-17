@@ -48,10 +48,12 @@ public class UserAgentCheckerJUnitTest {
 
 	@SuppressWarnings("unused")
 	private Object[] getMobile() {
-		// @formatter: off
+		// @formatter:off
 		return $(
-				$("Mozilla/5.0 (Android; Tablet; rv:13.0) Gecko/13.0 Firefox/13.0", MobileUserAgent.FIREFOX),
-				$("Mozilla/5.0 (Android; Mobile; rv:10.0.5) Gecko/10.0.5 Firefox/10.0.5 Fennec/10.0.5", MobileUserAgent.FIREFOX),
+				$("Mozilla/5.0 (Android; Tablet; rv:13.0) Gecko/13.0 Firefox/13.0", 
+						MobileUserAgent.FIREFOX),
+				$("Mozilla/5.0 (Android; Mobile; rv:10.0.5) Gecko/10.0.5 Firefox/10.0.5 Fennec/10.0.5", 
+						MobileUserAgent.FIREFOX),
 				$("Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",
 						MobileUserAgent.ANDROID4),
 				$("Mozilla/5.0 (Linux; U; Android 4.0.3; de-ch; HTC Sensation Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",
@@ -62,7 +64,8 @@ public class UserAgentCheckerJUnitTest {
 						MobileUserAgent.ANDROID3),
 				$("Mozilla/5.0 (Linux; U; Android 3.0; en-us; A500 Build/HRI66) AppleWebKit/534.13 (KHTML, like Gecko) Version/4.0 Safari/534.13",
 						MobileUserAgent.ANDROID3),
-				$("Mozilla/5.0 (Linux; U; Android 2.3; en-us) AppleWebKit/999+ (KHTML, like Gecko) Safari/999.9", MobileUserAgent.ANDROID23),
+				$("Mozilla/5.0 (Linux; U; Android 2.3; en-us) AppleWebKit/999+ (KHTML, like Gecko) Safari/999.9", 
+						MobileUserAgent.ANDROID23),
 				$("Mozilla/5.0 (Linux; U; Android 2.3.5; en-us; HTC Vision Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
 						MobileUserAgent.ANDROID23),
 				$("Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; HTC_Pyramid Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
@@ -77,11 +80,13 @@ public class UserAgentCheckerJUnitTest {
 						MobileUserAgent.SAFARI),
 				$("Mozilla/5.0 (iPod; U; CPU iPhone OS 4_3_3 like Mac OS X; ja-jp) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5",
 						MobileUserAgent.SAFARI),
-				$("Mozilla/5.0 (Windows; U; en-US) AppleWebKit/531.9 (KHTML, like Gecko) AdobeAIR/2.5.1", MobileUserAgent.AIR),
-				$("Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en) AppleWebKit/531.9 (KHTML, like Gecko) AdobeAIR/2.5.1", MobileUserAgent.AIR),
+				$("Mozilla/5.0 (Windows; U; en-US) AppleWebKit/531.9 (KHTML, like Gecko) AdobeAIR/2.5.1",
+						MobileUserAgent.AIR),
+				$("Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en) AppleWebKit/531.9 (KHTML, like Gecko) AdobeAIR/2.5.1",
+						MobileUserAgent.AIR),
 				$("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.34 Safari/534.24",
 						MobileUserAgent.ANDROID_DESKTOP_MODE));
-		// @formatter: on
+		// @formatter:on
 
 	}
 
