@@ -68,13 +68,14 @@ public class UserAgentChecker {
 	 *
 	 */
 	public enum UserAgent implements BrowserUserAgent{
+		CHROME("chrome", ".*(chromium|chrome)/(\\d+)\\.(\\d+)\\.(\\d+).*"),
 		GECKO1_8("gecko1_8", "^(((?!.*like).*)(.*gecko.*))$"),
 		OPERA("opera", ".*opera.*"),
 		IE8("ie8",".*msie[ ]*[78]{1}.*trident.*"),
 		IE9("ie9", ".*msie[ ]*9.*trident.*"),
 		IE10("ie10", ".*msie[ ]*10.*trident.*"),
 		SAFARI("safari", ".*webkit.*"),
-		ALL("all", ".*");
+		ALL("all", ".*"), ;
 		private final String tagName, regexPattern;
 
 		private UserAgent(String name, String regex) {

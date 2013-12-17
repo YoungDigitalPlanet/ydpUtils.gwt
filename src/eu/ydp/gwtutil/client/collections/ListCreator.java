@@ -1,7 +1,6 @@
 package eu.ydp.gwtutil.client.collections;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public final class ListCreator<T> {
