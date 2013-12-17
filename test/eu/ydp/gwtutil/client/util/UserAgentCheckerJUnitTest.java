@@ -119,17 +119,4 @@ public class UserAgentCheckerJUnitTest {
 		assertEquals(ieAgents.contains(userAgent), UserAgentChecker.isIE());
 	}
 
-	@Test
-	@Parameters(method = "getMobile")
-	public void stackAndroidBrowserUserAgentTest(String userAgentString, MobileUserAgent userAgent) {
-		for (MobileUserAgent androidUserAgent : UserAgentChecker.getAndroidUserAgents()) {
-			if (userAgent == androidUserAgent) {
-				BrowserNativeInterface nativeInterface = UserAgentCheckerNativeInterfaceMock.getNativeInterfaceMock(userAgentString);
-				UserAgentChecker.setNativeInterface(nativeInterface);
-				Assert.assertTrue(userAgentString, UserAgentChecker.isMobileUserAgent(userAgent));
-				Assert.assertTrue(userAgentString, UserAgentChecker.isMobileUserAgent());
-				Assert.assertTrue(userAgentString, UserAgentChecker.isStackAndroidBrowser());
-			}
-		}
-	}
 }
