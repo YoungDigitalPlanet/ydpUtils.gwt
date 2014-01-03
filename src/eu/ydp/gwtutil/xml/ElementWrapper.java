@@ -1,14 +1,5 @@
 package eu.ydp.gwtutil.xml;
 
-import java.io.StringWriter;
-
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
 import com.google.gwt.xml.client.Attr;
 import com.google.gwt.xml.client.Element;
 import com.google.gwt.xml.client.NodeList;
