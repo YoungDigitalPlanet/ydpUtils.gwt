@@ -2,13 +2,10 @@ package eu.ydp.gwtutil.client.util;
 
 import com.google.inject.Inject;
 
-import eu.ydp.gwtutil.client.debug.gwtlogger.Logger;
 import eu.ydp.gwtutil.client.util.UserAgentChecker.BrowserUserAgent;
 import eu.ydp.gwtutil.client.util.UserAgentChecker.MobileUserAgent;
 
 public class UserAgentUtilImpl implements UserAgentUtil {
-	
-	private static final Logger LOGGER = new Logger();
 
 	@Inject
 	protected BrowserNativeInterface nativeInterface;
@@ -17,11 +14,8 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 	protected static MobileUserAgent mobileUserAgent = null;
 	protected static Boolean isAndroidBrowser = null;
 
-	protected static final MobileUserAgent[] ANDROID_USER_AGENTS = new MobileUserAgent[] {
-		    MobileUserAgent.ANDROID23, MobileUserAgent.ANDROID3,
-			MobileUserAgent.ANDROID321, MobileUserAgent.ANDROID4,
-			MobileUserAgent.ANDROID_OTHER };
-
+	protected static final MobileUserAgent[] ANDROID_USER_AGENTS = new MobileUserAgent[] { MobileUserAgent.ANDROID23, MobileUserAgent.ANDROID3,
+			MobileUserAgent.ANDROID321, MobileUserAgent.ANDROID4, MobileUserAgent.ANDROID_OTHER };
 
 	public void setNativeInterface(BrowserNativeInterface nativeInterface) {
 		this.nativeInterface = nativeInterface;
@@ -46,7 +40,8 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 	@Override
 	public boolean isStackAndroidBrowser() {
 		if (isStackAndroidBrowser == null) {
-			isStackAndroidBrowser = isMobileUserAgent(ANDROID_USER_AGENTS) && !isMobileUserAgent(MobileUserAgent.CHROME, MobileUserAgent.FIREFOX);
+			isStackAndroidBrowser = isMobileUserAgent(ANDROID_USER_AGENTS)
+					&& !isMobileUserAgent(MobileUserAgent.CHROME, MobileUserAgent.FIREFOX, MobileUserAgent.SAFARI);
 		}
 
 		return isStackAndroidBrowser;
@@ -60,7 +55,7 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 
 		return isAndroidBrowser;
 	}
-	
+
 	@Override
 	public boolean isUserAgent(BrowserUserAgent userAgent) {
 		return nativeInterface.isUserAgent(userAgent.getRegexPattern(), getUserAgentStrting());
@@ -101,31 +96,31 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 		return nativeInterface.isLocal();
 	}
 
-	
 	/**
-	 * It's not proven that this method is working correctly on all browsers. Checked for Safari.
+	 * It's not proven that this method is working correctly on all browsers.
+	 * Checked for Safari.
 	 * 
 	 */
 	@Override
-	public boolean isInsideIframe(){
+	public boolean isInsideIframe() {
 		boolean isInsideIframe = !isCurrentWindowTop();
-		
-		LOGGER.info("UserAgentUtil.isInsideIframe - returned "+isInsideIframe);
+
 		return isInsideIframe;
 	}
-	
+
 	/**
-	 * It's not proven that this method is working correctly on all browsers. Checked for Safari.
+	 * It's not proven that this method is working correctly on all browsers.
+	 * Checked for Safari.
 	 * 
 	 */
 	public native boolean isCurrentWindowTop() /*-{
-		if(top === self){
+		if (top === self) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}-*/;
-	
+
 	@Override
 	public native boolean isAIR() /*-{
 		return $wnd.navigator.isAIR;
