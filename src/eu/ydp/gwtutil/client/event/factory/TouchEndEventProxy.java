@@ -18,7 +18,7 @@ class TouchEndEventProxy implements EventHandlerProxy {
 
 			@Override
 			public void onTouchEnd(TouchEndEvent event) {
-				if (touchEventChecker.isOnlyOneFinger(event)) {
+				if (touchEventChecker.noFingerTouch(event)) {
 					command.execute(event.getNativeEvent());
 				}
 			}
