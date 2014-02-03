@@ -10,10 +10,9 @@ import java.lang.annotation.Target;
 public @interface InstantiatorBinding {
 
 	InstantiatorBindingPair[] value();
-	
+
 	Class<?> whenNotFound() default Null.class;
-	
-	
-	
-	static class Null{}
+
+	static class Null {
+	}
 }

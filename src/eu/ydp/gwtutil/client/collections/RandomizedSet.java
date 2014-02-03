@@ -20,7 +20,7 @@
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
-*/
+ */
 package eu.ydp.gwtutil.client.collections;
 
 import java.util.Collection;
@@ -28,7 +28,7 @@ import java.util.Vector;
 
 public class RandomizedSet<T> {
 
-	private final Vector<T>	elements = new Vector<T>();
+	private final Vector<T> elements = new Vector<T>();
 
 	public RandomizedSet() {
 
@@ -37,27 +37,30 @@ public class RandomizedSet<T> {
 	public RandomizedSet(Collection<T> collection) {
 		elements.addAll(collection);
 	}
+
 	/**
 	 * Add element do the set
+	 * 
 	 * @param item
 	 */
-	public void push(T item){
+	public void push(T item) {
 		elements.add(item);
 	}
 
 	/**
 	 * check if there are more elements
+	 * 
 	 * @return
 	 */
-	public boolean hasMore(){
+	public boolean hasMore() {
 		return (elements.size() > 0);
 	}
 
 	/**
 	 * return element from the set. element will be removed
 	 */
-	public T pull(){
-		if(elements.size() == 0) {
+	public T pull() {
+		if (elements.size() == 0) {
 			return null;
 		}
 

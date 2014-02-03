@@ -9,7 +9,7 @@ public class SetStyleNameCommand implements Command {
 	private final String styleName;
 	private final IsWidget widget;
 
-	public SetStyleNameCommand(IsWidget widget,String styleName) {
+	public SetStyleNameCommand(IsWidget widget, String styleName) {
 		this.widget = widget;
 		this.styleName = styleName;
 

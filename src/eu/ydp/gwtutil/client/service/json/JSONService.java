@@ -10,26 +10,32 @@ import eu.ydp.gwtutil.client.json.js.YJsJsonParser;
 
 public class JSONService implements IJSONService {
 
-	public YJsonValue parse(String contents){
+	@Override
+	public YJsonValue parse(String contents) {
 		return YJsJsonParser.parse(contents);
 	}
-	
-	public YJsonArray createArray(){
+
+	@Override
+	public YJsonArray createArray() {
 		return YJsJsonFactory.createArray();
 	}
-	
-	public YJsonString createString(String value){
+
+	@Override
+	public YJsonString createString(String value) {
 		return YJsJsonFactory.createString(value);
 	}
 
+	@Override
 	public YJsonValue createNumber(double value) {
 		return YJsJsonFactory.createNumber(value);
 	}
 
+	@Override
 	public YJsonObject createObject() {
 		return YJsJsonFactory.createObject();
-	}	
-	
+	}
+
+	@Override
 	public YJsonBoolean createBoolean(boolean bool) {
 		return YJsJsonFactory.createBoolean(bool);
 	}

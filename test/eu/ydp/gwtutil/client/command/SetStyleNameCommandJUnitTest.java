@@ -1,13 +1,12 @@
 package eu.ydp.gwtutil.client.command;
 
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import com.google.gwt.junit.GWTMockUtilities;
@@ -41,7 +40,7 @@ public class SetStyleNameCommandJUnitTest {
 	@Test
 	public void testExecute() {
 		instance.execute(null);
-		verify(widget).setStyleName(Mockito.eq(styleName));
+		verify(widget).setStyleName(Matchers.eq(styleName));
 		Mockito.verifyNoMoreInteractions(widget);
 	}
 

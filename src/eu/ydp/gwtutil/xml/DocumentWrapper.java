@@ -10,12 +10,11 @@ import com.google.gwt.xml.client.NodeList;
 import com.google.gwt.xml.client.ProcessingInstruction;
 import com.google.gwt.xml.client.Text;
 
-
 public class DocumentWrapper extends NodeWrapper implements Document {
 
 	private final org.w3c.dom.Document document;
 
-	public DocumentWrapper(org.w3c.dom.Document document){
+	public DocumentWrapper(org.w3c.dom.Document document) {
 		super(document);
 		this.document = document;
 	}
@@ -69,7 +68,7 @@ public class DocumentWrapper extends NodeWrapper implements Document {
 	public Node importNode(Node importedNode, boolean deep) {
 		throw new UnsupportedOperationException();
 	}
-	
+
 	@Override
 	public String toString() {
 		return XMLParser.nodeToString(document);

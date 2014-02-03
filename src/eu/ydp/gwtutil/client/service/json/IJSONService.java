@@ -6,13 +6,18 @@ import eu.ydp.gwtutil.client.json.YJsonObject;
 import eu.ydp.gwtutil.client.json.YJsonString;
 import eu.ydp.gwtutil.client.json.YJsonValue;
 
-public interface IJSONService {	
+public interface IJSONService {
 
-	YJsonValue parse(String contents);	
-	YJsonArray createArray();	
+	YJsonValue parse(String contents);
+
+	YJsonArray createArray();
+
 	YJsonString createString(String value);
+
 	YJsonValue createNumber(double value);
-	YJsonObject createObject(); 
+
+	YJsonObject createObject();
+
 	YJsonBoolean createBoolean(boolean bool);
-		
+
 }

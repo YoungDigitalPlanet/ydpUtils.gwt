@@ -5,7 +5,7 @@ public class Size implements HasDimensions {
 	private int width;
 	private int height;
 
-	public Size(){
+	public Size() {
 		width = 0;
 		height = 0;
 	}
@@ -68,6 +68,5 @@ public class Size implements HasDimensions {
 	public String toString() {
 		return "Size [width=" + width + ", height=" + height + "]";
 	}
-
 
 }

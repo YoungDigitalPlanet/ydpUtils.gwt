@@ -13,16 +13,21 @@ import eu.ydp.gwtutil.client.animation.preload.ImagePreloader;
 import eu.ydp.gwtutil.client.util.geom.Size;
 
 public class GenericAnimation implements Animation, AnimationEndHandler {
-	private @Inject @Nonnull ImagePreloader imagePreloader;
-	private @Inject @Nonnull AnimationAnalyzer animationAnalyzer;
+	private @Inject
+	@Nonnull
+	ImagePreloader imagePreloader;
+	private @Inject
+	@Nonnull
+	AnimationAnalyzer animationAnalyzer;
 
 	private AnimationEndHandler animationEndHandler;
 	private AnimationWithRuntimeConfig realAnimation;
 	private AnimationConfig animationConfig;
-	private @Nullable HandlerRegistration currentPreloadHandlerRegistration;
+	private @Nullable
+	HandlerRegistration currentPreloadHandlerRegistration;
 	private AnimationHolder animationHolder;
 
-	public  void init(AnimationWithRuntimeConfig animation, AnimationConfig animationConfig, AnimationHolder holder) {
+	public void init(AnimationWithRuntimeConfig animation, AnimationConfig animationConfig, AnimationHolder holder) {
 		this.realAnimation = animation;
 		this.animationConfig = animationConfig;
 		this.animationHolder = holder;
@@ -39,8 +44,6 @@ public class GenericAnimation implements Animation, AnimationEndHandler {
 		resetPreloadHandler();
 		currentPreloadHandlerRegistration = imagePreloader.preload(src, getImagePreloadHandler());
 	}
-
-
 
 	private ImagePreloadHandler getImagePreloadHandler() {
 		return new ImagePreloadHandler() {
@@ -77,7 +80,7 @@ public class GenericAnimation implements Animation, AnimationEndHandler {
 	}
 
 	private AnimationRuntimeConfig getAnimationRuntimeConfiguration(Size imageSize, int framesCount) {
-		return new AnimationRuntimeConfig(imageSize, framesCount,animationConfig,animationHolder);
+		return new AnimationRuntimeConfig(imageSize, framesCount, animationConfig, animationHolder);
 	}
 
 	private void play() {

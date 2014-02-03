@@ -4,8 +4,9 @@ import com.google.gwt.xml.client.Element;
 import com.google.gwt.xml.client.NodeList;
 
 public class XMLProxyStandard implements XMLProxy {
-	
-	XMLProxyStandard(){}
+
+	XMLProxyStandard() {
+	}
 
 	@Override
 	public NodeList getElementsByTagName(Element element, String tagName) {

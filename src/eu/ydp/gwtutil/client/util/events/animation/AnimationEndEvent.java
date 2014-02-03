@@ -12,8 +12,10 @@ public class AnimationEndEvent extends DomEvent<AnimationEndHandler> {
 	private static final Type<AnimationEndHandler> TYPE = new Type<AnimationEndHandler>(EVENT_TYPES.getAnimationEnd(), new AnimationEndEvent());
 
 	/**
-	 * <p>getType</p>
-	 *
+	 * <p>
+	 * getType
+	 * </p>
+	 * 
 	 * @return a Type object.
 	 */
 	public static Type<AnimationEndHandler> getType() {
@@ -22,7 +24,7 @@ public class AnimationEndEvent extends DomEvent<AnimationEndHandler> {
 
 	/**
 	 * {@inheritDoc}
-	 *
+	 * 
 	 * Gets the event type associated with transition end events.
 	 */
 	@Override
@@ -31,7 +33,9 @@ public class AnimationEndEvent extends DomEvent<AnimationEndHandler> {
 	}
 
 	/**
-	 * <p>Constructor for TransitionEndEvent.</p>
+	 * <p>
+	 * Constructor for TransitionEndEvent.
+	 * </p>
 	 */
 	protected AnimationEndEvent() {
 
@@ -43,6 +47,5 @@ public class AnimationEndEvent extends DomEvent<AnimationEndHandler> {
 		handler.onAnimationEnd(this);
 
 	}
-
 
 }

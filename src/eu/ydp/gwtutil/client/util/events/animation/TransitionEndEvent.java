@@ -12,8 +12,10 @@ public class TransitionEndEvent extends DomEvent<TransitionEndHandler> {
 	private static final Type<TransitionEndHandler> TYPE = new Type<TransitionEndHandler>(EVENT_TYPES.getTransistionEnd(), new TransitionEndEvent());
 
 	/**
-	 * <p>getType</p>
-	 *
+	 * <p>
+	 * getType
+	 * </p>
+	 * 
 	 * @return a Type object.
 	 */
 	public static Type<TransitionEndHandler> getType() {
@@ -22,7 +24,7 @@ public class TransitionEndEvent extends DomEvent<TransitionEndHandler> {
 
 	/**
 	 * {@inheritDoc}
-	 *
+	 * 
 	 * Gets the event type associated with transition end events.
 	 */
 	@Override
@@ -31,7 +33,9 @@ public class TransitionEndEvent extends DomEvent<TransitionEndHandler> {
 	}
 
 	/**
-	 * <p>Constructor for TransitionEndEvent.</p>
+	 * <p>
+	 * Constructor for TransitionEndEvent.
+	 * </p>
 	 */
 	protected TransitionEndEvent() {
 
@@ -43,6 +47,5 @@ public class TransitionEndEvent extends DomEvent<TransitionEndHandler> {
 		handler.onTransitionEnd(this);
 
 	}
-
 
 }

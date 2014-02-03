@@ -20,7 +20,7 @@ public class YJsJsonObject extends YJsJsonValue implements YJsonObject {
 
 	@Override
 	public void put(String key, YJsonValue value) {
-		toJson().isObject().put(key, ((YJsJsonValue)value).toJson());
+		toJson().isObject().put(key, ((YJsJsonValue) value).toJson());
 	}
 
 	@Override

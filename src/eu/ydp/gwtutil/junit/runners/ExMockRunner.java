@@ -30,20 +30,22 @@ import org.junit.runners.model.Statement;
 import eu.ydp.gwtutil.junit.runners.exmockrunner.JAssistClassModifier;
 
 /**
- * Implements the JUnit 4 standard test case class model, as defined by the annotations in the org.junit package. Many users will never notice this class: it is now the default test class runner, but it should have exactly the same behavior as the old test class runner ({@code JUnit4ClassRunner}).
- *
+ * Implements the JUnit 4 standard test case class model, as defined by the annotations in the org.junit package. Many users will never notice this class: it is
+ * now the default test class runner, but it should have exactly the same behavior as the old test class runner ({@code JUnit4ClassRunner}).
+ * 
  * BlockJUnit4ClassRunner has advantages for writers of custom JUnit runners that are slight changes to the default behavior, however:
- *
+ * 
  * <ul>
- * <li>It has a much simpler implementation based on {@link Statement}s, allowing new operations to be inserted into the appropriate point in the execution flow.
- *
+ * <li>It has a much simpler implementation based on {@link Statement}s, allowing new operations to be inserted into the appropriate point in the execution
+ * flow.
+ * 
  * <li>It is published, and extension and reuse are encouraged, whereas {@code JUnit4ClassRunner} was in an internal package, and is now deprecated.
  * </ul>
  */
 public class ExMockRunner extends ParentRunner<FrameworkMethod> {
 	/**
 	 * Creates a BlockJUnit4ClassRunner to run {@code klass}
-	 *
+	 * 
 	 * @throws InitializationError
 	 *             if the test class is malformed.
 	 */
@@ -80,7 +82,8 @@ public class ExMockRunner extends ParentRunner<FrameworkMethod> {
 	//
 
 	/**
-	 * Returns the methods that run tests. Default implementation returns all methods annotated with {@code @Test} on this class and superclasses that are not overridden.
+	 * Returns the methods that run tests. Default implementation returns all methods annotated with {@code @Test} on this class and superclasses that are not
+	 * overridden.
 	 */
 	protected List<FrameworkMethod> computeTestMethods() {
 		return getTestClass().getAnnotatedMethods(Test.class);
@@ -104,7 +107,8 @@ public class ExMockRunner extends ParentRunner<FrameworkMethod> {
 	}
 
 	/**
-	 * Adds to {@code errors} if the test class has more than one constructor, or if the constructor takes parameters. Override if a subclass requires different validation rules.
+	 * Adds to {@code errors} if the test class has more than one constructor, or if the constructor takes parameters. Override if a subclass requires different
+	 * validation rules.
 	 */
 	protected void validateConstructor(List<Throwable> errors) {
 		validateOnlyOneConstructor(errors);
@@ -136,8 +140,9 @@ public class ExMockRunner extends ParentRunner<FrameworkMethod> {
 	}
 
 	/**
-	 * Adds to {@code errors} for each method annotated with {@code @Test}, {@code @Before}, or {@code @After} that is not a public, void instance method with no arguments.
-	 *
+	 * Adds to {@code errors} for each method annotated with {@code @Test}, {@code @Before}, or {@code @After} that is not a public, void instance method with
+	 * no arguments.
+	 * 
 	 * @deprecated unused API, will go away in future version
 	 */
 	@Deprecated
@@ -162,7 +167,8 @@ public class ExMockRunner extends ParentRunner<FrameworkMethod> {
 	}
 
 	/**
-	 * Returns a new fixture for running a test. Default implementation executes the test class's no-argument constructor (validation should have ensured one exists).
+	 * Returns a new fixture for running a test. Default implementation executes the test class's no-argument constructor (validation should have ensured one
+	 * exists).
 	 */
 	protected Object createTest() throws Exception {
 		return getTestClass().getOnlyConstructor().newInstance();
@@ -177,18 +183,23 @@ public class ExMockRunner extends ParentRunner<FrameworkMethod> {
 
 	/**
 	 * Returns a Statement that, when executed, either returns normally if {@code method} passes, or throws an exception if {@code method} fails.
-	 *
+	 * 
 	 * Here is an outline of the default implementation:
-	 *
+	 * 
 	 * <ul>
 	 * <li>Invoke {@code method} on the result of {@code createTest()}, and throw any exceptions thrown by either operation.
-	 * <li>HOWEVER, if {@code method}'s {@code @Test} annotation has the {@code expecting} attribute, return normally only if the previous step threw an exception of the correct type, and throw an exception otherwise.
-	 * <li>HOWEVER, if {@code method}'s {@code @Test} annotation has the {@code timeout} attribute, throw an exception if the previous step takes more than the specified number of milliseconds.
-	 * <li>ALWAYS run all non-overridden {@code @Before} methods on this class and superclasses before any of the previous steps; if any throws an Exception, stop execution and pass the exception on.
-	 * <li>ALWAYS run all non-overridden {@code @After} methods on this class and superclasses after any of the previous steps; all After methods are always executed: exceptions thrown by previous steps are combined, if necessary, with exceptions from After methods into a {@link MultipleFailureException}.
-	 * <li>ALWAYS allow {@code @Rule} fields to modify the execution of the above steps. A {@code Rule} may prevent all execution of the above steps, or add additional behavior before and after, or modify thrown exceptions. For more information, see {@link TestRule}
+	 * <li>HOWEVER, if {@code method}'s {@code @Test} annotation has the {@code expecting} attribute, return normally only if the previous step threw an
+	 * exception of the correct type, and throw an exception otherwise.
+	 * <li>HOWEVER, if {@code method}'s {@code @Test} annotation has the {@code timeout} attribute, throw an exception if the previous step takes more than the
+	 * specified number of milliseconds.
+	 * <li>ALWAYS run all non-overridden {@code @Before} methods on this class and superclasses before any of the previous steps; if any throws an Exception,
+	 * stop execution and pass the exception on.
+	 * <li>ALWAYS run all non-overridden {@code @After} methods on this class and superclasses after any of the previous steps; all After methods are always
+	 * executed: exceptions thrown by previous steps are combined, if necessary, with exceptions from After methods into a {@link MultipleFailureException}.
+	 * <li>ALWAYS allow {@code @Rule} fields to modify the execution of the above steps. A {@code Rule} may prevent all execution of the above steps, or add
+	 * additional behavior before and after, or modify thrown exceptions. For more information, see {@link TestRule}
 	 * </ul>
-	 *
+	 * 
 	 * This can be overridden in subclasses, either by overriding this method, or the implementations creating each sub-statement.
 	 */
 	protected Statement methodBlock(FrameworkMethod method) {
@@ -225,8 +236,9 @@ public class ExMockRunner extends ParentRunner<FrameworkMethod> {
 	}
 
 	/**
-	 * Returns a {@link Statement}: if {@code method}'s {@code @Test} annotation has the {@code expecting} attribute, return normally only if {@code next} throws an exception of the correct type, and throw an exception otherwise.
-	 *
+	 * Returns a {@link Statement}: if {@code method}'s {@code @Test} annotation has the {@code expecting} attribute, return normally only if {@code next}
+	 * throws an exception of the correct type, and throw an exception otherwise.
+	 * 
 	 * @deprecated Will be private soon: use Rules instead
 	 */
 	@Deprecated
@@ -236,8 +248,9 @@ public class ExMockRunner extends ParentRunner<FrameworkMethod> {
 	}
 
 	/**
-	 * Returns a {@link Statement}: if {@code method}'s {@code @Test} annotation has the {@code timeout} attribute, throw an exception if {@code next} takes more than the specified number of milliseconds.
-	 *
+	 * Returns a {@link Statement}: if {@code method}'s {@code @Test} annotation has the {@code timeout} attribute, throw an exception if {@code next} takes
+	 * more than the specified number of milliseconds.
+	 * 
 	 * @deprecated Will be private soon: use Rules instead
 	 */
 	@Deprecated
@@ -247,8 +260,9 @@ public class ExMockRunner extends ParentRunner<FrameworkMethod> {
 	}
 
 	/**
-	 * Returns a {@link Statement}: run all non-overridden {@code @Before} methods on this class and superclasses before running {@code next}; if any throws an Exception, stop execution and pass the exception on.
-	 *
+	 * Returns a {@link Statement}: run all non-overridden {@code @Before} methods on this class and superclasses before running {@code next}; if any throws an
+	 * Exception, stop execution and pass the exception on.
+	 * 
 	 * @deprecated Will be private soon: use Rules instead
 	 */
 	@Deprecated
@@ -258,8 +272,10 @@ public class ExMockRunner extends ParentRunner<FrameworkMethod> {
 	}
 
 	/**
-	 * Returns a {@link Statement}: run all non-overridden {@code @After} methods on this class and superclasses before running {@code next}; all After methods are always executed: exceptions thrown by previous steps are combined, if necessary, with exceptions from After methods into a {@link MultipleFailureException}.
-	 *
+	 * Returns a {@link Statement}: run all non-overridden {@code @After} methods on this class and superclasses before running {@code next}; all After methods
+	 * are always executed: exceptions thrown by previous steps are combined, if necessary, with exceptions from After methods into a
+	 * {@link MultipleFailureException}.
+	 * 
 	 * @deprecated Will be private soon: use Rules instead
 	 */
 	@Deprecated
@@ -302,7 +318,7 @@ public class ExMockRunner extends ParentRunner<FrameworkMethod> {
 
 	/**
 	 * Returns a {@link Statement}: apply all non-static {@link Value} fields annotated with {@link Rule}.
-	 *
+	 * 
 	 * @param statement
 	 *            The base statement
 	 * @return a RunRules statement if any class-level {@link Rule}s are found, or the base statement

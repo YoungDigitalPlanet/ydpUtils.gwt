@@ -6,10 +6,10 @@ import com.google.gwt.xml.client.Node;
 import com.google.gwt.xml.client.NodeList;
 
 public class NodeListIterable implements Iterable<Node> {
-	
+
 	private NodeList nodes;
 
-	public NodeListIterable(NodeList nodes){
+	public NodeListIterable(NodeList nodes) {
 		this.nodes = nodes;
 	}
 
@@ -18,12 +18,12 @@ public class NodeListIterable implements Iterable<Node> {
 		return new NodeListIterator(nodes);
 	}
 
-	private static class NodeListIterator implements Iterator<Node>{
+	private static class NodeListIterator implements Iterator<Node> {
 
 		private NodeList nodes;
 		private int counter;
 
-		public NodeListIterator(NodeList nodes){
+		public NodeListIterator(NodeList nodes) {
 			this.nodes = nodes;
 			this.counter = 0;
 		}

@@ -14,7 +14,7 @@ public class MouseMoveEventProxy implements EventHandlerProxy {
 
 	@Override
 	public void apply(Widget widget) {
-		
+
 		widget.addDomHandler(new MouseMoveHandler() {
 
 			@Override

@@ -12,7 +12,7 @@ public class ExListBoxTest extends GWTTestCase {
 		return "eu.ydp.gwtutil.YdpGwtUtil";
 	}
 
-	public void testSelected(){
+	public void testSelected() {
 		ExListBox elb = new ExListBox();
 		elb.addOption(new InlineHTML(), new InlineHTML());
 		elb.addOption(new InlineHTML(), new InlineHTML());
@@ -26,7 +26,7 @@ public class ExListBoxTest extends GWTTestCase {
 		assertEquals(-1, elb.getSelectedIndex());
 	}
 
-	public void testEnabled(){
+	public void testEnabled() {
 		ExListBox elb = new ExListBox();
 		elb.addOption(new InlineHTML(), new InlineHTML());
 		elb.addOption(new InlineHTML(), new InlineHTML());

@@ -7,9 +7,11 @@ import com.google.gwt.user.client.ui.Widget;
 class ClickEventProxy implements EventHandlerProxy {
 
 	private final Command command;
+
 	public ClickEventProxy(Command command) {
 		this.command = command;
 	}
+
 	@Override
 	public void apply(Widget widget) {
 		widget.addDomHandler(new ClickHandler() {

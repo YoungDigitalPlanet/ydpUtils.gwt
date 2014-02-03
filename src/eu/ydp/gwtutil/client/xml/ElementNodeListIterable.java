@@ -9,17 +9,17 @@ import org.w3c.dom.NodeList;
 
 public class ElementNodeListIterable {
 
-	public static Iterable<Element> of(NodeList nodes){
-		
+	public static Iterable<Element> of(NodeList nodes) {
+
 		Collection<Element> elements = new ArrayList<Element>();
-		
-		for (int i = 0 ; i < nodes.getLength() ; i ++ ){
-			if (nodes.item(i).getNodeType() == Node.ELEMENT_NODE){
-				Element element = (Element)nodes.item(i);
+
+		for (int i = 0; i < nodes.getLength(); i++) {
+			if (nodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				Element element = (Element) nodes.item(i);
 				elements.add(element);
 			}
 		}
-		
-		return elements;		
+
+		return elements;
 	}
 }

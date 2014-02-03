@@ -20,7 +20,7 @@ import com.google.gwt.core.linker.CrossSiteIframeLinker;
 @LinkerOrder(Order.PRIMARY)
 @Shardable
 public class CrossSiteIframeWithScriptsLinker extends CrossSiteIframeLinker {
-	
+
 	@Override
 	protected String fillSelectionScriptTemplate(StringBuffer ss, TreeLogger logger, LinkerContext context, ArtifactSet artifacts, CompilationResult result)
 			throws UnableToCompleteException {
@@ -64,7 +64,7 @@ public class CrossSiteIframeWithScriptsLinker extends CrossSiteIframeLinker {
 			String text = generateScriptInjector(resource.getSrc());
 			scriptsString.append(text);
 		}
-		
+
 		includeJs(ss, logger, scriptsString.toString(), "__LOAD_SCRIPTS__");
 
 		ss = ResourceInjectionUtil.injectStylesheets(ss, artifacts);
@@ -116,8 +116,7 @@ public class CrossSiteIframeWithScriptsLinker extends CrossSiteIframeLinker {
 	 * 
 	 * @param src
 	 *            the test url
-	 * @return <code>true</code> if the URL is relative, <code>false</code> if
-	 *         not
+	 * @return <code>true</code> if the URL is relative, <code>false</code> if not
 	 */
 	private static boolean isRelativeURL(String src) {
 		// A straight absolute url for the same domain, server, and protocol.

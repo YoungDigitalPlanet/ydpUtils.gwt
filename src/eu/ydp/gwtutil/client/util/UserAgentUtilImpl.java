@@ -97,8 +97,7 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 	}
 
 	/**
-	 * It's not proven that this method is working correctly on all browsers.
-	 * Checked for Safari.
+	 * It's not proven that this method is working correctly on all browsers. Checked for Safari.
 	 * 
 	 */
 	@Override
@@ -109,22 +108,21 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 	}
 
 	/**
-	 * It's not proven that this method is working correctly on all browsers.
-	 * Checked for Safari.
+	 * It's not proven that this method is working correctly on all browsers. Checked for Safari.
 	 * 
 	 */
 	public native boolean isCurrentWindowTop() /*-{
-		if (top === self) {
-			return true;
-		} else {
-			return false;
-		}
-	}-*/;
+												if (top === self) {
+												return true;
+												} else {
+												return false;
+												}
+												}-*/;
 
 	@Override
 	public native boolean isAIR() /*-{
-		return $wnd.navigator.isAIR;
-	}-*/;
+									return $wnd.navigator.isAIR;
+									}-*/;
 
 	@Override
 	public boolean isIE() {

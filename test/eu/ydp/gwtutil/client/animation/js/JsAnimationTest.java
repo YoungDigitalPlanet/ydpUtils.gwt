@@ -1,14 +1,16 @@
 package eu.ydp.gwtutil.client.animation.js;
 
+import static org.fest.assertions.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Matchers;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import static org.fest.assertions.api.Assertions.*;
-import static org.mockito.Mockito.*;
 import eu.ydp.gwtutil.client.animation.AnimationConfig;
 import eu.ydp.gwtutil.client.animation.AnimationEndHandler;
 import eu.ydp.gwtutil.client.animation.AnimationRuntimeConfig;
@@ -25,19 +27,19 @@ public class JsAnimationTest {
 	private FrameworkAnimationListener listener;
 
 	@Before
-	public void setUp(){
+	public void setUp() {
 		doAnswer(new Answer<Void>() {
 			@Override
 			public Void answer(InvocationOnMock invocation) throws Throwable {
-				listener = (FrameworkAnimationListener)invocation.getArguments()[0];
+				listener = (FrameworkAnimationListener) invocation.getArguments()[0];
 				return null;
 			}
-		}).when(fwAnim).setListener(Mockito.any(FrameworkAnimationListener.class));
+		}).when(fwAnim).setListener(Matchers.any(FrameworkAnimationListener.class));
 		animation = new JsAnimation(fwAnim);
 	}
 
 	@Test
-	public void preloadingAndInitialization(){
+	public void preloadingAndInitialization() {
 		// given
 		final Size IMAGE_SIZE = new Size(100, 40);
 		final String SOURCE = "image.png";
@@ -61,7 +63,7 @@ public class JsAnimationTest {
 	}
 
 	@Test
-	public void framesUpdate(){
+	public void framesUpdate() {
 		// given
 		final Size IMAGE_SIZE = new Size(100, 40);
 		final String SOURCE = "image.png";
@@ -75,7 +77,7 @@ public class JsAnimationTest {
 		animation.start(handler);
 
 		// when
-		for (double frame = 1 ; frame <= FRAMES_COUNT ; frame ++){
+		for (double frame = 1; frame <= FRAMES_COUNT; frame++) {
 			double progress = frame / FRAMES_COUNT;
 			listener.onUpdate(progress);
 		}
@@ -89,7 +91,7 @@ public class JsAnimationTest {
 	}
 
 	@Test
-	public void framesUpdate_differentProgressValues(){
+	public void framesUpdate_differentProgressValues() {
 		// given
 		final Size IMAGE_SIZE = new Size(100, 40);
 		final String SOURCE = "image.png";
@@ -120,7 +122,7 @@ public class JsAnimationTest {
 	}
 
 	@Test
-	public void zeroFps(){
+	public void zeroFps() {
 		// given
 		final Size IMAGE_SIZE = new Size(100, 40);
 		final String SOURCE = "image.png";
@@ -128,7 +130,6 @@ public class JsAnimationTest {
 		final int FRAME_WIDHT = 20;
 		final AnimationConfig config = new AnimationConfig(FPS, new Size(FRAME_WIDHT, 40), SOURCE);
 		AnimationEndHandler handler = mock(AnimationEndHandler.class);
-
 
 		AnimationRuntimeConfig runtimeConfig = new AnimationRuntimeConfig(IMAGE_SIZE, 5, config, holder);
 		animation.setRuntimeConfiguration(runtimeConfig);
@@ -141,7 +142,7 @@ public class JsAnimationTest {
 	}
 
 	@Test
-	public void terminate(){
+	public void terminate() {
 		// given
 		final Size IMAGE_SIZE = new Size(100, 40);
 		final String SOURCE = "image.png";
@@ -157,7 +158,7 @@ public class JsAnimationTest {
 		// when
 		listener.onUpdate(0.2);
 		animation.terminate();
-		
+
 		// thent
 		verify(fwAnim).cancel();
 		ArgumentCaptor<Integer> ac = ArgumentCaptor.forClass(Integer.class);

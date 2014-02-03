@@ -1,6 +1,5 @@
 package eu.ydp.gwtutil.client.animation.holder;
 
-
 import com.google.gwt.event.shared.HandlerRegistration;
 
 import eu.ydp.gwtutil.client.animation.AnimationEndHandler;

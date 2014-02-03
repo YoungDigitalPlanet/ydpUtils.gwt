@@ -1,11 +1,13 @@
 package eu.ydp.gwtutil.client.animation.css;
 
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
@@ -26,9 +28,9 @@ public class CssAnimationTest {
 	@Mock
 	private AnimationEndHandler animationEndHandler;
 	@Mock
-	private	AnimationHolder animationHolder;
+	private AnimationHolder animationHolder;
 	@Mock
-	private	CssAnimationClassBuilder cssAnimationClassBuilder;
+	private CssAnimationClassBuilder cssAnimationClassBuilder;
 	private @InjectMocks
 	CssAnimation cssAnimation;
 
@@ -45,7 +47,6 @@ public class CssAnimationTest {
 		mockInlineEndHandler();
 	}
 
-
 	@Test
 	public void shouldPlayAnimationWhenStart() {
 		mockAnimationStyleInBuilder();
@@ -56,7 +57,6 @@ public class CssAnimationTest {
 		// then
 		verify(animationHolder).setAnimationStyleName(ANIMATION_STYLE_NAME, FRAME_SIZE);
 	}
-
 
 	@Test
 	public void shouldRemoveAnimationStyleOnEndEvent() {
@@ -70,7 +70,7 @@ public class CssAnimationTest {
 		// then
 		verify(animationHolder).removeAnimationStyleName(ANIMATION_STYLE_NAME);
 	}
-	
+
 	@Test
 	public void shouldEndAnimationOnEndEvent() {
 		mockAnimationStyleInBuilder();
@@ -85,7 +85,6 @@ public class CssAnimationTest {
 		verify(animationEndHandler).onEnd();
 	}
 
-	
 	@Test
 	public void shouldRemoveAnimationStyleWhenTerminateAfterStart() {
 		// given
@@ -98,8 +97,7 @@ public class CssAnimationTest {
 		// then
 		verify(animationHolder).removeAnimationStyleName(ANIMATION_STYLE_NAME);
 	}
-	
-	
+
 	@Test
 	public void shouldRemoveAnimationWhenTerminateAfterStart() {
 		// given
@@ -111,7 +109,7 @@ public class CssAnimationTest {
 
 		// then
 		verify(endHandlerRegistration).removeHandler();
-		verify(animationEndHandler,never()).onEnd();
+		verify(animationEndHandler, never()).onEnd();
 	}
 
 	@Test
@@ -145,7 +143,7 @@ public class CssAnimationTest {
 				endHandlerRegistration = mock(HandlerRegistration.class);
 				return endHandlerRegistration;
 			}
-		}).when(animationRuntimeConfig.getAnimationHolder()).addAnimationEndHandler(Mockito.any(AnimationEndHandler.class));
+		}).when(animationRuntimeConfig.getAnimationHolder()).addAnimationEndHandler(Matchers.any(AnimationEndHandler.class));
 	}
 
 	private void mockAnimationStyleInBuilder() {

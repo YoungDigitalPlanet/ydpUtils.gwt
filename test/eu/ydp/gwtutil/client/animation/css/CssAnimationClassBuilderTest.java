@@ -24,7 +24,8 @@ import eu.ydp.gwtutil.client.util.geom.Size;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CssAnimationClassBuilderTest {
-	@Mock StyleAppender styleAppender;
+	@Mock
+	StyleAppender styleAppender;
 	private CssAnimationClassBuilder instance;
 	private Size frameSize;
 	private String source;
@@ -38,10 +39,10 @@ public class CssAnimationClassBuilderTest {
 		CssKeyFrameBuilder cssKeyFrameBuilder = new CssKeyFrameBuilder(styleAppender);
 		instance = new CssAnimationClassBuilder(styleAppender, cssKeyFrameBuilder);
 
-		frameSize = new Size(20,30);
+		frameSize = new Size(20, 30);
 		source = "http://dummy/jj.png";
 		animationConfig = new AnimationConfig(20, frameSize, source);
-		imageSize = new Size(200,30);
+		imageSize = new Size(200, 30);
 		keyframesName = "HTTP___DUMMY_JJ_PNG_keyframes";
 		animationStyleName = "HTTP___DUMMY_JJ_PNG";
 
@@ -61,29 +62,28 @@ public class CssAnimationClassBuilderTest {
 		String secondAnimationCssClassName = instance.createAnimationCssClassName(animationConfig, imageSize);
 		assertThat(secondAnimationCssClassName).isNotNull().isNotEmpty();
 		assertThat(animationCssClassName).isEqualTo(secondAnimationCssClassName);
-		verify(styleAppender,times(4)).appendStyleToDocument(anyString());
+		verify(styleAppender, times(4)).appendStyleToDocument(anyString());
 	}
 
 	@Test
 	public void keyframesAnimationCssClassBody() throws Exception {
-		ArgumentCaptor<String> classBodyCaptor = ArgumentCaptor.<String>forClass(String.class);
+		ArgumentCaptor<String> classBodyCaptor = ArgumentCaptor.<String> forClass(String.class);
 		String animationCssClassName = instance.createAnimationCssClassName(animationConfig, imageSize);
-		verify(styleAppender,times(4)).appendStyleToDocument(classBodyCaptor.capture());
+		verify(styleAppender, times(4)).appendStyleToDocument(classBodyCaptor.capture());
 
 		String webkitKeyframes = "@-webkit-keyframes HTTP___DUMMY_JJ_PNG_keyframes { from {background-position:0px} to {background-position:-200px}}";
-		String mozKeyframes ="@-moz-keyframes HTTP___DUMMY_JJ_PNG_keyframes { from {background-position:0px} to {background-position:-200px}}";
-		String w3cKeyframes ="@keyframes HTTP___DUMMY_JJ_PNG_keyframes { from {background-position:0px} to {background-position:-200px}}";
+		String mozKeyframes = "@-moz-keyframes HTTP___DUMMY_JJ_PNG_keyframes { from {background-position:0px} to {background-position:-200px}}";
+		String w3cKeyframes = "@keyframes HTTP___DUMMY_JJ_PNG_keyframes { from {background-position:0px} to {background-position:-200px}}";
 
 		List<String> generatedClass = classBodyCaptor.getAllValues();
 
-		for(int x=0;x<3;++x){
+		for (int x = 0; x < 3; ++x) {
 			assertThat(generatedClass.get(x)).contains(keyframesName);
 		}
 		assertThat(generatedClass.get(3)).contains(animationCssClassName);
 
-		final Set<String> requireKeyframes = Sets.newHashSet(webkitKeyframes.replaceAll(" ", ""),
-													   mozKeyframes.replaceAll(" ", ""),
-													   w3cKeyframes.replaceAll(" ", ""));
+		final Set<String> requireKeyframes = Sets.newHashSet(webkitKeyframes.replaceAll(" ", ""), mozKeyframes.replaceAll(" ", ""),
+				w3cKeyframes.replaceAll(" ", ""));
 
 		boolean allKeyframesPresent = Iterables.all(Iterables.limit(generatedClass, 3), new Predicate<String>() {
 			@Override
@@ -97,13 +97,14 @@ public class CssAnimationClassBuilderTest {
 	}
 
 	@Test
-	public void animationClassBody(){
-		ArgumentCaptor<String> classBodyCaptor = ArgumentCaptor.<String>forClass(String.class);
+	public void animationClassBody() {
+		ArgumentCaptor<String> classBodyCaptor = ArgumentCaptor.<String> forClass(String.class);
 		String animationCssClassName = instance.createAnimationCssClassName(animationConfig, imageSize);
-		verify(styleAppender,times(4)).appendStyleToDocument(classBodyCaptor.capture());
+		verify(styleAppender, times(4)).appendStyleToDocument(classBodyCaptor.capture());
 		List<String> generatedClass = classBodyCaptor.getAllValues();
 		String animationClassBody = generatedClass.get(3);
-		String requiredAimationClassBody = " .HTTP___DUMMY_JJ_PNG {  -webkit-animation: HTTP___DUMMY_JJ_PNG_keyframes 500ms steps(10, end); -moz-animation: HTTP___DUMMY_JJ_PNG_keyframes 500ms steps(10, end); animation: HTTP___DUMMY_JJ_PNG_keyframes 500ms steps(10, end); background-image: url("+source+")} ";
+		String requiredAimationClassBody = " .HTTP___DUMMY_JJ_PNG {  -webkit-animation: HTTP___DUMMY_JJ_PNG_keyframes 500ms steps(10, end); -moz-animation: HTTP___DUMMY_JJ_PNG_keyframes 500ms steps(10, end); animation: HTTP___DUMMY_JJ_PNG_keyframes 500ms steps(10, end); background-image: url("
+				+ source + ")} ";
 		assertThat(animationClassBody).contains(animationCssClassName);
 		assertThat(requiredAimationClassBody.replaceAll(" ", "")).isEqualTo(animationClassBody.replaceAll(" ", ""));
 	}

@@ -8,7 +8,7 @@ import eu.ydp.gwtutil.client.gin.scopes.CurrentScopeProvider;
 public class CurrentModuleScopeProvider implements CurrentScopeProvider {
 
 	private final ModuleScopeStack moduleScopeStack;
-	
+
 	@Inject
 	public CurrentModuleScopeProvider(ModuleScopeStack moduleScopeStack) {
 		this.moduleScopeStack = moduleScopeStack;

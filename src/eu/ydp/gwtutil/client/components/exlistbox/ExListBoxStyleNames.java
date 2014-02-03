@@ -13,23 +13,40 @@ import eu.ydp.gwtutil.client.constants.Suffix;
 public interface ExListBoxStyleNames extends StringConstants {
 
 	ExListBoxStyleNames INSTANCE = GWT.create(ExListBoxStyleNames.class);
-	
+
 	ExListBoxStyleNames baseButton();
+
 	ExListBoxStyleNames baseContainer();
+
 	ExListBoxStyleNames baseContainerInner();
+
 	ExListBoxStyleNames baseContents();
+
 	ExListBoxStyleNames disabled();
+
 	ExListBoxStyleNames popupContainer();
+
 	ExListBoxStyleNames popupContents();
+
 	ExListBoxStyleNames popupInnerContainer();
+
 	ExListBoxStyleNames popupOptionButton();
+
 	ExListBoxStyleNames popupOptionButtonSelected();
+
 	ExListBoxStyleNames popupOptionPanel();
+
 	ExListBoxStyleNames popupOptionPanelSelected();
+
 	ExListBoxStyleNames popupOptionPanelOver();
+
 	ExListBoxStyleNames popupOptionPanelSelectedOver();
+
 	ExListBoxStyleNames popupOptionPanelInner();
+
 	ExListBoxStyleNames popupOuterContainer();
+
 	ExListBoxStyleNames popupOuterFooter();
+
 	ExListBoxStyleNames popupOuterHeader();
 }

@@ -1,6 +1,5 @@
 package eu.ydp.gwtutil.test.mock;
 
-
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 

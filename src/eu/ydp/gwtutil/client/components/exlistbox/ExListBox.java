@@ -22,9 +22,9 @@ import eu.ydp.gwtutil.client.event.factory.UserInteractionHandlerFactory;
 
 /**
  * Custom combo box widget that display list of options on the popup.
- *
+ * 
  * Use {@link #addOption(IsWidget, IsWidget)} to add options.
- *
+ * 
  * @author rrybacki@ydp.com.pl
  */
 // TODO commit
@@ -150,8 +150,7 @@ public class ExListBox extends Composite implements IsExListBox {
 	}
 
 	/**
-	 * @return Index of the currently selected option or <code>-1</code> if no
-	 *         option is selected.
+	 * @return Index of the currently selected option or <code>-1</code> if no option is selected.
 	 */
 	@Override
 	public int getSelectedIndex() {

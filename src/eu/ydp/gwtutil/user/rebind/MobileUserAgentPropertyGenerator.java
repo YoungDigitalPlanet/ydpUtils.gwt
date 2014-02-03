@@ -13,42 +13,34 @@ import com.google.gwt.useragent.rebind.UserAgentPropertyGeneratorPredicate;
 import eu.ydp.gwtutil.client.util.UserAgentChecker.MobileUserAgent;
 
 /**
- * Generator which writes out the JavaScript for determining the value of the
- * <code>user.agent</code> selection property.
+ * Generator which writes out the JavaScript for determining the value of the <code>user.agent</code> selection property.
  */
 
 public class MobileUserAgentPropertyGenerator implements PropertyProviderGenerator {
 	/**
-	 * List of predicates to identify user agent. The order of evaluation is
-	 * from top to bottom, i.e., the first matching predicate will have the
-	 * associated ua token returned. ua is defined in an outer scope and is
-	 * therefore visible in the predicate javascript fragment.
+	 * List of predicates to identify user agent. The order of evaluation is from top to bottom, i.e., the first matching predicate will have the associated ua
+	 * token returned. ua is defined in an outer scope and is therefore visible in the predicate javascript fragment.
 	 */
-	private static UserAgentPropertyGeneratorPredicate[] predicates = new UserAgentPropertyGeneratorPredicate[MobileUserAgent.values().length-1];
+	private static UserAgentPropertyGeneratorPredicate[] predicates = new UserAgentPropertyGeneratorPredicate[MobileUserAgent.values().length - 1];
 	static {
 		int x = 0;
 		for (MobileUserAgent agent : MobileUserAgent.values()) {
-			if(agent != MobileUserAgent.UNKNOWN){
-				predicates[x++] = new UserAgentPropertyGeneratorPredicate(agent.tagName())
-				.getPredicateBlock()
-				.println("return /" + agent.getRegexPattern() + "/.test(ua);")
-				.returns("'" + agent.tagName() + "'");
+			if (agent != MobileUserAgent.UNKNOWN) {
+				predicates[x++] = new UserAgentPropertyGeneratorPredicate(agent.tagName()).getPredicateBlock()
+						.println("return /" + agent.getRegexPattern() + "/.test(ua);").returns("'" + agent.tagName() + "'");
 			}
 		}
 	}
 
 	/**
-	 * Writes out the JavaScript function body for determining the value of the
-	 * <code>user.agent</code> selection property. This method is used to create
-	 * the selection script and by {@link UserAgentGenerator} to assert at
-	 * runtime that the correct user agent permutation is executing. The list of
-	 * <code>user.agent</code> values listed here should be kept in sync with
-	 * {@link #VALID_VALUES} and <code>UserAgent.gwt.xml</code>.
+	 * Writes out the JavaScript function body for determining the value of the <code>user.agent</code> selection property. This method is used to create the
+	 * selection script and by {@link UserAgentGenerator} to assert at runtime that the correct user agent permutation is executing. The list of
+	 * <code>user.agent</code> values listed here should be kept in sync with {@link #VALID_VALUES} and <code>UserAgent.gwt.xml</code>.
 	 */
 	static void writeUserAgentPropertyJavaScript(TreeLogger logger, SourceWriter body, SortedSet<String> possibleValues) {
 		if (MobileUserAgent.values().length != 12) {
-			logger.log(TreeLogger.ERROR, "Niepoprawna ilosc wartosci w MobileUserAgent sprawdz plik " + MobileUserAgent.class.getName() + ", module.gwt.xml oraz "
-					+ MobileUserAgentPropertyGenerator.class.getName() + " Wszystkie musza byc zsynchronizowane");
+			logger.log(TreeLogger.ERROR, "Niepoprawna ilosc wartosci w MobileUserAgent sprawdz plik " + MobileUserAgent.class.getName()
+					+ ", module.gwt.xml oraz " + MobileUserAgentPropertyGenerator.class.getName() + " Wszystkie musza byc zsynchronizowane");
 		}
 		// write preamble
 		body.println("var ua = navigator.userAgent.toLowerCase();");

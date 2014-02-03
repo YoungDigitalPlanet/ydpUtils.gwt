@@ -76,13 +76,13 @@ public class UserAgentMobileCheckerJUnitTest {
 	public void firefox() {
 		Set<String> browsers = getFirefoxMobile();
 		for (String ua : browsers) {
-			Assert.assertTrue(ua,ua.toLowerCase().matches(MobileUserAgent.FIREFOX.getRegexPattern()));
+			Assert.assertTrue(ua, ua.toLowerCase().matches(MobileUserAgent.FIREFOX.getRegexPattern()));
 		}
 		browsers = getChrome();
 		browsers.addAll(getAir());
 		browsers.addAll(getSafariMobile());
 		for (String ua : browsers) {
-			Assert.assertFalse(ua,ua.toLowerCase().matches(MobileUserAgent.FIREFOX.getRegexPattern()));
+			Assert.assertFalse(ua, ua.toLowerCase().matches(MobileUserAgent.FIREFOX.getRegexPattern()));
 		}
 	}
 
@@ -97,7 +97,7 @@ public class UserAgentMobileCheckerJUnitTest {
 		browsers.addAll(getAir());
 		browsers.addAll(getSafariMobile());
 		for (String ua : browsers) {
-			Assert.assertFalse(ua,ua.toLowerCase().matches(MobileUserAgent.CHROME.getRegexPattern()));
+			Assert.assertFalse(ua, ua.toLowerCase().matches(MobileUserAgent.CHROME.getRegexPattern()));
 		}
 
 	}
@@ -112,7 +112,7 @@ public class UserAgentMobileCheckerJUnitTest {
 		browsers.addAll(getFirefoxMobile());
 		browsers.addAll(getSafariMobile());
 		for (String ua : browsers) {
-			Assert.assertFalse(ua,ua.toLowerCase().matches(MobileUserAgent.AIR.getRegexPattern()));
+			Assert.assertFalse(ua, ua.toLowerCase().matches(MobileUserAgent.AIR.getRegexPattern()));
 		}
 	}
 
@@ -126,7 +126,7 @@ public class UserAgentMobileCheckerJUnitTest {
 		browsers.addAll(getAir());
 		browsers.addAll(getChrome());
 		for (String ua : browsers) {
-			Assert.assertFalse(ua,ua.toLowerCase().matches(MobileUserAgent.SAFARI.getRegexPattern()));
+			Assert.assertFalse(ua, ua.toLowerCase().matches(MobileUserAgent.SAFARI.getRegexPattern()));
 		}
 	}
 
@@ -187,7 +187,6 @@ public class UserAgentMobileCheckerJUnitTest {
 		for (String ua : browsers) {
 			Assert.assertTrue(ua, ua.toLowerCase().matches(MobileUserAgent.UNKNOWN.getRegexPattern()));
 		}
-
 
 	}
 }

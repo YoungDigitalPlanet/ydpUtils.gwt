@@ -15,9 +15,13 @@ import eu.ydp.gwtutil.client.animation.holder.AnimationHolder;
 import eu.ydp.gwtutil.client.util.geom.Size;
 
 public class CssAnimation implements AnimationWithRuntimeConfig {
-	private @Inject @Nonnull CssAnimationClassBuilder animationClassBuilder;
-	private @Nullable AnimationEndHandler animationEndHandler;
-	private @Nullable String currentAnimationClassName;
+	private @Inject
+	@Nonnull
+	CssAnimationClassBuilder animationClassBuilder;
+	private @Nullable
+	AnimationEndHandler animationEndHandler;
+	private @Nullable
+	String currentAnimationClassName;
 	private HandlerRegistration endHandlerRegistration;
 	private AnimationRuntimeConfig animationRuntimeConfig;
 
@@ -67,7 +71,7 @@ public class CssAnimation implements AnimationWithRuntimeConfig {
 			animationEndHandler.onEnd();
 		}
 	}
-	
+
 	private void removeEndHandlerRegistrationIfExists() {
 		if (endHandlerRegistration != null) {
 			endHandlerRegistration.removeHandler();

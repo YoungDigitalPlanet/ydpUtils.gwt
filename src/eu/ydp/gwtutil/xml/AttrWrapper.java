@@ -8,9 +8,9 @@ public class AttrWrapper extends NodeWrapper implements Attr {
 		super(attr);
 		this.node = attr;
 	}
-	
-	private org.w3c.dom.Attr getAttr(){
-		return (org.w3c.dom.Attr)node;
+
+	private org.w3c.dom.Attr getAttr() {
+		return (org.w3c.dom.Attr) node;
 	}
 
 	@Override

@@ -30,16 +30,16 @@ public class StringUtils {
 		}
 		return all;
 	}
-	
-	public static String join(String separator, Iterable<?> parts){
+
+	public static String join(String separator, Iterable<?> parts) {
 		return Joiner.on(separator).join(parts);
 	}
-	
-	public static String join(String separator, Object[] parts){
+
+	public static String join(String separator, Object[] parts) {
 		return Joiner.on(separator).join(parts);
 	}
-	
-	public static Iterable<String> split(String separator, CharSequence seq){
+
+	public static Iterable<String> split(String separator, CharSequence seq) {
 		return Splitter.on(separator).split(seq);
 	}
 }
