@@ -45,8 +45,8 @@ public final class XMLParser {
 		}
 		return null;
 	}
-	
-	public static String nodeToString( Node node ){
+
+	public static String nodeToString(Node node) {
 		StringWriter sw = new StringWriter();
 		try {
 			Transformer t = TransformerFactory.newInstance().newTransformer();

@@ -14,8 +14,8 @@ public class LoggerJS implements Logger {
 	}
 
 	private native void logToJS(String msg)/*-{
-		if (typeof $wnd.logFromEmpiria == 'function') {
-			$wnd.logFromEmpiria(msg);
-		}
-	}-*/;
+											if (typeof $wnd.logFromEmpiria == 'function') {
+											$wnd.logFromEmpiria(msg);
+											}
+											}-*/;
 }

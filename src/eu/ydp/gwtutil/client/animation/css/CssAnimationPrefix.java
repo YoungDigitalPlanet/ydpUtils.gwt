@@ -2,9 +2,7 @@ package eu.ydp.gwtutil.client.animation.css;
 
 enum CssAnimationPrefix {
 
-	WEBKIT("-webkit-"),
-	MOZ("-moz-"),
-	W3C("");
+	WEBKIT("-webkit-"), MOZ("-moz-"), W3C("");
 
 	private final String cssPrefix;
 

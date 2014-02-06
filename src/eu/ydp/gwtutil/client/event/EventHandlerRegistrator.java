@@ -22,12 +22,12 @@ public class EventHandlerRegistrator<H, K> {
 		};
 		return registration;
 	}
-	
+
 	protected Set<H> getHandlersAccordingToRunningMode(K key) {
 		Set<H> eventHandlers = getHandlers(key);
-		
+
 		// concurrentModificationException in dev mode
-		if(GWT.isProdMode()){
+		if (GWT.isProdMode()) {
 			eventHandlers = new HashSet<H>(eventHandlers);
 		}
 		return eventHandlers;
@@ -35,7 +35,7 @@ public class EventHandlerRegistrator<H, K> {
 
 	protected Set<H> getHandlers(K key) {
 		Set<H> eventHandlers = null;
-		if ((eventHandlers = handlers.get(key)) == null) { //NOPMD
+		if ((eventHandlers = handlers.get(key)) == null) { // NOPMD
 			eventHandlers = new HashSet<H>();
 			handlers.put(key, eventHandlers);
 		}

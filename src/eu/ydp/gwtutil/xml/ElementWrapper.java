@@ -6,19 +6,19 @@ import com.google.gwt.xml.client.NodeList;
 
 public class ElementWrapper extends NodeWrapper implements Element {
 
-	public ElementWrapper(org.w3c.dom.Element element){
+	public ElementWrapper(org.w3c.dom.Element element) {
 		super(element);
 		this.node = element;
 	}
-	
-	public org.w3c.dom.Element getElement(){
-		return (org.w3c.dom.Element)node;
+
+	public org.w3c.dom.Element getElement() {
+		return (org.w3c.dom.Element) node;
 	}
-	
-	public static org.w3c.dom.Element getElement(Element element){
+
+	public static org.w3c.dom.Element getElement(Element element) {
 		org.w3c.dom.Element output = null;
-		if (element instanceof ElementWrapper){
-			output = ((ElementWrapper)element).getElement();
+		if (element instanceof ElementWrapper) {
+			output = ((ElementWrapper) element).getElement();
 		}
 		return output;
 	}
@@ -55,11 +55,11 @@ public class ElementWrapper extends NodeWrapper implements Element {
 
 	@Override
 	public void setAttribute(String name, String value) {
-		getElement().setAttribute(name, value);	
+		getElement().setAttribute(name, value);
 	}
-	
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return XMLParser.nodeToString(node);
 	}
 }

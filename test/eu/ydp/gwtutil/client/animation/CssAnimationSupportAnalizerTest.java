@@ -24,24 +24,21 @@ import eu.ydp.gwtutil.client.util.UserAgentUtil;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CssAnimationSupportAnalizerTest {
-	List<MobileUserAgent> mobileUserAgents = Lists.newArrayList(
-									MobileUserAgent.CHROME,
-									MobileUserAgent.SAFARI,
-									MobileUserAgent.FIREFOX,
-									MobileUserAgent.ANDROID4);
+	List<MobileUserAgent> mobileUserAgents = Lists.newArrayList(MobileUserAgent.CHROME, MobileUserAgent.SAFARI, MobileUserAgent.FIREFOX,
+			MobileUserAgent.ANDROID4);
 
-	List<UserAgent> desktopUserAgents = Lists.newArrayList(
-									UserAgent.GECKO1_8,
-									UserAgent.SAFARI);
+	List<UserAgent> desktopUserAgents = Lists.newArrayList(UserAgent.GECKO1_8, UserAgent.SAFARI);
 
-	private @Mock UserAgentUtil userAgentUtil;
-	private @InjectMocks CssAnimationSupportAnalizer supportAnalizer;
+	private @Mock
+	UserAgentUtil userAgentUtil;
+	private @InjectMocks
+	CssAnimationSupportAnalizer supportAnalizer;
 
 	@Test
 	public void isCssAnimationSupportedMobile() throws Exception {
 		doReturn(true).when(userAgentUtil).isMobileUserAgent();
 
-		for(MobileUserAgent ua : MobileUserAgent.values()){
+		for (MobileUserAgent ua : MobileUserAgent.values()) {
 			mockMobileUserAgent(ua);
 			assertThat(supportAnalizer.isCssAnimationSupported()).isEqualTo(mobileUserAgents.contains(ua));
 		}
@@ -51,7 +48,7 @@ public class CssAnimationSupportAnalizerTest {
 	public void isCssAnimationSupportedDesktop() throws Exception {
 		doReturn(false).when(userAgentUtil).isMobileUserAgent();
 
-		for(UserAgent ua : UserAgent.values()){
+		for (UserAgent ua : UserAgent.values()) {
 			mockDesktopUserAgent(ua);
 			assertThat(supportAnalizer.isCssAnimationSupported()).isEqualTo(desktopUserAgents.contains(ua));
 		}
@@ -61,7 +58,7 @@ public class CssAnimationSupportAnalizerTest {
 		when(userAgentUtil.isMobileUserAgent(((MobileUserAgent[]) anyVararg()))).then(new Answer<Boolean>() {
 			@Override
 			public Boolean answer(InvocationOnMock invocation) throws Throwable {
-				Object[] arguments =invocation.getArguments();
+				Object[] arguments = invocation.getArguments();
 				return Lists.newArrayList(arguments).contains(userAgnet);
 			}
 		});
@@ -71,7 +68,7 @@ public class CssAnimationSupportAnalizerTest {
 		when(userAgentUtil.isUserAgent(((UserAgent[]) anyVararg()))).then(new Answer<Boolean>() {
 			@Override
 			public Boolean answer(InvocationOnMock invocation) throws Throwable {
-				Object[] arguments =invocation.getArguments();
+				Object[] arguments = invocation.getArguments();
 				return Lists.newArrayList(arguments).contains(userAgnet);
 			}
 		});

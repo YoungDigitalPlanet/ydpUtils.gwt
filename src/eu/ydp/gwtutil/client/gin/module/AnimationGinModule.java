@@ -7,7 +7,6 @@ import eu.ydp.gwtutil.client.animation.css.CssAnimationClassBuilder;
 import eu.ydp.gwtutil.client.animation.js.FrameworkAnimation;
 import eu.ydp.gwtutil.client.animation.js.FrameworkAnimationNative;
 
-
 public class AnimationGinModule extends AbstractGinModule {
 
 	@Override

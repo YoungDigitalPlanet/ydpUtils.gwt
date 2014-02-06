@@ -1,6 +1,5 @@
 package eu.ydp.gwtutil.client.event.animation;
 
-
 public class EventTypesDefault implements EventTypes {
 
 	@Override

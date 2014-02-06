@@ -126,24 +126,24 @@ public class ExListBoxOptionWidget extends Composite {
 	}
 
 	private void updateStyle() {
-			ExListBoxStyleNames popupPanelStyleName;
-			if (selected && over) {
-				popupPanelStyleName = ExListBoxStyleNames.INSTANCE.popupOptionPanelSelectedOver();
-			} else if (selected) {
-				popupPanelStyleName = ExListBoxStyleNames.INSTANCE.popupOptionPanelSelected();
-			} else if (over) {
-				popupPanelStyleName = ExListBoxStyleNames.INSTANCE.popupOptionPanelOver();
-			} else {
-				popupPanelStyleName = ExListBoxStyleNames.INSTANCE.popupOptionPanel();
-			}
+		ExListBoxStyleNames popupPanelStyleName;
+		if (selected && over) {
+			popupPanelStyleName = ExListBoxStyleNames.INSTANCE.popupOptionPanelSelectedOver();
+		} else if (selected) {
+			popupPanelStyleName = ExListBoxStyleNames.INSTANCE.popupOptionPanelSelected();
+		} else if (over) {
+			popupPanelStyleName = ExListBoxStyleNames.INSTANCE.popupOptionPanelOver();
+		} else {
+			popupPanelStyleName = ExListBoxStyleNames.INSTANCE.popupOptionPanel();
+		}
 
-			popupPanel.setStyleName(popupPanelStyleName.toString());
+		popupPanel.setStyleName(popupPanelStyleName.toString());
 
-			if (selected) {
-				popupButton.addStyleName(ExListBoxStyleNames.INSTANCE.popupOptionButtonSelected().toString());
-			} else {
-				popupButton.removeStyleName(ExListBoxStyleNames.INSTANCE.popupOptionButtonSelected().toString());
-			}
+		if (selected) {
+			popupButton.addStyleName(ExListBoxStyleNames.INSTANCE.popupOptionButtonSelected().toString());
+		} else {
+			popupButton.removeStyleName(ExListBoxStyleNames.INSTANCE.popupOptionButtonSelected().toString());
+		}
 	}
 
 	public void setClickHandler(ExListBoxClickHandler handler) {

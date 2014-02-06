@@ -1,8 +1,6 @@
 package eu.ydp.gwtutil.client.collections;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -12,7 +10,7 @@ public class SimpleRangeMapTest {
 
 	@Test
 	public void get() throws Exception {
-		SimpleRangeMap<Integer, String> instance = SimpleRangeMap.<Integer, String>create();
+		SimpleRangeMap<Integer, String> instance = SimpleRangeMap.<Integer, String> create();
 		String value = "1-10";
 		instance.put(Range.closed(1, 10), value);
 		for (int x = 1; x <= 10; ++x) {
@@ -30,7 +28,7 @@ public class SimpleRangeMapTest {
 
 	@Test
 	public void getMultipleRange() throws Exception {
-		SimpleRangeMap<Integer, String> instance = SimpleRangeMap.<Integer, String>create();
+		SimpleRangeMap<Integer, String> instance = SimpleRangeMap.<Integer, String> create();
 		String value1_10 = "1-10";
 		instance.put(Range.closed(1, 10), value1_10);
 		String value12_17 = "12-18";
@@ -50,7 +48,7 @@ public class SimpleRangeMapTest {
 
 	@Test
 	public void create() throws Exception {
-		assertNotNull(SimpleRangeMap.<Integer, String>create());
+		assertNotNull(SimpleRangeMap.<Integer, String> create());
 	}
 
 }

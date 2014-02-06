@@ -9,10 +9,10 @@ public class NodeWrapper implements Node {
 
 	protected org.w3c.dom.Node node;
 
-	public NodeWrapper(org.w3c.dom.Node node){
+	public NodeWrapper(org.w3c.dom.Node node) {
 		this.node = node;
 	}
-	
+
 	@Override
 	public Node appendChild(Node newChild) {
 		throw new UnsupportedOperationException();

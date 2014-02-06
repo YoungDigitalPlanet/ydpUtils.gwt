@@ -11,11 +11,11 @@ public class EmptyElement implements Element {
 
 	private static final String NOT_SUPPORTED = "Not supported in EmptyElement.";
 	private String nodeName;
-	
-	public EmptyElement(String nodeName){
+
+	public EmptyElement(String nodeName) {
 		this.nodeName = nodeName;
 	}
-	
+
 	@Override
 	public Node appendChild(Node newChild) {
 		throw new UnsupportedOperationException(NOT_SUPPORTED);

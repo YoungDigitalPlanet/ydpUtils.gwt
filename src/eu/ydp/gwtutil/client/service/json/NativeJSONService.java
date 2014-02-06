@@ -27,9 +27,9 @@ public class NativeJSONService implements IJSONService {
 
 	@Override
 	public YJsonString createString(String v) {
-		return YNativeJsonFactory.createString(v);	
+		return YNativeJsonFactory.createString(v);
 	}
-	
+
 	@Override
 	public YJsonBoolean createBoolean(boolean bool) {
 		return YNativeJsonFactory.createBoolean(bool);
@@ -39,7 +39,5 @@ public class NativeJSONService implements IJSONService {
 	public YJsonValue parse(String contents) {
 		return YNativeJsonParser.parse(contents);
 	}
-	
-	
 
 }

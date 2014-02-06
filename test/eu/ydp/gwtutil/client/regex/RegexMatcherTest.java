@@ -22,7 +22,6 @@ public class RegexMatcherTest {
 		assertTrue(matcher.matches("abbbbcd", "ab+bcd"));
 		assertFalse(matcher.matches("abbbbcd", "a.*e"));
 
-
 		assertTrue(matcher.matches("abbbbcd", "a.*d"));
 		assertTrue(matcher.matches("", "(|none)"));
 		assertFalse(matcher.matches("abbbbcd", "a.*e"));

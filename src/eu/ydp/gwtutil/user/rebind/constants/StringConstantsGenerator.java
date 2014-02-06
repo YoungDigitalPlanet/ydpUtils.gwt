@@ -25,13 +25,13 @@ import eu.ydp.gwtutil.client.constants.Suffix;
 public class StringConstantsGenerator extends Generator {
 
 	@Override
-	public String generate(TreeLogger logger, GeneratorContext context,String typeName) throws UnableToCompleteException {
+	public String generate(TreeLogger logger, GeneratorContext context, String typeName) throws UnableToCompleteException {
 		JClassType classType;
-		
+
 		try {
 			classType = context.getTypeOracle().getType(typeName);
 			SourceWriter src = getSourceWriter(classType, context, logger);
-			if (src != null){
+			if (src != null) {
 				src.commit(logger);
 			}
 		} catch (Exception e) {
@@ -40,14 +40,14 @@ public class StringConstantsGenerator extends Generator {
 		return typeName + "Generated";
 	}
 
-	public SourceWriter getSourceWriter(JClassType classType,GeneratorContext context, TreeLogger logger) {
+	public SourceWriter getSourceWriter(JClassType classType, GeneratorContext context, TreeLogger logger) {
 		String packageName = classType.getPackage().getName();
 		String simpleName = classType.getSimpleSourceName() + "Generated";
 		ClassSourceFileComposerFactory composer = new ClassSourceFileComposerFactory(packageName, simpleName);
 		composer.addImplementedInterface(classType.getName());
-		
+
 		PrintWriter printWriter = context.tryCreate(logger, packageName, simpleName);
-		if (printWriter == null){
+		if (printWriter == null) {
 			return null;
 		}
 		SourceWriter sw = composer.createSourceWriter(context, printWriter);
@@ -55,12 +55,12 @@ public class StringConstantsGenerator extends Generator {
 		String prefix = findPrefix(classType);
 		// backward compatibility - if prefix ends with separator then remove it
 		// separator will be added in the final generation of the constant
-		if (prefix.endsWith(separator)){
-			prefix = prefix.substring(0, prefix.length()-1);
+		if (prefix.endsWith(separator)) {
+			prefix = prefix.substring(0, prefix.length() - 1);
 		}
 		String suffix = findSuffix(classType);
 		// backward compatibility - same issue as above
-		if (suffix.startsWith(separator)){
+		if (suffix.startsWith(separator)) {
 			suffix = suffix.substring(1, suffix.length());
 		}
 		OutputType outputType = findOutputType(classType);
@@ -77,11 +77,11 @@ public class StringConstantsGenerator extends Generator {
 		sw.println("		obj.setValue(this.value + \"" + separator + "\" + value);");
 		sw.println("	return obj;");
 		sw.println("}");
-		
-		for (int m = 0 ; m < classType.getMethods().length ; m ++){
+
+		for (int m = 0; m < classType.getMethods().length; m++) {
 			printMethod(simpleName, classType.getMethods()[m], separator, sw, outputType);
 		}
-		
+
 		sw.println("public String toString() {");
 		sw.println("	String prefixSeparator;");
 		sw.println("	if (value.isEmpty()  ||  \"" + prefix + "\".isEmpty()){");
@@ -97,11 +97,11 @@ public class StringConstantsGenerator extends Generator {
 		sw.println("	}");
 		sw.println("	return \"" + prefix + "\" + prefixSeparator + value + suffixSeparator + \"" + suffix + "\";");
 		sw.println("}");
-		
+
 		return sw;
 	}
 
-	private void printMethod(String simpleName, JMethod method, String separator, SourceWriter sw, OutputType outputType){
+	private void printMethod(String simpleName, JMethod method, String separator, SourceWriter sw, OutputType outputType) {
 		sw.println("public " + simpleName + " " + method.getName() + "() {");
 		String value = null;
 		switch (outputType) {
@@ -118,28 +118,28 @@ public class StringConstantsGenerator extends Generator {
 		sw.println("	return replicate(\"" + value + "\");");
 		sw.println("}");
 	}
-	
-	List<String> camelCaseToComponents(String cc){
+
+	List<String> camelCaseToComponents(String cc) {
 		List<String> components = new ArrayList<String>();
-		
+
 		Pattern pattern = Pattern.compile("[^a-z0-9]|\\d+|$");
-		
+
 		Matcher matcher = pattern.matcher(cc);
-		
-		int prevIndex = 0;		
-		while (matcher.find()){
-			if (matcher.start() == 0){
+
+		int prevIndex = 0;
+		while (matcher.find()) {
+			if (matcher.start() == 0) {
 				continue;
 			}
 			components.add(cc.substring(prevIndex, matcher.start()).toLowerCase());
 			prevIndex = matcher.start();
 		}
-		
+
 		return components;
 	}
-	
-	String combineComponents(List<String> components, String separator){
-		return StringUtils.combine( components.toArray(new String[0]), separator);
+
+	String combineComponents(List<String> components, String separator) {
+		return StringUtils.combine(components.toArray(new String[0]), separator);
 	}
 
 	private OutputType findOutputType(JClassType classType) {
@@ -148,22 +148,22 @@ public class StringConstantsGenerator extends Generator {
 			return ann.value();
 		return OutputType.LOWER_CASE;
 	}
-	
+
 	private String findSeparator(JClassType classType) {
 		Separator ann = classType.getAnnotation(Separator.class);
 		if (ann != null)
 			return ann.value();
 		return "-";
 	}
-	
-	private String findPrefix(JClassType classType){
+
+	private String findPrefix(JClassType classType) {
 		Prefix ann = classType.getAnnotation(Prefix.class);
 		if (ann != null)
 			return ann.value();
 		return "";
 	}
-	
-	private String findSuffix(JClassType classType){
+
+	private String findSuffix(JClassType classType) {
 		Suffix ann = classType.getAnnotation(Suffix.class);
 		if (ann != null)
 			return ann.value();

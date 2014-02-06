@@ -1,15 +1,8 @@
 package eu.ydp.gwtutil.client.animation;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,12 +22,17 @@ import eu.ydp.gwtutil.client.util.geom.Size;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GenericAnimationTest {
-	private @Mock ImagePreloader imagePreloader;
-	private @Mock AnimationAnalyzer animationAnalyzer;
-	private @InjectMocks GenericAnimation instance;
+	private @Mock
+	ImagePreloader imagePreloader;
+	private @Mock
+	AnimationAnalyzer animationAnalyzer;
+	private @InjectMocks
+	GenericAnimation instance;
 
-	private @Mock AnimationWithRuntimeConfig animation;
-	private @Mock AnimationHolder animationHolder;
+	private @Mock
+	AnimationWithRuntimeConfig animation;
+	private @Mock
+	AnimationHolder animationHolder;
 	private AnimationConfig animationConfig;
 	private AnimationEndHandler animationEndHandler;
 	private Size frameSize;
@@ -91,13 +89,14 @@ public class GenericAnimationTest {
 		instance = spy(instance);
 		HandlerRegistration handlerRegistration = mock(HandlerRegistration.class);
 		ArgumentCaptor<ImagePreloadHandler> imagePreloadHandler = ArgumentCaptor.<ImagePreloadHandler> forClass(ImagePreloadHandler.class);
-		doReturn(handlerRegistration).when(imagePreloader).preload(anyString(),imagePreloadHandler.capture());
+		doReturn(handlerRegistration).when(imagePreloader).preload(anyString(), imagePreloadHandler.capture());
 		instance.init(animation, animationConfig, animationHolder);
 		instance.start(animationEndHandler);
 		ImagePreloadHandler preloadHandler = imagePreloadHandler.getValue();
 		preloadHandler.onError();
 		instance.onEnd();
 	}
+
 	@Test
 	public void terminate() {
 

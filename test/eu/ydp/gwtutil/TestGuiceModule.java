@@ -9,20 +9,20 @@ import eu.ydp.gwtutil.xml.XMLProxyWrapper;
 
 public class TestGuiceModule extends AbstractMockingTestModule {
 
-	public TestGuiceModule(){
+	public TestGuiceModule() {
 		super();
 	}
-	
-	public TestGuiceModule(Class<?>... classToOmit){
+
+	public TestGuiceModule(Class<?>... classToOmit) {
 		super(classToOmit);
 	}
-	
+
 	@Override
 	public void configure() {
 		bind(XMLProxy.class).to(XMLProxyWrapper.class);
 		bind(IJSONService.class).to(NativeJSONService.class);
 		binder.requestStaticInjection(XMLProxyFactory.class);
-		
+
 	}
 
 }

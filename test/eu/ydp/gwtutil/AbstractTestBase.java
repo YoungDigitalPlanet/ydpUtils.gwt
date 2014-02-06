@@ -8,5 +8,4 @@ public abstract class AbstractTestBase extends AbstractMockingTestBase<TestGuice
 		super(TestGuiceModule.class);
 	}
 
-
 }

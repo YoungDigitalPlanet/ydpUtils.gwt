@@ -1,7 +1,8 @@
 package eu.ydp.gwtutil.client.util;
 
-import static junitparams.JUnitParamsRunner.*;
-import static org.junit.Assert.*;
+import static junitparams.JUnitParamsRunner.$;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
@@ -41,14 +42,14 @@ public class UserAgentCheckerJUnitTest {
 						UserAgent.IE9), 
 				$("Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)", 
 						UserAgent.IE10),
+				$("Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko",
+						UserAgent.IE11),
 				$("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36", 
 						UserAgent.CHROME));
-		// @formatter:on
 	}
 
 	@SuppressWarnings("unused")
 	private Object[] getMobile() {
-		// @formatter:off
 		return $(
 				$("Mozilla/5.0 (Android; Tablet; rv:13.0) Gecko/13.0 Firefox/13.0", 
 						MobileUserAgent.FIREFOX),
@@ -87,7 +88,6 @@ public class UserAgentCheckerJUnitTest {
 				$("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.34 Safari/534.24",
 						MobileUserAgent.ANDROID_DESKTOP_MODE));
 		// @formatter:on
-
 	}
 
 	@Test
@@ -111,7 +111,7 @@ public class UserAgentCheckerJUnitTest {
 	@Test
 	@Parameters(method = "getDesktop")
 	public void userAgentIE(String userAgentString, UserAgent userAgent) {
-		Set<UserAgent> ieAgents = Sets.newHashSet(UserAgent.IE8, UserAgent.IE9, UserAgent.IE10);
+		Set<UserAgent> ieAgents = Sets.newHashSet(UserAgent.IE8, UserAgent.IE9, UserAgent.IE10, UserAgent.IE11);
 
 		BrowserNativeInterface nativeInterface = UserAgentCheckerNativeInterfaceMock.getNativeInterfaceMock(userAgentString);
 		UserAgentChecker.setNativeInterface(nativeInterface);

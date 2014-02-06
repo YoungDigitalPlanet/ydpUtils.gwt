@@ -1,11 +1,7 @@
 package eu.ydp.gwtutil.client.ui.button;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import java.util.Set;
 
@@ -15,6 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import com.google.common.collect.Sets;
@@ -35,7 +32,7 @@ import eu.ydp.gwtutil.junit.runners.ExMockRunner;
 import eu.ydp.gwtutil.junit.runners.PrepareForTest;
 
 @RunWith(ExMockRunner.class)
-@PrepareForTest({Widget.class,NativeEvent.class})
+@PrepareForTest({ Widget.class, NativeEvent.class })
 public class CustomPushButtonEventHandlerJUnitTest {
 
 	private final UserInteractionHandlerFactory userInteractionHandlerFactory = spy(new UserInteractionHandlerFactory());
@@ -45,11 +42,12 @@ public class CustomPushButtonEventHandlerJUnitTest {
 	@Before
 	public void before() {
 		CustomPushButton pushButton = mock(CustomPushButton.class);
-		doReturn(null).when(pushButton).addDomHandler(clickEventCaptor.capture(), Mockito.any(DomEvent.Type.class));
-		instance = new CustomPushButtonEventHandler(pushButton,userInteractionHandlerFactory);
+		doReturn(null).when(pushButton).addDomHandler(clickEventCaptor.capture(), Matchers.any(DomEvent.Type.class));
+		instance = new CustomPushButtonEventHandler(pushButton, userInteractionHandlerFactory);
 		UserAgentChecker.setNativeInterface(UserAgentCheckerNativeInterfaceMock.getNativeInterfaceMock(UserAgentCheckerNativeInterfaceMock.FIREFOX_WINDOWS));
 
 	}
+
 	@BeforeClass
 	public static void disarm() {
 		GWTMockUtilities.disarm();
@@ -122,20 +120,20 @@ public class CustomPushButtonEventHandlerJUnitTest {
 		CustomClickEvent click = new CustomClickEvent(mock(NativeEvent.class));
 		clickEventCaptor.getValue().onClick(click);
 
-		verify(clickHandler, times(0)).onClick(Mockito.any(ClickEvent.class));
+		verify(clickHandler, times(0)).onClick(Matchers.any(ClickEvent.class));
 	}
 
 	@Test
-	public void addUserClickHandlerTest(){
+	public void addUserClickHandlerTest() {
 		ClickHandler handler = mock(ClickHandler.class);
 		instance.addClickHandler(handler);
 		instance.addClickHandler(handler);
 
-		verify(userInteractionHandlerFactory).createUserClickHandler(Mockito.any(Command.class));
+		verify(userInteractionHandlerFactory).createUserClickHandler(Matchers.any(Command.class));
 	}
 
 	@Test
-	public void removeUserClickHandlerTest(){
+	public void removeUserClickHandlerTest() {
 		ClickHandler handler = mock(ClickHandler.class);
 		HandlerRegistration handlerRegistration = instance.addClickHandler(handler);
 		handlerRegistration.removeHandler();
@@ -144,12 +142,12 @@ public class CustomPushButtonEventHandlerJUnitTest {
 		NativeEvent nativeEvent = mock(NativeEvent.class);
 		userInteractFactoryclickHandler.onClick(new CustomClickEvent(nativeEvent));
 
-		verify(handler,times(0)).onClick(Mockito.any(ClickEvent.class));
+		verify(handler, times(0)).onClick(Matchers.any(ClickEvent.class));
 
 	}
 
 	@Test
-	public void fireClickHandlerTest(){
+	public void fireClickHandlerTest() {
 		ClickHandler handler = mock(ClickHandler.class);
 		instance.addClickHandler(handler);
 
@@ -157,8 +155,8 @@ public class CustomPushButtonEventHandlerJUnitTest {
 		NativeEvent nativeEvent = mock(NativeEvent.class);
 		userInteractFactoryclickHandler.onClick(new CustomClickEvent(nativeEvent));
 
-		verify(handler).onClick(Mockito.any(ClickEvent.class));
-		verify(userInteractionHandlerFactory).createUserClickHandler(Mockito.any(Command.class));
+		verify(handler).onClick(Matchers.any(ClickEvent.class));
+		verify(userInteractionHandlerFactory).createUserClickHandler(Matchers.any(Command.class));
 	}
 
 }

@@ -3,9 +3,7 @@ package eu.ydp.gwtutil.client.animation;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,18 +18,25 @@ import eu.ydp.gwtutil.client.animation.css.CssAnimation;
 import eu.ydp.gwtutil.client.animation.holder.AnimationHolder;
 import eu.ydp.gwtutil.client.animation.js.JsAnimation;
 
-
 @RunWith(MockitoJUnitRunner.class)
 public class AnimationFactoryTest {
-	@Mock private Provider<GenericAnimation> baseAnimationProvider;
-	@Mock private Provider<CssAnimation> cssAnimationProvider;
-	@Mock private CssAnimationSupportAnalizer cssAnimationSupportAnalizer;
-	@Mock private Provider<JsAnimation> jsAnimationProvider;
-	@InjectMocks private AnimationFactory instance;
+	@Mock
+	private Provider<GenericAnimation> baseAnimationProvider;
+	@Mock
+	private Provider<CssAnimation> cssAnimationProvider;
+	@Mock
+	private CssAnimationSupportAnalizer cssAnimationSupportAnalizer;
+	@Mock
+	private Provider<JsAnimation> jsAnimationProvider;
+	@InjectMocks
+	private AnimationFactory instance;
 
-	@Mock private AnimationConfig animationConfig;
-	@Mock private AnimationHolder animationHolder;
-	@Mock private GenericAnimation genericAnimation;
+	@Mock
+	private AnimationConfig animationConfig;
+	@Mock
+	private AnimationHolder animationHolder;
+	@Mock
+	private GenericAnimation genericAnimation;
 
 	@Before
 	public void before() {
@@ -43,7 +48,7 @@ public class AnimationFactoryTest {
 		doReturn(true).when(cssAnimationSupportAnalizer).isCssAnimationSupported();
 		Animation animation = instance.getAnimation(animationConfig, animationHolder);
 		verify(cssAnimationProvider).get();
-		verify(jsAnimationProvider,never()).get();
+		verify(jsAnimationProvider, never()).get();
 		verify(baseAnimationProvider).get();
 		verify(genericAnimation).init(any(AnimationWithRuntimeConfig.class), eq(animationConfig), eq(animationHolder));
 		assertNotNull(animation);
@@ -53,7 +58,7 @@ public class AnimationFactoryTest {
 	public void getAnimationWithJs() throws Exception {
 		doReturn(false).when(cssAnimationSupportAnalizer).isCssAnimationSupported();
 		Animation animation = instance.getAnimation(animationConfig, animationHolder);
-		verify(cssAnimationProvider,never()).get();
+		verify(cssAnimationProvider, never()).get();
 		verify(jsAnimationProvider).get();
 		verify(baseAnimationProvider).get();
 		verify(genericAnimation).init(any(AnimationWithRuntimeConfig.class), eq(animationConfig), eq(animationHolder));

@@ -10,14 +10,14 @@ import com.google.gwt.i18n.client.Constants.DefaultStringValue;
 
 /**
  * Mock all method from class that implement {@link Constants}
- *
+ * 
  * @author plelakowski
- *
+ * 
  */
 public class GWTConstantsMock {
 	/**
 	 * Mockuje wszystkie medoy oznaczone annotacja {@link DefaultStringValue}
-	 *
+	 * 
 	 * @param mock
 	 * @return mocka
 	 */

@@ -11,7 +11,7 @@ public class ModuleCreationContext {
 	public ModuleCreationContext(Element xmlElement) {
 		this.resourceModel = new ResourceModel<Element>(xmlElement, "");
 	}
-	
+
 	public ModuleCreationContext(ResourceModel<Element> resourceModel) {
 		this.resourceModel = resourceModel;
 	}
@@ -19,5 +19,5 @@ public class ModuleCreationContext {
 	public Element getXmlElement() {
 		return resourceModel.getResource();
 	}
-	
+
 }

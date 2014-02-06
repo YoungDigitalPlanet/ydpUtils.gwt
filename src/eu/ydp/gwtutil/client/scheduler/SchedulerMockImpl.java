@@ -3,7 +3,6 @@ package eu.ydp.gwtutil.client.scheduler;
 import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 
-
 public class SchedulerMockImpl implements Scheduler {
 
 	@Override

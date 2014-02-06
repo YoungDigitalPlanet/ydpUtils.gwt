@@ -11,7 +11,7 @@ import eu.ydp.gwtutil.client.PathUtil;
 public class PathUtilTest {
 
 	@Test
-	public void testResolvePath(){
+	public void testResolvePath() {
 		String fullPath = "http://www.ydp.eu/dir/x.html";
 		String absPath = "/dir/x.html";
 		String relPath = "dir/x.html";
@@ -20,11 +20,11 @@ public class PathUtilTest {
 		Assert.assertEquals(fullPath, PathUtil.resolvePath(fullPath, base));
 		Assert.assertEquals(absPath, PathUtil.resolvePath(absPath, base));
 		Assert.assertEquals(fullPath, PathUtil.resolvePath(relPath, base));
-				
+
 	}
-	
+
 	@Test
-	public void testRetrieveBasePath(){		
+	public void testRetrieveBasePath() {
 		assertThat(PathUtil.retrieveBasePath("http://www.ydp.eu/dir/x.html"), equalTo("http://www.ydp.eu/dir/"));
 		assertThat(PathUtil.retrieveBasePath("http://www.ydp.eu/dir/x.html?x=/"), equalTo("http://www.ydp.eu/dir/"));
 		assertThat(PathUtil.retrieveBasePath("http://www.ydp.eu/dir\\x.html?x=/"), equalTo("http://www.ydp.eu/dir\\"));
@@ -34,4 +34,3 @@ public class PathUtilTest {
 		assertThat(PathUtil.retrieveBasePath("c:/dir/file.ext"), equalTo("c:/dir/"));
 	}
 }
-

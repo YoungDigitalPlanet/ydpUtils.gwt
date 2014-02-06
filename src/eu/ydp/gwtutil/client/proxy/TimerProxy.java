@@ -8,7 +8,7 @@ import com.google.gwt.user.client.Timer;
  * Additionally {@link #schedule(int)} accepts non-positive delay value.
  * 
  * @author rrybacki
- *
+ * 
  */
 public abstract class TimerProxy {
 
@@ -20,14 +20,16 @@ public abstract class TimerProxy {
 	public abstract void run();
 
 	/**
-	 * Proxy for {@link Timer#schedule(int)}. 
+	 * Proxy for {@link Timer#schedule(int)}.
 	 * 
 	 * Accepts non-positive delay value - in such case {@link #run()} is called immediately.
-	 * @param delayMillis Delay in ms or non-positive value for immediate execution.
+	 * 
+	 * @param delayMillis
+	 *            Delay in ms or non-positive value for immediate execution.
 	 * @see Timer#schedule(int)
 	 */
 	public void schedule(int delayMillis) {
-		if (delayMillis > 0){
+		if (delayMillis > 0) {
 			ensureTimer();
 			timer.schedule(delayMillis);
 		} else {
@@ -37,6 +39,7 @@ public abstract class TimerProxy {
 
 	/**
 	 * Proxy for {@link Timer#scheduleRepeating(int)}.
+	 * 
 	 * @see Timer#scheduleRepeating(int)
 	 */
 	public void scheduleRepeating(int periodMillis) {
@@ -48,18 +51,18 @@ public abstract class TimerProxy {
 	 * @see Timer#cancel()
 	 */
 	public void cancel() {
-		if (timer != null){
+		if (timer != null) {
 			timer.cancel();
 		}
 	}
-	
+
 	/**
 	 * Lazy initialization of the timer.
 	 */
-	void ensureTimer(){
-		if (timer == null){
+	void ensureTimer() {
+		if (timer == null) {
 			timer = new Timer() {
-	
+
 				@Override
 				public void run() {
 					TimerProxy.this.run();

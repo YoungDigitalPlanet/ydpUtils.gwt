@@ -23,37 +23,36 @@ public class ParameterizedMethodsRunnerMethodAndCtorTest extends ParameterizedMe
 	private static List<Boolean> paramsUsed3 = CollectionsUtil.fillList(false, params.size());
 	private static List<Boolean> paramsUsed4 = CollectionsUtil.fillList(false, params.size());
 	private static List<Boolean> paramsUsed5 = CollectionsUtil.fillList(false, params.size());
-	
+
 	private Integer cx;
 	private String cy;
-	
-	
-	public ParameterizedMethodsRunnerMethodAndCtorTest(Integer x, String y){
+
+	public ParameterizedMethodsRunnerMethodAndCtorTest(Integer x, String y) {
 		this.cx = x;
 		this.cy = y;
 	}
 
-	@Parameters(name="{index} - {0}, {1}")
-	public static Collection<Object[]> parameterizedMethodCtorParameters(){
+	@Parameters(name = "{index} - {0}, {1}")
+	public static Collection<Object[]> parameterizedMethodCtorParameters() {
 		return params;
 	}
-	
-	@MethodParameters(forMethod="parameterizedMethod1", name="{index} - {0}, {1}")
-	public static Collection<Object[]> parameterizedMethod1Parameters(){
+
+	@MethodParameters(forMethod = "parameterizedMethod1", name = "{index} - {0}, {1}")
+	public static Collection<Object[]> parameterizedMethod1Parameters() {
 		return params;
 	}
-	
-	@MethodParameters(forMethod={"parameterizedMethod2", "parameterizedMethod3"}, name="{index} - {0}, {1}")
-	public static Collection<Object[]> parameterizedMethod2Parameters(){
+
+	@MethodParameters(forMethod = { "parameterizedMethod2", "parameterizedMethod3" }, name = "{index} - {0}, {1}")
+	public static Collection<Object[]> parameterizedMethod2Parameters() {
 		return params;
 	}
-	
+
 	@Test
-	public void parameterizedMethod1(Integer mx, String my){
-		for (int i = 0 ; i < params.size() ; i ++){
+	public void parameterizedMethod1(Integer mx, String my) {
+		for (int i = 0; i < params.size(); i++) {
 			Object[] currParams = params.get(i);
-			if (!paramsUsed1.get(i)){
-				if (mx == currParams[0]  &&  my.equals(currParams[1])){
+			if (!paramsUsed1.get(i)) {
+				if (mx == currParams[0] && my.equals(currParams[1])) {
 					paramsUsed1.set(i, true);
 					return;
 				}
@@ -61,13 +60,13 @@ public class ParameterizedMethodsRunnerMethodAndCtorTest extends ParameterizedMe
 		}
 		Assert.fail(VISIT_ONCE_MESSAGE);
 	}
-	
+
 	@Test
-	public void parameterizedMethod2(Integer mx, String my){
-		for (int i = 0 ; i < params.size() ; i ++){
+	public void parameterizedMethod2(Integer mx, String my) {
+		for (int i = 0; i < params.size(); i++) {
 			Object[] currParams = params.get(i);
-			if (!paramsUsed2.get(i)){
-				if (mx == currParams[0]  &&  my.equals(currParams[1])){
+			if (!paramsUsed2.get(i)) {
+				if (mx == currParams[0] && my.equals(currParams[1])) {
 					paramsUsed2.set(i, true);
 					return;
 				}
@@ -75,13 +74,13 @@ public class ParameterizedMethodsRunnerMethodAndCtorTest extends ParameterizedMe
 		}
 		Assert.fail(VISIT_ONCE_MESSAGE);
 	}
-	
+
 	@Test
-	public void parameterizedMethod3(Integer mx, String my){
-		for (int i = 0 ; i < params.size() ; i ++){
+	public void parameterizedMethod3(Integer mx, String my) {
+		for (int i = 0; i < params.size(); i++) {
 			Object[] currParams = params.get(i);
-			if (!paramsUsed3.get(i)){
-				if (mx == currParams[0]  &&  my.equals(currParams[1])){
+			if (!paramsUsed3.get(i)) {
+				if (mx == currParams[0] && my.equals(currParams[1])) {
 					paramsUsed3.set(i, true);
 					return;
 				}
@@ -89,13 +88,13 @@ public class ParameterizedMethodsRunnerMethodAndCtorTest extends ParameterizedMe
 		}
 		Assert.fail(VISIT_ONCE_MESSAGE);
 	}
-	
+
 	@Test
-	public void nonParameterizedMethod1(){
-		for (int i = 0 ; i < params.size() ; i ++){
+	public void nonParameterizedMethod1() {
+		for (int i = 0; i < params.size(); i++) {
 			Object[] currParams = params.get(i);
-			if (!paramsUsed4.get(i)){
-				if (cx == currParams[0]  &&  cy.equals(currParams[1])){
+			if (!paramsUsed4.get(i)) {
+				if (cx == currParams[0] && cy.equals(currParams[1])) {
 					paramsUsed4.set(i, true);
 					return;
 				}
@@ -103,13 +102,13 @@ public class ParameterizedMethodsRunnerMethodAndCtorTest extends ParameterizedMe
 		}
 		Assert.fail(VISIT_ONCE_MESSAGE);
 	}
-	
+
 	@Test
-	public void nonParameterizedMethod2(){
-		for (int i = 0 ; i < params.size() ; i ++){
+	public void nonParameterizedMethod2() {
+		for (int i = 0; i < params.size(); i++) {
 			Object[] currParams = params.get(i);
-			if (!paramsUsed5.get(i)){
-				if (cx == currParams[0]  &&  cy.equals(currParams[1])){
+			if (!paramsUsed5.get(i)) {
+				if (cx == currParams[0] && cy.equals(currParams[1])) {
 					paramsUsed5.set(i, true);
 					return;
 				}
@@ -117,14 +116,14 @@ public class ParameterizedMethodsRunnerMethodAndCtorTest extends ParameterizedMe
 		}
 		Assert.fail(VISIT_ONCE_MESSAGE);
 	}
-	
+
 	@AfterClass
-	public static void after(){
+	public static void after() {
 		assertThat(paramsUsed1.contains(false), is(false));
 		assertThat(paramsUsed2.contains(false), is(false));
 		assertThat(paramsUsed3.contains(false), is(false));
 		assertThat(paramsUsed4.contains(false), is(false));
 		assertThat(paramsUsed5.contains(false), is(false));
 	}
-	
+
 }
