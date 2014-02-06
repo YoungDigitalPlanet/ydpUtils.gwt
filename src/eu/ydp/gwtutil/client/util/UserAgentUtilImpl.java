@@ -58,14 +58,14 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 
 	@Override
 	public boolean isUserAgent(BrowserUserAgent userAgent) {
-		return nativeInterface.isUserAgent(userAgent.getRegexPattern(), getUserAgentStrting());
+		return nativeInterface.isUserAgent(userAgent.getRegexPattern(), getUserAgentString());
 
 	}
 
 	@Override
 	public boolean isUserAgent(BrowserUserAgent... userAgents) {
 		for (BrowserUserAgent uAgent : userAgents) {
-			if (nativeInterface.isUserAgent(uAgent.getRegexPattern(), getUserAgentStrting())) {
+			if (nativeInterface.isUserAgent(uAgent.getRegexPattern(), getUserAgentString())) {
 				return true;
 			}
 		}
@@ -73,7 +73,7 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 	}
 
 	@Override
-	public String getUserAgentStrting() {
+	public String getUserAgentString() {
 		return nativeInterface.getUserAgentStrting().toLowerCase();
 	}
 
@@ -126,12 +126,12 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 
 	@Override
 	public boolean isIE() {
-		return isUserAgentMatching(".*msie[ ]*[0-9]{1,2}.*trident.*");
+		return isUserAgentMatching(".*trident.*");
 	}
 
 	@Override
 	public boolean isUserAgentMatching(String pattern) {
-		return nativeInterface.isUserAgent(pattern.toLowerCase(), getUserAgentStrting());
+		return nativeInterface.isUserAgent(pattern.toLowerCase(), getUserAgentString());
 	}
 
 }

@@ -24,14 +24,22 @@ public class UserAgentChecker {
 	 * Konfiguracja mobilnego user agenta. Wartosci musza byc zsynchronizowane z module.gwt.xml oraz {@link MobileUserAgentPropertyGenerator}
 	 * 
 	 */
+	// @formatter:off
 	public enum MobileUserAgent implements BrowserUserAgent {
-		AIR("air", ".*adobeair.*"), CHROME("chrome", "mozilla.*android.*chrome\\/[1-9]{1}[0-9]{1}.*"), FIREFOX("firefox",
-				"mozilla.*android.*firefox\\/[1-9]{1}[0-9]{1}.*"), SAFARI("safari", ".*(ipad|ipod|iphon).*applewebkit.*safari.*"), SAFARI_WEBVIEW(
-				"safari_webview", ".*(ipad|ipod|iphon).*applewebkit(?!(.*safari.*)).*"), ANDROID23("android23", "android[ ]*2.3[.0-9a-z -]*"), ANDROID321(
-				"android321", "android[ ]*3.2.1[.0-9a-z -]*"), ANDROID3("android3", "android[ ]*3[.0-9a-z -]*"), ANDROID4("android4",
-				"android[ ]*4[.0-9a-z -]*"), ANDROID_DESKTOP_MODE("android_desktop_mode", "mozilla.*x11; linux.*chrome\\/1[1-9]"), ANDROID_OTHER(
-				"android_other", "android[ ]*[5-9][.0-9a-z -]*"), // watch this regex when adding rule for subsequent Android version
+		AIR("air", ".*adobeair.*"),
+		CHROME("chrome", "mozilla.*android.*chrome\\/[1-9]{1}[0-9]{1}.*"),
+		FIREFOX("firefox", "mozilla.*android.*firefox\\/[1-9]{1}[0-9]{1}.*"),
+		SAFARI("safari", ".*(ipad|ipod|iphon).*applewebkit.*safari.*"),
+		SAFARI_WEBVIEW("safari_webview", ".*(ipad|ipod|iphon).*applewebkit(?!(.*safari.*)).*"),
+		ANDROID23("android23", "android[ ]*2.3[.0-9a-z -]*"),
+		ANDROID321(	"android321", "android[ ]*3.2.1[.0-9a-z -]*"),
+		ANDROID3("android3", "android[ ]*3[.0-9a-z -]*"),
+		ANDROID4("android4","android[ ]*4[.0-9a-z -]*"),
+		ANDROID_DESKTOP_MODE("android_desktop_mode", "mozilla.*x11; linux.*chrome\\/1[1-9]"),
+		ANDROID_OTHER("android_other", "android[ ]*[5-9][.0-9a-z -]*"), // watch this regex when adding rule for subsequent Android version
 		UNKNOWN("unknown", ".*");
+	// @formatter:on
+
 		private final String tagName, regexPattern;
 
 		private MobileUserAgent(String name, String regex) {
@@ -62,9 +70,17 @@ public class UserAgentChecker {
 	 * 
 	 */
 	public enum UserAgent implements BrowserUserAgent {
-		CHROME("chrome", ".*(chromium|chrome)/(\\d+)\\.(\\d+)\\.(\\d+).*"), GECKO1_8("gecko1_8", "^(((?!.*like).*)(.*gecko.*))$"), OPERA("opera", ".*opera.*"), IE8(
-				"ie8", ".*msie[ ]*[78]{1}.*trident.*"), IE9("ie9", ".*msie[ ]*9.*trident.*"), IE10("ie10", ".*msie[ ]*10.*trident.*"), SAFARI("safari",
-				".*webkit.*"), ALL("all", ".*"), ;
+		// @formatter:off
+		CHROME("chrome", ".*(chromium|chrome)/(\\d+)\\.(\\d+)\\.(\\d+).*"),
+		GECKO1_8("gecko1_8", "^(((?!.*like).*)(.*gecko.*))$"),
+		OPERA("opera", ".*opera.*"),
+		IE8("ie8", ".*msie[ ]*[78]{1}.*trident.*"),
+		IE9("ie9", ".*msie[ ]*9.*trident.*"),
+		IE10("ie10", ".*msie[ ]*10.*trident.*"),
+		IE11("ie11", "trident/7"),
+		SAFARI("safari", ".*webkit.*"),
+		ALL("all", ".*"), ;
+		// @formatter:on
 		private final String tagName, regexPattern;
 
 		private UserAgent(String name, String regex) {
@@ -163,7 +179,7 @@ public class UserAgentChecker {
 	 * @return
 	 */
 	public static String getUserAgentStrting() {
-		return userAgentUtilImpl.getUserAgentStrting();
+		return userAgentUtilImpl.getUserAgentString();
 	}
 
 	/**
