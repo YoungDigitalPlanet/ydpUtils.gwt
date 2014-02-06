@@ -18,7 +18,7 @@ public interface UserAgentUtil {
 
 	public boolean isUserAgent(BrowserUserAgent... userAgents);
 
-	public String getUserAgentStrting();
+	public String getUserAgentString();
 
 	public MobileUserAgent getMobileUserAgent();
 
