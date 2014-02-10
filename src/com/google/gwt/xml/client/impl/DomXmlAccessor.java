@@ -5,16 +5,15 @@ import com.google.gwt.xml.client.Element;
 
 public class DomXmlAccessor {
 
-
-	public JavaScriptObject getJavaScriptObject(Element element){
-		return getJavaScriptObjectImpl((DOMItem)element);
+	public JavaScriptObject getJavaScriptObject(Element element) {
+		return getJavaScriptObjectImpl((DOMItem) element);
 	}
-	
-	private JavaScriptObject getJavaScriptObjectImpl(DOMItem item){
+
+	private JavaScriptObject getJavaScriptObjectImpl(DOMItem item) {
 		return item.getJsObject();
 	}
-	
-	public NodeListImpl createNodeListImpl(JavaScriptObject o){
+
+	public NodeListImpl createNodeListImpl(JavaScriptObject o) {
 		return new NodeListImpl(o);
 	}
 }

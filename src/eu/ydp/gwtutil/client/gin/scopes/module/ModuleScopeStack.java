@@ -8,16 +8,16 @@ import com.google.inject.Singleton;
 public class ModuleScopeStack {
 
 	private final Stack<ModuleCreationContext> contextsStack = new Stack<ModuleCreationContext>();
-	
-	public void pushContext(ModuleCreationContext context){
+
+	public void pushContext(ModuleCreationContext context) {
 		contextsStack.push(context);
 	}
-	
-	public ModuleCreationContext getCurrentTopContext(){
+
+	public ModuleCreationContext getCurrentTopContext() {
 		return contextsStack.peek();
 	}
-	
-	public ModuleCreationContext pop(){
+
+	public ModuleCreationContext pop() {
 		return contextsStack.pop();
 	}
 }

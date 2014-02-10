@@ -7,7 +7,7 @@ import com.google.common.base.Objects;
 import eu.ydp.gwtutil.client.util.geom.Size;
 
 public class AnimationConfig {
-	
+
 	private static final int MS_IN_SECONDS = 1000;
 	private final int fps;
 	private final Size frameSize;
@@ -23,8 +23,8 @@ public class AnimationConfig {
 		return fps;
 	}
 
-	public int getIntervalMs(){
-		if (fps > 0){
+	public int getIntervalMs() {
+		if (fps > 0) {
 			return MS_IN_SECONDS / fps;
 		} else {
 			return MS_IN_SECONDS;
@@ -56,10 +56,7 @@ public class AnimationConfig {
 			return false;
 		}
 		AnimationConfig other = (AnimationConfig) obj;
-		return  equal(fps, other.fps)  &&  
-				equal(frameSize, other.frameSize)  &&  
-				equal(source, other.source);
+		return equal(fps, other.fps) && equal(frameSize, other.frameSize) && equal(source, other.source);
 	}
-	
-	
+
 }

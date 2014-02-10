@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 public class QueueSet<E> implements Set<E> {
-	
+
 	private List<E> list = new ArrayList<E>();
 
 	@Override
@@ -17,10 +17,10 @@ public class QueueSet<E> implements Set<E> {
 		list.add(e);
 		return true;
 	}
-	
+
 	public boolean append(E e) {
-		if (list.contains(e)){
-			list.remove(e);	
+		if (list.contains(e)) {
+			list.remove(e);
 		}
 		list.add(e);
 		return true;
@@ -29,20 +29,20 @@ public class QueueSet<E> implements Set<E> {
 	@Override
 	public boolean addAll(Collection<? extends E> c) {
 		boolean added = false;
-		for (E e : c){
-			if (!list.contains(e)){
+		for (E e : c) {
+			if (!list.contains(e)) {
 				list.add(e);
 				added = true;
 			}
 		}
 		return added;
 	}
-	
+
 	public boolean appendAll(Collection<? extends E> c) {
 		boolean added = false;
-		if (c != null){
-			for (E e : c){
-				if (!list.contains(e)){
+		if (c != null) {
+			for (E e : c) {
+				if (!list.contains(e)) {
 					list.add(e);
 					added = true;
 				} else if (list.indexOf(e) != list.size() - 1) {

@@ -14,6 +14,6 @@ public class LoggerJSConsole implements Logger {
 	}
 
 	private native void logToJSConsole(String text) /*-{
-		console.log(text);
-	}-*/;
+													console.log(text);
+													}-*/;
 }

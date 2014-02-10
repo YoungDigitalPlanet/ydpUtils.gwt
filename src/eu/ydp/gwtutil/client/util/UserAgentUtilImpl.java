@@ -58,14 +58,14 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 
 	@Override
 	public boolean isUserAgent(BrowserUserAgent userAgent) {
-		return nativeInterface.isUserAgent(userAgent.getRegexPattern(), getUserAgentStrting());
+		return nativeInterface.isUserAgent(userAgent.getRegexPattern(), getUserAgentString());
 
 	}
 
 	@Override
 	public boolean isUserAgent(BrowserUserAgent... userAgents) {
 		for (BrowserUserAgent uAgent : userAgents) {
-			if (nativeInterface.isUserAgent(uAgent.getRegexPattern(), getUserAgentStrting())) {
+			if (nativeInterface.isUserAgent(uAgent.getRegexPattern(), getUserAgentString())) {
 				return true;
 			}
 		}
@@ -73,7 +73,7 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 	}
 
 	@Override
-	public String getUserAgentStrting() {
+	public String getUserAgentString() {
 		return nativeInterface.getUserAgentStrting().toLowerCase();
 	}
 
@@ -97,8 +97,7 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 	}
 
 	/**
-	 * It's not proven that this method is working correctly on all browsers.
-	 * Checked for Safari.
+	 * It's not proven that this method is working correctly on all browsers. Checked for Safari.
 	 * 
 	 */
 	@Override
@@ -109,31 +108,30 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 	}
 
 	/**
-	 * It's not proven that this method is working correctly on all browsers.
-	 * Checked for Safari.
+	 * It's not proven that this method is working correctly on all browsers. Checked for Safari.
 	 * 
 	 */
 	public native boolean isCurrentWindowTop() /*-{
-		if (top === self) {
-			return true;
-		} else {
-			return false;
-		}
-	}-*/;
+												if (top === self) {
+												return true;
+												} else {
+												return false;
+												}
+												}-*/;
 
 	@Override
 	public native boolean isAIR() /*-{
-		return $wnd.navigator.isAIR;
-	}-*/;
+									return $wnd.navigator.isAIR;
+									}-*/;
 
 	@Override
 	public boolean isIE() {
-		return isUserAgentMatching(".*msie[ ]*[0-9]{1,2}.*trident.*");
+		return isUserAgentMatching(".*trident.*");
 	}
 
 	@Override
 	public boolean isUserAgentMatching(String pattern) {
-		return nativeInterface.isUserAgent(pattern.toLowerCase(), getUserAgentStrting());
+		return nativeInterface.isUserAgent(pattern.toLowerCase(), getUserAgentString());
 	}
 
 }

@@ -13,51 +13,51 @@ import eu.ydp.gwtutil.client.json.YJsonString;
 import eu.ydp.gwtutil.client.json.YJsonValue;
 
 public class YNativeJsonValue implements YJsonValue {
-	
+
 	protected JsonValue jSonValue;
-	
+
 	public YNativeJsonValue(JsonValue value) {
-		this.jSonValue = value;		
+		this.jSonValue = value;
 	}
-	
-	public JsonValue toJson(){
+
+	public JsonValue toJson() {
 		return jSonValue;
 	}
-	
+
 	@Override
 	public YJsonArray isArray() {
 		if (this instanceof YJsonArray)
-			return (YJsonArray)this;
+			return (YJsonArray) this;
 		return null;
-		
+
 	}
 
 	@Override
 	public YJsonString isString() {
 		if (this instanceof YJsonString)
-			return (YJsonString)this;
+			return (YJsonString) this;
 		return null;
 	}
 
 	@Override
 	public YJsonNumber isNumber() {
 		if (this instanceof YJsonNumber)
-			return (YJsonNumber)this;
+			return (YJsonNumber) this;
 		return null;
 	}
-	
+
 	@Override
 	public YJsonObject isObject() {
 		if (this instanceof YJsonObject)
-			return (YJsonObject)this;
+			return (YJsonObject) this;
 		return null;
-	}	
-	
+	}
+
 	@Override
 	public YJsonBoolean isBoolean() {
-		return (this instanceof YJsonBoolean) ? (YJsonBoolean)this : null;
+		return (this instanceof YJsonBoolean) ? (YJsonBoolean) this : null;
 	}
-	
+
 	@Override
 	public String toString() {
 		StringWriter writer = new StringWriter();

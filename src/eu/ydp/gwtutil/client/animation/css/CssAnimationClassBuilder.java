@@ -22,11 +22,11 @@ public class CssAnimationClassBuilder {
 		this.cssKeyFrameBuilder = cssKeyFrameBuilder;
 	}
 
-	public String createAnimationCssClassName(AnimationConfig animationConfig, Size imgSize){
+	public String createAnimationCssClassName(AnimationConfig animationConfig, Size imgSize) {
 		CssAnimationConfig cssAnimationConfig = new CssAnimationConfig(animationConfig, imgSize);
 		String animationStyleName = cssAnimationConfig.getAnimationStyleName();
 
-		if(!generatedClassNames.contains(animationStyleName)){
+		if (!generatedClassNames.contains(animationStyleName)) {
 			createAnimationCss(cssAnimationConfig);
 			generatedClassNames.add(animationStyleName);
 		}
@@ -53,19 +53,14 @@ public class CssAnimationClassBuilder {
 	}
 
 	private String generateCssAnimationPropertyValue(CssAnimationConfig animationConfig, String keyframesName, CssAnimationPrefix prefix) {
-		String styleProperty = ANIMATE_PROPERTY
-									.replaceAll("\\$prefix", prefix.toCss())
-									.replaceAll("\\$animationTime", animationConfig.getAnimationTime())
-									.replaceAll("\\$stepsCount", String.valueOf(animationConfig.getFramesCount()))
-									.replaceAll("\\$keyframesName", keyframesName);
+		String styleProperty = ANIMATE_PROPERTY.replaceAll("\\$prefix", prefix.toCss()).replaceAll("\\$animationTime", animationConfig.getAnimationTime())
+				.replaceAll("\\$stepsCount", String.valueOf(animationConfig.getFramesCount())).replaceAll("\\$keyframesName", keyframesName);
 		return styleProperty;
 	}
 
 	private String generateAnimationCssClass(CssAnimationConfig animationConfig, String animationClassBody) {
-		String animationCssClass = ANIMATE_CLASS_TEMPLATE
-										.replaceAll("\\$name", animationConfig.getAnimationStyleName())
-							  			.replaceAll("\\$styleProperty", animationClassBody)
-							  			.replaceAll("\\$backgroundImage", animationConfig.getSource());
+		String animationCssClass = ANIMATE_CLASS_TEMPLATE.replaceAll("\\$name", animationConfig.getAnimationStyleName())
+				.replaceAll("\\$styleProperty", animationClassBody).replaceAll("\\$backgroundImage", animationConfig.getSource());
 		return animationCssClass;
 	}
 }

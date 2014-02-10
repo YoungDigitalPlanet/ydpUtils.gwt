@@ -1,5 +1,8 @@
 package eu.ydp.gwtutil.client.util.geom;
 
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -10,7 +13,6 @@ import org.mockito.Mockito;
 import com.google.gwt.junit.GWTMockUtilities;
 import com.google.gwt.user.client.ui.Widget;
 
-import static org.mockito.Mockito.*;
 import eu.ydp.gwtutil.junit.runners.ExMockRunner;
 import eu.ydp.gwtutil.junit.runners.PrepareForTest;
 
@@ -19,12 +21,11 @@ import eu.ydp.gwtutil.junit.runners.PrepareForTest;
 public class WidgetSizeTest {
 
 	private Widget widget;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		widget = Mockito.mock(Widget.class);
-		when(widget.asWidget())
-			.thenReturn(widget);
+		when(widget.asWidget()).thenReturn(widget);
 	}
 
 	@BeforeClass
@@ -36,19 +37,19 @@ public class WidgetSizeTest {
 	public static void rearm() {
 		GWTMockUtilities.restore();
 	}
-	
+
 	@Test
 	public void shouldPropelySetSizeOnWidget() throws Exception {
-		//given
+		// given
 		int width = 100;
 		int height = 222;
 		Size size = new Size(width, height);
 		WidgetSize widgetSize = new WidgetSize(size);
-		
-		//when
+
+		// when
 		widgetSize.setOnWidget(widget);
-		
-		//then
+
+		// then
 		String expectedWidth = width + WidgetSize.DIMENSIONS_UNIT;
 		String expectedHeight = height + WidgetSize.DIMENSIONS_UNIT;
 

@@ -11,7 +11,7 @@ import java.util.Set;
  * This Map implementation is intentionally based on List as HashMap implementation contains bug and can't be used with some JavaScriptObjects as keys.
  * 
  * @author rrybacki
- *
+ * 
  */
 public class StackMap<K, V> implements Map<K, V> {
 
@@ -24,6 +24,7 @@ public class StackMap<K, V> implements Map<K, V> {
 		values = new ArrayList<V>();
 	}
 
+	@Override
 	public V put(K key, V value) {
 		int index = keys.indexOf(key);
 		if (index == -1) {
@@ -36,6 +37,7 @@ public class StackMap<K, V> implements Map<K, V> {
 		return value;
 	}
 
+	@Override
 	public void clear() {
 		keys.clear();
 		values.clear();
@@ -49,10 +51,12 @@ public class StackMap<K, V> implements Map<K, V> {
 		return new ArrayList<V>(values);
 	}
 
+	@Override
 	public boolean containsKey(Object key) {
 		return keys.contains(key);
 	}
 
+	@Override
 	public V get(Object key) {
 		int index = keys.indexOf(key);
 		if (index == -1) {
@@ -62,10 +66,12 @@ public class StackMap<K, V> implements Map<K, V> {
 		}
 	}
 
+	@Override
 	public Set<K> keySet() {
 		return new HashSet<K>(keys);
 	}
 
+	@Override
 	public V remove(Object key) {
 		int index = keys.indexOf(key);
 		if (index != -1) {
@@ -105,6 +111,5 @@ public class StackMap<K, V> implements Map<K, V> {
 	public Collection<V> values() {
 		return new ArrayList<V>(values);
 	}
-	
 
 }

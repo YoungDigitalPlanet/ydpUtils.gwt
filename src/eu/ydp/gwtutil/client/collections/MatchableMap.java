@@ -7,19 +7,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import eu.ydp.gwtutil.client.collections.Matchee;
-
-
 public class MatchableMap<K extends Matchable, V> implements Map<K, V> {
 
 	private List<K> keys;
 	private List<V> values;
-	
-	public MatchableMap(){
+
+	public MatchableMap() {
 		keys = new ArrayList<K>();
 		values = new ArrayList<V>();
 	}
-	
+
 	@Override
 	public void clear() {
 		keys.clear();
@@ -31,7 +28,7 @@ public class MatchableMap<K extends Matchable, V> implements Map<K, V> {
 		if (!(key instanceof Matchee))
 			return false;
 		for (K k : keys)
-			if (k.matches((Matchee)key))
+			if (k.matches((Matchee) key))
 				return true;
 		return false;
 	}
@@ -43,15 +40,15 @@ public class MatchableMap<K extends Matchable, V> implements Map<K, V> {
 
 	@Override
 	public Set<java.util.Map.Entry<K, V>> entrySet() {
-		Set<java.util.Map.Entry<K, V>> entries = new TreeSet<Map.Entry<K,V>>();
-		for (int i = 0 ; i < keys.size() ; i ++){
+		Set<java.util.Map.Entry<K, V>> entries = new TreeSet<Map.Entry<K, V>>();
+		for (int i = 0; i < keys.size(); i++) {
 			final K currK = keys.get(i);
 			final V currV = values.get(i);
 			entries.add(new Entry<K, V>() {
 
 				private K key = currK;
 				private V value = currV;
-				
+
 				@Override
 				public K getKey() {
 					return key;
@@ -64,7 +61,7 @@ public class MatchableMap<K extends Matchable, V> implements Map<K, V> {
 
 				@Override
 				public V setValue(V arg0) {
-					if (keys.indexOf(getKey()) != -1){
+					if (keys.indexOf(getKey()) != -1) {
 						value = arg0;
 						return values.set(keys.indexOf(getKey()), arg0);
 					}
@@ -79,8 +76,8 @@ public class MatchableMap<K extends Matchable, V> implements Map<K, V> {
 	public V get(Object key) {
 		if (!(key instanceof Matchee))
 			return null;
-		for (int i = 0 ; i < keys.size() ; i ++)
-			if (keys.get(i).matches((Matchee)key))
+		for (int i = 0; i < keys.size(); i++)
+			if (keys.get(i).matches((Matchee) key))
 				return values.get(i);
 		return null;
 	}
@@ -97,8 +94,8 @@ public class MatchableMap<K extends Matchable, V> implements Map<K, V> {
 
 	@Override
 	public V put(K key, V value) {
-		for (int i = 0 ; i < keys.size() ; i ++)
-			if (keys.get(i).matches((Matchee)key))
+		for (int i = 0; i < keys.size(); i++)
+			if (keys.get(i).matches(key))
 				return values.set(i, value);
 		keys.add(key);
 		values.add(value);
@@ -108,7 +105,7 @@ public class MatchableMap<K extends Matchable, V> implements Map<K, V> {
 	@Override
 	public void putAll(Map<? extends K, ? extends V> m) {
 		Set<? extends K> keysSet = m.keySet();
-		for (K k : keysSet){
+		for (K k : keysSet) {
 			keys.add(k);
 			values.add(m.get(k));
 		}
@@ -118,8 +115,8 @@ public class MatchableMap<K extends Matchable, V> implements Map<K, V> {
 	public V remove(Object key) {
 		if (!(key instanceof Matchee))
 			return null;
-		for (int i = 0 ; i < keys.size() ; i ++)
-			if (keys.get(i).matches((Matchee)key)){
+		for (int i = 0; i < keys.size(); i++)
+			if (keys.get(i).matches((Matchee) key)) {
 				keys.remove(i);
 				return values.remove(i);
 			}
@@ -136,5 +133,4 @@ public class MatchableMap<K extends Matchable, V> implements Map<K, V> {
 		return values;
 	}
 
-	
 }

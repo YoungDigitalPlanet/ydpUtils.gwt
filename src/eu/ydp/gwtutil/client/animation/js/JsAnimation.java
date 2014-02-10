@@ -53,11 +53,9 @@ public class JsAnimation implements AnimationWithRuntimeConfig {
 		getAnimationHolder().setAnimationLeft(0);
 	}
 
-
 	private AnimationHolder getAnimationHolder() {
 		return animationRuntimeConfig.getAnimationHolder();
 	}
-
 
 	private AnimationConfig getAnimateConfig() {
 		return animationRuntimeConfig.getAnimationConfig();
@@ -68,7 +66,7 @@ public class JsAnimation implements AnimationWithRuntimeConfig {
 		frameworkAnimation.run(duration);
 	}
 
-	private int findAnimationDuration(){
+	private int findAnimationDuration() {
 		return animationRuntimeConfig.getFramesCount() * getAnimateConfig().getIntervalMs();
 	}
 
@@ -78,14 +76,14 @@ public class JsAnimation implements AnimationWithRuntimeConfig {
 	}
 
 	private void checkAnimationEnd(double progress) {
-		if (progress == PROGRESS_MAX){
+		if (progress == PROGRESS_MAX) {
 			handler.onEnd();
 		}
 	}
 
 	private void updateAnimation(double progress) {
 		int framesCount = animationRuntimeConfig.getFramesCount();
-		int currentFrame = min( (int) floor( framesCount * progress) , framesCount - 1);
+		int currentFrame = min((int) floor(framesCount * progress), framesCount - 1);
 		int animationLeft = -1 * getAnimateConfig().getFrameSize().getWidth() * currentFrame;
 		getAnimationHolder().setAnimationLeft(animationLeft);
 	}

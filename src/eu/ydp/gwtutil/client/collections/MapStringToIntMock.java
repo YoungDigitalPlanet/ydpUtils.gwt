@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class MapStringToIntMock implements MapStringToInt{
+public class MapStringToIntMock implements MapStringToInt {
 
 	private final Map<String, Integer> map = new HashMap<String, Integer>();
-	
+
 	@Override
 	public Set<String> keySet() {
 		return new HashSet<String>(map.keySet());

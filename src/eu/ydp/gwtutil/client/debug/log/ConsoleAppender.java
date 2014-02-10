@@ -1,6 +1,5 @@
 package eu.ydp.gwtutil.client.debug.log;
 
-
 public class ConsoleAppender implements LogAppender {
 
 	@Override
@@ -9,6 +8,6 @@ public class ConsoleAppender implements LogAppender {
 	}
 
 	private native void writeToConsole(String msg)/*-{
-		console.log(msg);
-	}-*/;
+													console.log(msg);
+													}-*/;
 }

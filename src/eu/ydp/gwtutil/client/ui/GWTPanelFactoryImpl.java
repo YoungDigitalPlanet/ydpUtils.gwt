@@ -5,19 +5,23 @@ import com.google.gwt.user.client.ui.FlowPanel;
 
 public class GWTPanelFactoryImpl implements GWTPanelFactory {
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see eu.ydp.gwtutil.client.ui.GWTPanelFactory#getFlowPanel()
 	 */
 	@Override
-	public FlowPanel getFlowPanel(){
+	public FlowPanel getFlowPanel() {
 		return new FlowPanel();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see eu.ydp.gwtutil.client.ui.GWTPanelFactory#getAbsolutePanel()
 	 */
 	@Override
-	public AbsolutePanel getAbsolutePanel(){
+	public AbsolutePanel getAbsolutePanel() {
 		return new AbsolutePanel();
 	}
 

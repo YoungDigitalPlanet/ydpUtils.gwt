@@ -27,44 +27,37 @@ public class StringConstantsGeneratorTest extends AbstractTestBase {
 		super.setUp();
 		generator = new StringConstantsGenerator();
 	}
-	
-	@MethodParameters(forMethod="camelCaseToComponents", name= "{index}: {0}")
- 	public static Collection<Object[]> dataCamelCaseToComponents() {
- 		return Arrays.asList(new Object[][] { 
- 				{ "AbcDef12GhiJk", ListCreator.create("abc").add("def").add("12").add("ghi").add("jk").build() }, 
- 				{ "123", ListCreator.create("123").build() }, 
- 				{ "A", ListCreator.create("a").build() }, 
- 				{ "ABC", ListCreator.create("a").add("b").add("c").build() }, 
- 				{ "", new ArrayList<String>() }, 
- 				});
- 	}
 
-	
+	@MethodParameters(forMethod = "camelCaseToComponents", name = "{index}: {0}")
+	public static Collection<Object[]> dataCamelCaseToComponents() {
+		return Arrays.asList(new Object[][] { { "AbcDef12GhiJk", ListCreator.create("abc").add("def").add("12").add("ghi").add("jk").build() },
+				{ "123", ListCreator.create("123").build() }, { "A", ListCreator.create("a").build() },
+				{ "ABC", ListCreator.create("a").add("b").add("c").build() }, { "", new ArrayList<String>() }, });
+	}
+
 	@Test
-	public void camelCaseToComponents(String input, List<String> output){
-		// when 
+	public void camelCaseToComponents(String input, List<String> output) {
+		// when
 		List<String> actualOutput = generator.camelCaseToComponents(input);
-		
+
 		// then
 		assertThat(actualOutput, equalTo(output));
 	}
-	
-	@MethodParameters(forMethod="combineComponents", name= "{index}: {0}")
- 	public static Collection<Object[]> dataCombineComponents() {
- 		return Arrays.asList(new Object[][] { 
- 				{ ListCreator.create("abc").add("def").add("12").add("ghi").add("jk").build(), String.format("abc%1$sdef%1$s12%1$sghi%1$sjk", SEPARATOR) }, 
- 				{ ListCreator.create("123").build(), "123" }, 
- 				{ new ArrayList<String>(), "" }, 
- 				});
- 	}
-	
+
+	@MethodParameters(forMethod = "combineComponents", name = "{index}: {0}")
+	public static Collection<Object[]> dataCombineComponents() {
+		return Arrays.asList(new Object[][] {
+				{ ListCreator.create("abc").add("def").add("12").add("ghi").add("jk").build(), String.format("abc%1$sdef%1$s12%1$sghi%1$sjk", SEPARATOR) },
+				{ ListCreator.create("123").build(), "123" }, { new ArrayList<String>(), "" }, });
+	}
+
 	@Test
-	public void combineComponents(List<String> input, String output){
-		// when 
+	public void combineComponents(List<String> input, String output) {
+		// when
 		String actualOutput = generator.combineComponents(input, SEPARATOR);
-		
+
 		// then
 		assertThat(actualOutput, equalTo(output));
-		
+
 	}
 }

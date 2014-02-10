@@ -1,6 +1,5 @@
 package eu.ydp.gwtutil.client.animation.css;
 
-
 import eu.ydp.gwtutil.client.animation.AnimationConfig;
 import eu.ydp.gwtutil.client.util.geom.Size;
 

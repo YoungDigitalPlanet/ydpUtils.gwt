@@ -9,15 +9,15 @@ import org.mockito.internal.stubbing.defaultanswers.ReturnsMoreEmptyValues;
 import org.mockito.invocation.InvocationOnMock;
 
 /**
- * Simulates Java Bean object answers for methods defined in the mocked class. 
+ * Simulates Java Bean object answers for methods defined in the mocked class.
  * 
  * Usage: SomeClass someClassMock = mock(SomeClass.class, new JavaBeanMockAnswers());
  * 
  * @author rrybacki
- *
+ * 
  */
 public class ReturnsJavaBeanAnswers extends ReturnsMoreEmptyValues {
-	
+
 	private static final long serialVersionUID = -3699260178969600384L;
 
 	private final static Map<Object, Map<String, Object>> mockToMethodMap = new WeakHashMap<Object, Map<String, Object>>();

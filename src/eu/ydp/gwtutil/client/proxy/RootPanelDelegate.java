@@ -6,8 +6,8 @@ public class RootPanelDelegate {
 	public int getOffsetWidth() {
 		return RootPanel.get().getOffsetWidth();
 	}
-	
-	public RootPanel getRootPanel(){
+
+	public RootPanel getRootPanel() {
 		return RootPanel.get();
 	}
 }

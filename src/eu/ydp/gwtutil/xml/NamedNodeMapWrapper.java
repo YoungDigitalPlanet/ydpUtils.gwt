@@ -7,10 +7,10 @@ public class NamedNodeMapWrapper implements NamedNodeMap {
 
 	private org.w3c.dom.NamedNodeMap namedNodeMap;
 
-	public NamedNodeMapWrapper(org.w3c.dom.NamedNodeMap namedNodeMap){
+	public NamedNodeMapWrapper(org.w3c.dom.NamedNodeMap namedNodeMap) {
 		this.namedNodeMap = namedNodeMap;
 	}
-	
+
 	@Override
 	public int getLength() {
 		return namedNodeMap.getLength();

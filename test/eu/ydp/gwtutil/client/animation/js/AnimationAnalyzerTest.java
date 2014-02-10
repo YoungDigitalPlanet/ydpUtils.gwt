@@ -6,13 +6,12 @@ import org.junit.Test;
 
 import eu.ydp.gwtutil.client.util.geom.Size;
 
-
 public class AnimationAnalyzerTest {
 
 	private final AnimationAnalyzer analyzer = new AnimationAnalyzer();
 
 	@Test
-	public void findFramesCount_standardCase(){
+	public void findFramesCount_standardCase() {
 		// given
 		Size imageSize = new Size(100, 40);
 		Size frameSize = new Size(20, 40);
@@ -25,7 +24,7 @@ public class AnimationAnalyzerTest {
 	}
 
 	@Test
-	public void findFramesCount_oneFrame(){
+	public void findFramesCount_oneFrame() {
 		// given
 		Size imageSize = new Size(20, 40);
 		Size frameSize = new Size(20, 40);
@@ -38,7 +37,7 @@ public class AnimationAnalyzerTest {
 	}
 
 	@Test
-	public void findFramesCount_divisionBy0(){
+	public void findFramesCount_divisionBy0() {
 		// given
 		Size imageSize = new Size(100, 40);
 		Size frameSize = new Size(0, 40);
@@ -51,7 +50,7 @@ public class AnimationAnalyzerTest {
 	}
 
 	@Test
-	public void findFramesCount_negativeFrameWidth(){
+	public void findFramesCount_negativeFrameWidth() {
 		// given
 		Size imageSize = new Size(100, 40);
 		Size frameSize = new Size(-50, 40);
@@ -64,7 +63,7 @@ public class AnimationAnalyzerTest {
 	}
 
 	@Test
-	public void findFramesCount_heightDiffers(){
+	public void findFramesCount_heightDiffers() {
 		// given
 		Size imageSize = new Size(100, 40);
 		Size frameSize = new Size(20, 4340);

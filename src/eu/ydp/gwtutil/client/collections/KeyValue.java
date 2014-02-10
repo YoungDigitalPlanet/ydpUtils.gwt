@@ -1,11 +1,12 @@
 package eu.ydp.gwtutil.client.collections;
 
-
 /**
  * Prosta klasa przechowujaca polaczenie klucz z wartoscia
- *
- * @param <K> klucz
- * @param <V> wartosc
+ * 
+ * @param <K>
+ *            klucz
+ * @param <V>
+ *            wartosc
  */
 public class KeyValue<K, V> {
 	K key;
@@ -35,8 +36,6 @@ public class KeyValue<K, V> {
 	public void setValue(V value) {
 		this.value = value;
 	}
-
-
 
 	@Override
 	public String toString() {

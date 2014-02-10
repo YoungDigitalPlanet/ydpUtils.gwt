@@ -8,16 +8,16 @@ public class ExListBoxOption {
 	private final Widget baseBody;
 	private final ExListBoxOptionWidget optionWidget;
 
-	public ExListBoxOption(IsWidget baseBody, IsWidget popupBody){
+	public ExListBoxOption(IsWidget baseBody, IsWidget popupBody) {
 		this.baseBody = baseBody.asWidget();
-		optionWidget = new ExListBoxOptionWidget(popupBody,this);
+		optionWidget = new ExListBoxOptionWidget(popupBody, this);
 	}
 
-	public Widget getPopupBody(){
+	public Widget getPopupBody() {
 		return optionWidget;
 	}
 
-	public Widget getBaseBody(){
+	public Widget getBaseBody() {
 		return baseBody;
 	}
 
@@ -25,19 +25,19 @@ public class ExListBoxOption {
 		optionWidget.setSelected(sel);
 	}
 
-	public void reset(){
+	public void reset() {
 		optionWidget.reset();
 	}
 
-	public void setClickHandler(ExListBoxClickHandler handler){
+	public void setClickHandler(ExListBoxClickHandler handler) {
 		optionWidget.setClickHandler(handler);
 	}
 
-	public void setOverHandler(ExListBoxOverHandler handler){
+	public void setOverHandler(ExListBoxOverHandler handler) {
 		optionWidget.setOverHandler(handler);
 	}
 
-	public void setOver(boolean over){
+	public void setOver(boolean over) {
 		optionWidget.setOver(over);
 	}
 

@@ -13,7 +13,7 @@ public class FrameworkAnimationNative extends Animation implements FrameworkAnim
 
 	@Override
 	protected void onUpdate(double progress) {
-		if (listener != null){
+		if (listener != null) {
 			listener.onUpdate(progress);
 		}
 	}

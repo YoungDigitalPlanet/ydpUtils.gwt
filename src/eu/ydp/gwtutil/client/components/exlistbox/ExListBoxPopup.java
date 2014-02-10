@@ -11,13 +11,15 @@ public class ExListBoxPopup extends Composite implements ContainsWidgetOptions {
 
 	private static ExListBoxPopupContentsUiBinder uiBinder = GWT.create(ExListBoxPopupContentsUiBinder.class);
 
-	interface ExListBoxPopupContentsUiBinder extends UiBinder<Widget, ExListBoxPopup> {}
+	interface ExListBoxPopupContentsUiBinder extends UiBinder<Widget, ExListBoxPopup> {
+	}
 
 	public ExListBoxPopup() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
-	
-	@UiField Panel popupContents;
+
+	@UiField
+	Panel popupContents;
 
 	@Override
 	public void addOption(Widget option) {

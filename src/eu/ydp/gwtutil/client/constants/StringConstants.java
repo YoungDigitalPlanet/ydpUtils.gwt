@@ -23,7 +23,7 @@ package eu.ydp.gwtutil.client.constants;
  * 
  * }
  * </pre>
- *
+ * 
  * @author rrybacki
  * 
  * @see Prefix

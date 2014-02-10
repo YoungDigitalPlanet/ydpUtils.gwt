@@ -20,32 +20,32 @@ public class JsMapStringToIntTest extends GWTTestCase {
 		Integer value = 34;
 		mapStringToInt.put(key, value);
 		mapStringToInt.put("sth", 1312);
-		
+
 		Integer result = mapStringToInt.get(key);
 		assertEquals(value, result);
 	}
-	
+
 	public void testShouldReturnKeysOfAllInsertedEntries() throws Exception {
 		JsMapStringToInt mapStringToInt = JavaScriptObject.createObject().cast();
-		
+
 		mapStringToInt.put("key1", 1);
 		mapStringToInt.put("key2", 2);
 		mapStringToInt.put("key3", 3);
-		
+
 		Set<String> keys = mapStringToInt.keySet();
 		assertEquals(3, keys.size());
 		assertTrue(keys.contains("key1"));
 		assertTrue(keys.contains("key2"));
 		assertTrue(keys.contains("key3"));
 	}
-	
+
 	public void testShouldReturnValuesOfAllInsertedEntries() throws Exception {
 		JsMapStringToInt mapStringToInt = JavaScriptObject.createObject().cast();
-		
+
 		mapStringToInt.put("key1", 1);
 		mapStringToInt.put("key2", 2);
 		mapStringToInt.put("key3", 3);
-		
+
 		List<Integer> values = mapStringToInt.values();
 		assertEquals(3, values.size());
 		assertTrue(values.contains(1));

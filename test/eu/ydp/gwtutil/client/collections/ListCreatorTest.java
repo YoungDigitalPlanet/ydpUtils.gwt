@@ -1,10 +1,12 @@
 package eu.ydp.gwtutil.client.collections;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.equalTo;
+
 import java.util.List;
 import java.util.Vector;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
 import org.junit.Test;
 
 import eu.ydp.gwtutil.AbstractTestBase;
@@ -12,14 +14,14 @@ import eu.ydp.gwtutil.AbstractTestBase;
 public class ListCreatorTest extends AbstractTestBase {
 
 	@Test
-	public void testCreate(){
+	public void testCreate() {
 		List<Integer> list = ListCreator.create(2).add(3).add(4).build();
 		assertThat(list.size(), equalTo(3));
 		assertThat(list, contains(2, 3, 4));
 	}
 
 	@Test
-	public void testImpl(){
+	public void testImpl() {
 		List<Integer> list = ListCreator.create(new Vector<Integer>()).add(2).add(3).add(4).build();
 		assertThat(list.size(), equalTo(3));
 		assertThat(list, contains(2, 3, 4));

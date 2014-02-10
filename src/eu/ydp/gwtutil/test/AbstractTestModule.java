@@ -42,9 +42,10 @@ public abstract class AbstractTestModule implements Module {
 			this.ignoreClassList.add(ignore);
 		}
 	}
+
 	public abstract void configure();
 
-	public void setIgnoreClasses(Class<?>[] ignoreClasses){
+	public void setIgnoreClasses(Class<?>[] ignoreClasses) {
 		ignoreClassList.clear();
 		for (Class<?> ignore : ignoreClasses) {
 			this.ignoreClassList.add(ignore);
@@ -65,7 +66,7 @@ public abstract class AbstractTestModule implements Module {
 
 	/**
 	 * If ignored binds the class. Otherwise binding is omitted.
-	 *
+	 * 
 	 * @param clazz
 	 *            Class to bind.
 	 */

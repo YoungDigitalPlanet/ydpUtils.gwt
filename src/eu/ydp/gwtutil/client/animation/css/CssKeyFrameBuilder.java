@@ -14,9 +14,9 @@ public class CssKeyFrameBuilder {
 		this.styleInjector = styleInjector;
 	}
 
-	public String generateAnimationKeyframesName(CssAnimationConfig animationConfig){
+	public String generateAnimationKeyframesName(CssAnimationConfig animationConfig) {
 		String keyFrameStyleName = animationConfig.getAnimationStyleName() + "_keyframes";
-		for(CssAnimationPrefix prefix : CssAnimationPrefix.values()){
+		for (CssAnimationPrefix prefix : CssAnimationPrefix.values()) {
 			String keyframes = createSingleKeyframesProperty(keyFrameStyleName, animationConfig.getImgSize(), prefix);
 			appendStyleToDocument(keyframes);
 		}
@@ -28,11 +28,8 @@ public class CssKeyFrameBuilder {
 	}
 
 	private String createSingleKeyframesProperty(String keyFrameStyleName, Size imgSize, CssAnimationPrefix prefix) {
-		String keyframes = ANIMATE_KEYFRAMES_TEMPLATE
-				.replaceAll("\\$prefix", prefix.toCss())
-				.replaceAll("\\$name", keyFrameStyleName)
-				.replaceAll("\\$from", "0px")
-				.replaceAll("\\$to", -imgSize.getWidth()+"px");
+		String keyframes = ANIMATE_KEYFRAMES_TEMPLATE.replaceAll("\\$prefix", prefix.toCss()).replaceAll("\\$name", keyFrameStyleName)
+				.replaceAll("\\$from", "0px").replaceAll("\\$to", -imgSize.getWidth() + "px");
 		return keyframes;
 	}
 }

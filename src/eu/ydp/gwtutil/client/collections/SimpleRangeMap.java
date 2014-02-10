@@ -21,7 +21,7 @@ public class SimpleRangeMap<K extends Comparable<? extends K>, V> {
 		return null;
 	}
 
-	public static <K extends Comparable<? extends K>, V> SimpleRangeMap<K, V> create(){
+	public static <K extends Comparable<? extends K>, V> SimpleRangeMap<K, V> create() {
 		return new SimpleRangeMap<K, V>();
 	}
 }

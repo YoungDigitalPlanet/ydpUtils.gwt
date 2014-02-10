@@ -19,7 +19,7 @@ public class InstantiatorGenerator extends Generator {
 	@Override
 	public String generate(TreeLogger logger, GeneratorContext context, String typeName) throws UnableToCompleteException {
 		JClassType classType;
-		
+
 		try {
 			classType = context.getTypeOracle().getType(typeName);
 			SourceWriter src = getSourceWriter(classType, context, logger);
@@ -31,36 +31,36 @@ public class InstantiatorGenerator extends Generator {
 		return null;
 	}
 
-	public SourceWriter getSourceWriter(JClassType classType,GeneratorContext context, TreeLogger logger) {
+	public SourceWriter getSourceWriter(JClassType classType, GeneratorContext context, TreeLogger logger) {
 		String packageName = classType.getPackage().getName();
 		String simpleName = classType.getSimpleSourceName() + "Generated";
 		ClassSourceFileComposerFactory composer = new ClassSourceFileComposerFactory(packageName, simpleName);
 		composer.addImplementedInterface(classType.getName());
-		
+
 		PrintWriter printWriter = context.tryCreate(logger, packageName, simpleName);
-		if (printWriter == null){
+		if (printWriter == null) {
 			return null;
 		}
 		SourceWriter sw = composer.createSourceWriter(context, printWriter);
-		
-		String returnType = ((JParameterizedType)classType.getImplementedInterfaces()[0]).getTypeArgs()[0].getQualifiedSourceName();
-		
-		sw.println("public "+ returnType +" instantiate(String name) {");
+
+		String returnType = ((JParameterizedType) classType.getImplementedInterfaces()[0]).getTypeArgs()[0].getQualifiedSourceName();
+
+		sw.println("public " + returnType + " instantiate(String name) {");
 
 		InstantiatorBinding a = classType.getAnnotation(InstantiatorBinding.class);
-		if (a != null){
+		if (a != null) {
 			InstantiatorBindingPair[] pairs = a.value();
-			for (int i = 0 ; i < pairs.length ; i ++){
-				sw.println("if (\""+pairs[i].name()+"\".equals(name))");
-				sw.println("	return new "+pairs[i].clazz().getName()+"();");
+			for (int i = 0; i < pairs.length; i++) {
+				sw.println("if (\"" + pairs[i].name() + "\".equals(name))");
+				sw.println("	return new " + pairs[i].clazz().getName() + "();");
 			}
 		}
 		if (a.whenNotFound().equals(InstantiatorBinding.Null.class))
 			sw.println("return null;");
 		else
-			sw.println("return new "+a.whenNotFound().getName()+"();");
+			sw.println("return new " + a.whenNotFound().getName() + "();");
 		sw.println("}");
-		
+
 		return sw;
 	}
 }

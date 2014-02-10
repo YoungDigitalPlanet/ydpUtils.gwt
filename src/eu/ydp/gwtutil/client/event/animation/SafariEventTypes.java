@@ -1,6 +1,5 @@
 package eu.ydp.gwtutil.client.event.animation;
 
-
 public class SafariEventTypes implements EventTypes {
 	@Override
 	public String getAnimationEnd() {

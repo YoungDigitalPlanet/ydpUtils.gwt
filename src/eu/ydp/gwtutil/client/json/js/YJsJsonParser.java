@@ -6,9 +6,10 @@ import eu.ydp.gwtutil.client.json.YJsonValue;
 
 public final class YJsJsonParser {
 
-	private YJsJsonParser(){}
-	
-	public static YJsonValue parse(String contents){
+	private YJsJsonParser() {
+	}
+
+	public static YJsonValue parse(String contents) {
 		return YJsJsonFactory.create(JSONParser.parseStrict(contents));
 	}
 }

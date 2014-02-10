@@ -1,9 +1,10 @@
 package eu.ydp.gwtutil.client.state;
 
-import static junitparams.JUnitParamsRunner.*;
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.*;
+import static junitparams.JUnitParamsRunner.$;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 
