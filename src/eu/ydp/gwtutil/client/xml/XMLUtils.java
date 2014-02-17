@@ -157,7 +157,6 @@ public final class XMLUtils {
 		return null;
 	}
 
-	@SuppressWarnings("PMD")
 	public static boolean hasParentWithNodeName(Element element, String parentNodeName, String searchUpToNodeName) {
 		if (element != null && element.getNodeName().equals(parentNodeName)) {
 			return true;

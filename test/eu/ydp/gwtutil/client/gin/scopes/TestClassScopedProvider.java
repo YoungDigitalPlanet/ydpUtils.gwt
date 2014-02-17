@@ -5,15 +5,8 @@ import com.google.inject.Provider;
 
 class TestClassScopedProvider extends CustomScopedProvider<TestClass> {
 
-	/**
-	 * 
-	 */
-	private final GinScopesTest TestClassScopedProvider;
-
 	@Inject
 	public TestClassScopedProvider(GinScopesTest ginScopesTest, Provider<TestClass> provider, CurrentScopeProvider currentScopeProvider) {
 		super(provider, currentScopeProvider);
-		TestClassScopedProvider = ginScopesTest;
 	}
-
 }
