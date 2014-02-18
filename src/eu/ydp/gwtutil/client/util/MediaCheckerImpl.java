@@ -12,7 +12,7 @@ public class MediaCheckerImpl implements MediaChecker {
 
 	@Inject
 	private UserAgentUtil userAgentUtil;
-	
+
 	@Override
 	public boolean isHtml5Mp3Supported() {
 		return isMp3AudioMimeTypeSupported() || isLocalAndroidWithAudioSupport();
@@ -25,9 +25,9 @@ public class MediaCheckerImpl implements MediaChecker {
 	private boolean isLocalAndroidWithAudioSupport() {
 		return audioWrapper.isAudioSupported() && userAgentUtil.isAndroidBrowser() && userAgentUtil.isLocal();
 	}
-	
+
 	@Override
-	public boolean isHtml5OggSuported() {
+	public boolean isHtml5OggSupported() {
 		return audioWrapper.isAudioSupported() && audioWrapper.isMimeSupported(MIME_AUDIO_OGG);
 	}
 
