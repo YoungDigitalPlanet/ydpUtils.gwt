@@ -1,6 +1,6 @@
 package eu.ydp.gwtutil.client.ui.button;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import java.util.Set;
@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Matchers;
-import org.mockito.Mockito;
 
 import com.google.common.collect.Sets;
 import com.google.gwt.dom.client.NativeEvent;

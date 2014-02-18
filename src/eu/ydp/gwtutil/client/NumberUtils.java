@@ -2,7 +2,6 @@ package eu.ydp.gwtutil.client;
 
 import java.util.List;
 
-@SuppressWarnings("PMD")
 public class NumberUtils {
 
 	public static Integer tryParseInt(String s) {

@@ -96,22 +96,12 @@ public class UserAgentUtilImpl implements UserAgentUtil {
 		return nativeInterface.isLocal();
 	}
 
-	/**
-	 * It's not proven that this method is working correctly on all browsers. Checked for Safari.
-	 * 
-	 */
 	@Override
 	public boolean isInsideIframe() {
-		boolean isInsideIframe = !isCurrentWindowTop();
-
-		return isInsideIframe;
+		return !isCurrentWindowTop();
 	}
 
-	/**
-	 * It's not proven that this method is working correctly on all browsers. Checked for Safari.
-	 * 
-	 */
-	public native boolean isCurrentWindowTop() /*-{
+	private native boolean isCurrentWindowTop() /*-{
 												if (top === self) {
 												return true;
 												} else {
