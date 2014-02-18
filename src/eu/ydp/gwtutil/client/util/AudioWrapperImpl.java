@@ -26,7 +26,7 @@ public class AudioWrapperImpl implements AudioWrapper {
 			return false;
 
 		String playableType = audio.canPlayType(mimeType);
-		playableType = changeEmptyStringToIfAndroid404(playableType);
+		playableType = changeEmptyStringToCanPlayProbablyIfAndroid404(playableType);
 
 		return isPlayable(playableType);
 	}
@@ -35,7 +35,7 @@ public class AudioWrapperImpl implements AudioWrapper {
 		return !MediaElement.CANNOT_PLAY.equals(canPlayType);
 	}
 
-	private String changeEmptyStringToIfAndroid404(String canPlayType) {
+	private String changeEmptyStringToCanPlayProbablyIfAndroid404(String canPlayType) {
 		if (userAgentUtil.isUserAgent(RuntimeMobileUserAgent.ANDROID404) && Strings.isNullOrEmpty(canPlayType)) {
 			canPlayType = MediaElement.CAN_PLAY_PROBABLY;
 		}
