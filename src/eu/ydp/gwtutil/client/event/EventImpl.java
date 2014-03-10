@@ -6,7 +6,6 @@ package eu.ydp.gwtutil.client.event;
  * @param <H>
  *            interface implemented by handlers of this kind of event
  */
-@SuppressWarnings("PMD")
 public abstract class EventImpl<H, T extends Enum<T>> implements Event<H, T> {
 	/**
 	 * Type class used to register events with an {@link PlayerEventsBus}.
@@ -48,7 +47,6 @@ public abstract class EventImpl<H, T extends Enum<T>> implements Event<H, T> {
 			return builder.toString();
 		}
 
-		@SuppressWarnings("PMD")
 		@Override
 		public boolean equals(Object obj) {
 			if (this == obj) {

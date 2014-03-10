@@ -20,14 +20,6 @@ import eu.ydp.gwtutil.client.event.factory.Command;
 import eu.ydp.gwtutil.client.event.factory.EventHandlerProxy;
 import eu.ydp.gwtutil.client.event.factory.UserInteractionHandlerFactory;
 
-/**
- * Custom combo box widget that display list of options on the popup.
- * 
- * Use {@link #addOption(IsWidget, IsWidget)} to add options.
- * 
- * @author rrybacki@ydp.com.pl
- */
-// TODO commit
 public class ExListBox extends Composite implements IsExListBox {
 
 	private static ExListBoxUiBinder uiBinder = GWT.create(ExListBoxUiBinder.class);
@@ -96,16 +88,11 @@ public class ExListBox extends Composite implements IsExListBox {
 					popupPanel.show();
 					fireOpenEvent();
 					updatePosition();
-					enableAutoHide();
+					popupPanel.setAutoHideEnabled(true);
 				}
 			}
 		};
 		return showListBox;
-	}
-
-	private void enableAutoHide() {
-		PopupPanelAutoHideEnablerTimer autoHideEnabler = new PopupPanelAutoHideEnablerTimer(popupPanel);
-		autoHideEnabler.schedule(500);
 	}
 
 	private void fireOpenEvent() {
@@ -149,18 +136,11 @@ public class ExListBox extends Composite implements IsExListBox {
 		this.listener = listener;
 	}
 
-	/**
-	 * @return Index of the currently selected option or <code>-1</code> if no option is selected.
-	 */
 	@Override
 	public int getSelectedIndex() {
 		return selectedIndex;
 	}
 
-	/**
-	 * @param index
-	 *            Index of the option to select or <code>-1</code>.
-	 */
 	@Override
 	public void setSelectedIndex(int index) {
 		if (index >= -1 && index < options.size()) {
