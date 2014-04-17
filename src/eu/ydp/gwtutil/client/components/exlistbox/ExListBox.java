@@ -7,6 +7,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -88,11 +89,21 @@ public class ExListBox extends Composite implements IsExListBox {
 					popupPanel.show();
 					fireOpenEvent();
 					updatePosition();
-					popupPanel.setAutoHideEnabled(true);
+					setAutoHideWithDelay();
 				}
 			}
 		};
 		return showListBox;
+	}
+
+	private void setAutoHideWithDelay() {
+		Timer timer = new Timer() {
+			@Override
+			public void run() {
+				popupPanel.setAutoHideEnabled(true);
+			}
+		};
+		timer.schedule(300);
 	}
 
 	private void fireOpenEvent() {

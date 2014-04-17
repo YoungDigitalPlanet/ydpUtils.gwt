@@ -103,6 +103,7 @@ public class ExListBoxOptionWidget extends Composite {
 			@Override
 			public void execute(NativeEvent event) {
 				if (!touchMove) {
+					event.preventDefault();
 					clickHandler.onClick(event, exListBoxOption);
 				}
 			}
