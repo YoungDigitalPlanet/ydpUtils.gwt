@@ -10,6 +10,8 @@ import eu.ydp.gwtutil.client.util.MediaChecker;
 import eu.ydp.gwtutil.client.util.MediaCheckerImpl;
 import eu.ydp.gwtutil.client.util.UserAgentUtil;
 import eu.ydp.gwtutil.client.util.UserAgentUtilImpl;
+import eu.ydp.gwtutil.client.xml.IXMLParser;
+import eu.ydp.gwtutil.client.xml.XMLParser;
 
 public class UtilGinModule extends AbstractGinModule {
 
@@ -19,5 +21,6 @@ public class UtilGinModule extends AbstractGinModule {
 		bind(UserAgentUtil.class).to(UserAgentUtilImpl.class);
 		bind(MediaChecker.class).to(MediaCheckerImpl.class);
 		bind(AudioWrapper.class).to(AudioWrapperImpl.class);
+		bind(IXMLParser.class).to(XMLParser.class);
 	}
 }

@@ -8,9 +8,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.Lists;
 import org.junit.Test;
-
-import com.google.gwt.thirdparty.guava.common.collect.Lists;
 
 import eu.ydp.gwtutil.AbstractTestBase;
 
