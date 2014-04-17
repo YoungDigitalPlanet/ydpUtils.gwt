@@ -23,6 +23,7 @@ import eu.ydp.gwtutil.client.event.factory.UserInteractionHandlerFactory;
 
 public class ExListBox extends Composite implements IsExListBox {
 
+	private static final int AUTO_HIDE_DELAY = 300;
 	private static ExListBoxUiBinder uiBinder = GWT.create(ExListBoxUiBinder.class);
 
 	interface ExListBoxUiBinder extends UiBinder<Widget, ExListBox> {
@@ -103,7 +104,7 @@ public class ExListBox extends Composite implements IsExListBox {
 				popupPanel.setAutoHideEnabled(true);
 			}
 		};
-		timer.schedule(300);
+		timer.schedule(AUTO_HIDE_DELAY);
 	}
 
 	private void fireOpenEvent() {
