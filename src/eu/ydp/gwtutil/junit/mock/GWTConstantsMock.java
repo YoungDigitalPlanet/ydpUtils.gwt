@@ -27,7 +27,7 @@ public class GWTConstantsMock {
 			try {
 				if (method.isAnnotationPresent(DefaultStringValue.class)) {
 					DefaultStringValue ann = method.getAnnotation(DefaultStringValue.class);
-					Mockito.when(method.invoke(mock, null)).thenReturn(ann.value());
+					Mockito.when(method.invoke(mock, (Object[]) null)).thenReturn(ann.value());
 				}
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
