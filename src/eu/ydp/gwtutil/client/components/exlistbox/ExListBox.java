@@ -20,11 +20,12 @@ import com.google.gwt.user.client.ui.Widget;
 import eu.ydp.gwtutil.client.event.factory.Command;
 import eu.ydp.gwtutil.client.event.factory.EventHandlerProxy;
 import eu.ydp.gwtutil.client.event.factory.UserInteractionHandlerFactory;
+import eu.ydp.gwtutil.client.util.UserAgentChecker;
 
 public class ExListBox extends Composite implements IsExListBox {
 
 	private static final int AUTO_HIDE_DELAY = 300;
-	private static final int POPUP_HIDE_DELAY = 300;
+	private static final int ANDROID_POPUP_HIDE_DELAY = 300;
 	private static ExListBoxUiBinder uiBinder = GWT.create(ExListBoxUiBinder.class);
 
 	interface ExListBoxUiBinder extends UiBinder<Widget, ExListBox> {
@@ -157,9 +158,9 @@ public class ExListBox extends Composite implements IsExListBox {
 	@Override
 	public void setSelectedIndex(int index) {
 		if (index >= -1 && index < options.size()) {
+			hidePopup();
 			selectedIndex = index;
 			setSelectedBaseBody();
-			hidePopup();
 		}
 	}
 
@@ -201,13 +202,17 @@ public class ExListBox extends Composite implements IsExListBox {
 
 	@Override
 	public void hidePopup() {
-		Timer timer = new Timer() {
-			@Override
-			public void run() {
-				popupPanel.hide();
-			}
-		};
-		timer.schedule(POPUP_HIDE_DELAY);
+		if(UserAgentChecker.isAndroidBrowser()) {
+			Timer timer = new Timer() {
+				@Override
+				public void run() {
+					popupPanel.hide();
+				}
+			};
+			timer.schedule(ANDROID_POPUP_HIDE_DELAY);
+		} else {
+			popupPanel.hide();
+		}
 	}
 
 	private void updatePosition() {
