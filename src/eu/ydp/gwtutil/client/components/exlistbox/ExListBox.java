@@ -24,6 +24,7 @@ import eu.ydp.gwtutil.client.event.factory.UserInteractionHandlerFactory;
 public class ExListBox extends Composite implements IsExListBox {
 
 	private static final int AUTO_HIDE_DELAY = 300;
+	private static final int POPUP_HIDE_DELAY = 300;
 	private static ExListBoxUiBinder uiBinder = GWT.create(ExListBoxUiBinder.class);
 
 	interface ExListBoxUiBinder extends UiBinder<Widget, ExListBox> {
@@ -200,7 +201,13 @@ public class ExListBox extends Composite implements IsExListBox {
 
 	@Override
 	public void hidePopup() {
-		popupPanel.hide();
+		Timer timer = new Timer() {
+			@Override
+			public void run() {
+				popupPanel.hide();
+			}
+		};
+		timer.schedule(POPUP_HIDE_DELAY);
 	}
 
 	private void updatePosition() {
