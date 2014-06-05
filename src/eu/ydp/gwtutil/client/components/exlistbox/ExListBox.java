@@ -203,16 +203,20 @@ public class ExListBox extends Composite implements IsExListBox {
 	@Override
 	public void hidePopup() {
 		if(UserAgentChecker.isAndroidBrowser()) {
-			Timer timer = new Timer() {
-				@Override
-				public void run() {
-					popupPanel.hide();
-				}
-			};
-			timer.schedule(ANDROID_POPUP_HIDE_DELAY);
+			hidePopupForAndroid();
 		} else {
 			popupPanel.hide();
 		}
+	}
+
+	private void hidePopupForAndroid() {
+		Timer timer = new Timer() {
+			@Override
+			public void run() {
+				popupPanel.hide();
+			}
+		};
+		timer.schedule(ANDROID_POPUP_HIDE_DELAY);
 	}
 
 	private void updatePosition() {
