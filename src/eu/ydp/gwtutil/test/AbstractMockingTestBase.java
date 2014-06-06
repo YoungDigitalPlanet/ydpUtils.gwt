@@ -48,7 +48,8 @@ public class AbstractMockingTestBase<T extends Module & Mocking> {
 
 	/**
 	 * <p>
-	 * Setup test class, all injections will be done according to the Guice test module.
+	 * Setup test class, all injections will be done according to the Guice test
+	 * module.
 	 * </p>
 	 */
 	public void setUpAllRealExcept(Class<?>... classesToMock) {
@@ -57,7 +58,8 @@ public class AbstractMockingTestBase<T extends Module & Mocking> {
 
 	/**
 	 * <p>
-	 * Setup test class, all injections will be done according to the Guice test module.
+	 * Setup test class, all injections will be done according to the Guice test
+	 * module.
 	 * </p>
 	 */
 	@Before
@@ -67,30 +69,35 @@ public class AbstractMockingTestBase<T extends Module & Mocking> {
 
 	/**
 	 * <p>
-	 * Setup test class allowing for ignore some classes. For the specified ignored classes real implementations will be created.
+	 * Setup test class allowing for ignore some classes. For the specified
+	 * ignored classes real implementations will be created.
 	 * </p>
 	 * 
 	 * <p>
-	 * If you want to test class A in you test case, you will typically want to treat class A as ignored. Other classes will be typically created as mocks (it
-	 * is defined in the test Guice module).
+	 * If you want to test class A in you test case, you will typically want to
+	 * treat class A as ignored. Other classes will be typically created as
+	 * mocks (it is defined in the test Guice module).
 	 * </p>
 	 * 
 	 * @param ignoreClasses
 	 *            classes to ignore (real implementations will be created)
 	 */
 	public final void setUp(Class<?>... ignoreClasses) {
-		injector = Guice.createInjector(createInstance(ignoreClasses));
+		injector = Guice.createInjector(createInstance((Object[]) ignoreClasses));
 	}
 
 	/**
 	 * <p>
-	 * Setup test class allowing for ignore some classes. For the specified ignored classes real implementations will be created. For the specified classes
-	 * spies of real implementations will be created.
+	 * Setup test class allowing for ignore some classes. For the specified
+	 * ignored classes real implementations will be created. For the specified
+	 * classes spies of real implementations will be created.
 	 * </p>
 	 * 
 	 * <p>
-	 * If you want to test class A in you test case, you will typically want to treat class A as ignored. You may specify that some other classes should be
-	 * created as spies of the real implementations. Other classes will be typically created as mocks (it is defined in the test Guice module).
+	 * If you want to test class A in you test case, you will typically want to
+	 * treat class A as ignored. You may specify that some other classes should
+	 * be created as spies of the real implementations. Other classes will be
+	 * typically created as mocks (it is defined in the test Guice module).
 	 * </p>
 	 * 
 	 * @param ignoreClasses
