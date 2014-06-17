@@ -16,16 +16,14 @@ import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
 
 import eu.ydp.gwtutil.client.event.factory.Command;
 import eu.ydp.gwtutil.client.event.factory.EventHandlerProxy;
 import eu.ydp.gwtutil.client.event.factory.UserInteractionHandlerFactory;
-import eu.ydp.gwtutil.client.util.UserAgentChecker;
 
 public class ExListBox extends Composite implements IsExListBox {
 
-	private static final int AUTO_HIDE_DELAY = 300;
-	private static final int ANDROID_POPUP_HIDE_DELAY = 300;
 	private static ExListBoxUiBinder uiBinder = GWT.create(ExListBoxUiBinder.class);
 
 	interface ExListBoxUiBinder extends UiBinder<Widget, ExListBox> {
@@ -34,6 +32,8 @@ public class ExListBox extends Composite implements IsExListBox {
 	public static enum PopupPosition {
 		ABOVE, BELOW
 	};
+
+	private final ExListBoxDelays delays;
 
 	@UiField
 	FlowPanel mainContainer;
@@ -59,7 +59,8 @@ public class ExListBox extends Composite implements IsExListBox {
 
 	private final ExListBoxSelectionController selectionController = new ExListBoxSelectionController(this);
 
-	public ExListBox() {
+	@Inject
+	public ExListBox(ExListBoxDelays delays) {
 		initWidget(uiBinder.createAndBindUi(this));
 		options = new ArrayList<ExListBoxOption>();
 		popupContents = new ExListBoxPopup();
@@ -68,6 +69,8 @@ public class ExListBox extends Composite implements IsExListBox {
 		popupPanel.setStyleName(ExListBoxStyleNames.INSTANCE.popupContainer().toString());
 		popupPanel.add(popupContents);
 		addShowListBoxHandler(baseContainer);
+
+		this.delays = delays;
 	}
 
 	@Override
@@ -101,12 +104,13 @@ public class ExListBox extends Composite implements IsExListBox {
 
 	private void setAutoHideWithDelay() {
 		Timer timer = new Timer() {
+
 			@Override
 			public void run() {
 				popupPanel.setAutoHideEnabled(true);
 			}
 		};
-		timer.schedule(AUTO_HIDE_DELAY);
+		timer.schedule(delays.getAutoHideDelay());
 	}
 
 	private void fireOpenEvent() {
@@ -158,9 +162,9 @@ public class ExListBox extends Composite implements IsExListBox {
 	@Override
 	public void setSelectedIndex(int index) {
 		if (index >= -1 && index < options.size()) {
-			hidePopup();
 			selectedIndex = index;
 			setSelectedBaseBody();
+			hidePopup();
 		}
 	}
 
@@ -202,21 +206,14 @@ public class ExListBox extends Composite implements IsExListBox {
 
 	@Override
 	public void hidePopup() {
-		if(UserAgentChecker.isAndroidBrowser()) {
-			hidePopupForAndroid();
-		} else {
-			popupPanel.hide();
-		}
-	}
-
-	private void hidePopupForAndroid() {
 		Timer timer = new Timer() {
+
 			@Override
 			public void run() {
 				popupPanel.hide();
 			}
 		};
-		timer.schedule(ANDROID_POPUP_HIDE_DELAY);
+		timer.schedule(delays.getCloseDelay());
 	}
 
 	private void updatePosition() {
