@@ -110,7 +110,7 @@ public class ExListBox extends Composite implements IsExListBox {
 				popupPanel.setAutoHideEnabled(true);
 			}
 		};
-		timer.schedule(delays.getAutoHideDelay());
+		timer.schedule(delays.getCloseDelay());
 	}
 
 	private void fireOpenEvent() {

@@ -24,11 +24,6 @@ public class ExListBoxTest {
 			public int getCloseDelay() {
 				return 0;
 			}
-
-			@Override
-			public int getAutoHideDelay() {
-				return 0;
-			}
 		};
 
 		testObj = new ExListBox(delays);
