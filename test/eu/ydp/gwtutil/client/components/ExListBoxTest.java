@@ -1,43 +1,68 @@
 package eu.ydp.gwtutil.client.components;
 
-import com.google.gwt.junit.client.GWTTestCase;
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import com.google.gwt.user.client.ui.InlineHTML;
+import com.google.gwtmockito.GwtMockitoTestRunner;
 
 import eu.ydp.gwtutil.client.components.exlistbox.ExListBox;
+import eu.ydp.gwtutil.client.components.exlistbox.ExListBoxDelays;
 
-public class ExListBoxTest extends GWTTestCase {
+@RunWith(GwtMockitoTestRunner.class)
+public class ExListBoxTest {
+	private ExListBox testObj;
 
-	@Override
-	public String getModuleName() {
-		return "eu.ydp.gwtutil.YdpGwtUtil";
+	@Before
+	public void setUp() {
+		ExListBoxDelays delays = new ExListBoxDelays() {
+
+			@Override
+			public int getCloseDelay() {
+				return 0;
+			}
+		};
+
+		testObj = new ExListBox(delays);
+
+		testObj.addOption(new InlineHTML(), new InlineHTML());
+		testObj.addOption(new InlineHTML(), new InlineHTML());
+		testObj.addOption(new InlineHTML(), new InlineHTML());
 	}
 
-	public void testSelected() {
-		ExListBox elb = new ExListBox();
-		elb.addOption(new InlineHTML(), new InlineHTML());
-		elb.addOption(new InlineHTML(), new InlineHTML());
-		elb.setSelectedIndex(0);
-		assertEquals(0, elb.getSelectedIndex());
-		elb.setSelectedIndex(1);
-		assertEquals(1, elb.getSelectedIndex());
-		elb.setSelectedIndex(2);
-		assertEquals(1, elb.getSelectedIndex());
-		elb.setSelectedIndex(-1);
-		assertEquals(-1, elb.getSelectedIndex());
+	@Test
+	public void shouldSelect() {
+		// given
+		final int assumedSelected = 1;
+
+		// when
+		testObj.setSelectedIndex(1);
+
+		// then
+		assertEquals(assumedSelected, testObj.getSelectedIndex());
 	}
 
-	public void testEnabled() {
-		ExListBox elb = new ExListBox();
-		elb.addOption(new InlineHTML(), new InlineHTML());
-		elb.addOption(new InlineHTML(), new InlineHTML());
-		elb.setSelectedIndex(0);
-		elb.setEnabled(true);
-		assertTrue(elb.isEnabled());
-		elb.setEnabled(false);
-		assertFalse(elb.isEnabled());
-		elb.setEnabled(true);
-		assertTrue(elb.isEnabled());
-		elb.setEnabled(false);
-		assertFalse(elb.isEnabled());
+	@Test
+	public void shouldEnable() {
+		// when
+		testObj.setEnabled(true);
+
+		// then
+		assertTrue(testObj.isEnabled());
+	}
+
+	@Test
+	public void shouldDisable() {
+		// given
+		testObj.setEnabled(true);
+
+		// when
+		testObj.setEnabled(false);
+
+		// then
+		assertFalse(testObj.isEnabled());
 	}
 }
