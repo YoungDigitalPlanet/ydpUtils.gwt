@@ -14,4 +14,12 @@ public class WindowDelegate {
 	public void scrollTo(int left, int top) {
 		Window.scrollTo(left, top);
 	}
+
+	public int getInnerWidth() {
+		return getInnerWidthNative();
+	}
+
+	private native int getInnerWidthNative()/*-{
+        return $wnd.innerWidth;
+    }-*/;
 }
