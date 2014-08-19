@@ -13,3 +13,4 @@ www-test/
 
 .idea/
 *.iml
+.gradle/
