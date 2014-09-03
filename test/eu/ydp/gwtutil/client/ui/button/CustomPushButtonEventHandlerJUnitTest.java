@@ -1,10 +1,18 @@
 package eu.ydp.gwtutil.client.ui.button;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
-import java.util.Set;
-
+import com.google.common.collect.Sets;
+import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DomEvent;
+import com.google.gwt.junit.GWTMockUtilities;
+import com.google.gwtmockito.GwtMockitoTestRunner;
+import eu.ydp.gwtutil.client.event.HandlerRegistration;
+import eu.ydp.gwtutil.client.event.emulate.CustomClickEvent;
+import eu.ydp.gwtutil.client.event.factory.Command;
+import eu.ydp.gwtutil.client.event.factory.UserInteractionHandlerFactory;
+import eu.ydp.gwtutil.client.util.UserAgentChecker;
+import eu.ydp.gwtutil.junit.mock.UserAgentCheckerNativeInterfaceMock;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -13,25 +21,12 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Matchers;
 
-import com.google.common.collect.Sets;
-import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.DomEvent;
-import com.google.gwt.junit.GWTMockUtilities;
-import com.google.gwt.user.client.ui.Widget;
+import java.util.Set;
 
-import eu.ydp.gwtutil.client.event.HandlerRegistration;
-import eu.ydp.gwtutil.client.event.emulate.CustomClickEvent;
-import eu.ydp.gwtutil.client.event.factory.Command;
-import eu.ydp.gwtutil.client.event.factory.UserInteractionHandlerFactory;
-import eu.ydp.gwtutil.client.util.UserAgentChecker;
-import eu.ydp.gwtutil.junit.mock.UserAgentCheckerNativeInterfaceMock;
-import eu.ydp.gwtutil.junit.runners.ExMockRunner;
-import eu.ydp.gwtutil.junit.runners.PrepareForTest;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
-@RunWith(ExMockRunner.class)
-@PrepareForTest({ Widget.class, NativeEvent.class })
+@RunWith(GwtMockitoTestRunner.class)
 public class CustomPushButtonEventHandlerJUnitTest {
 
 	private final UserInteractionHandlerFactory userInteractionHandlerFactory = spy(new UserInteractionHandlerFactory());
@@ -41,20 +36,11 @@ public class CustomPushButtonEventHandlerJUnitTest {
 	@Before
 	public void before() {
 		CustomPushButton pushButton = mock(CustomPushButton.class);
-		doReturn(null).when(pushButton).addDomHandler(clickEventCaptor.capture(), Matchers.any(DomEvent.Type.class));
+		doReturn(null).when(pushButton)
+					  .addDomHandler(clickEventCaptor.capture(), Matchers.any(DomEvent.Type.class));
 		instance = new CustomPushButtonEventHandler(pushButton, userInteractionHandlerFactory);
 		UserAgentChecker.setNativeInterface(UserAgentCheckerNativeInterfaceMock.getNativeInterfaceMock(UserAgentCheckerNativeInterfaceMock.FIREFOX_WINDOWS));
 
-	}
-
-	@BeforeClass
-	public static void disarm() {
-		GWTMockUtilities.disarm();
-	}
-
-	@AfterClass
-	public static void rearm() {
-		GWTMockUtilities.restore();
 	}
 
 	@Test
@@ -63,12 +49,14 @@ public class CustomPushButtonEventHandlerJUnitTest {
 		instance.addClickHandler(clickHandler);
 		NativeEvent nativeEvent = mock(NativeEvent.class);
 		CustomClickEvent click = new CustomClickEvent(nativeEvent);
-		clickEventCaptor.getValue().onClick(click);
+		clickEventCaptor.getValue()
+						.onClick(click);
 
 		ArgumentCaptor<ClickEvent> eventCaptor = ArgumentCaptor.forClass(ClickEvent.class);
 		verify(clickHandler).onClick(eventCaptor.capture());
 		verify(nativeEvent).preventDefault();
-		assertEquals(click.getNativeEvent(), eventCaptor.getValue().getNativeEvent());
+		assertEquals(click.getNativeEvent(), eventCaptor.getValue()
+														.getNativeEvent());
 	}
 
 	@Test
@@ -79,11 +67,13 @@ public class CustomPushButtonEventHandlerJUnitTest {
 
 		NativeEvent nativeEvent = mock(NativeEvent.class);
 		CustomClickEvent click = new CustomClickEvent(nativeEvent);
-		clickEventCaptor.getValue().onClick(click);
+		clickEventCaptor.getValue()
+						.onClick(click);
 
 		ArgumentCaptor<ClickEvent> eventCaptor = ArgumentCaptor.forClass(ClickEvent.class);
 		verify(clickHandler).onClick(eventCaptor.capture());
-		assertEquals(click.getNativeEvent(), eventCaptor.getValue().getNativeEvent());
+		assertEquals(click.getNativeEvent(), eventCaptor.getValue()
+														.getNativeEvent());
 	}
 
 	private Set<ClickHandler> getclickHandlers() {
@@ -102,12 +92,14 @@ public class CustomPushButtonEventHandlerJUnitTest {
 		}
 		NativeEvent nativeEvent = mock(NativeEvent.class);
 		CustomClickEvent click = new CustomClickEvent(nativeEvent);
-		clickEventCaptor.getValue().onClick(click);
+		clickEventCaptor.getValue()
+						.onClick(click);
 
 		for (ClickHandler handler : clickHandlers) {
 			ArgumentCaptor<ClickEvent> eventCaptor = ArgumentCaptor.forClass(ClickEvent.class);
 			verify(handler).onClick(eventCaptor.capture());
-			assertEquals(click.getNativeEvent(), eventCaptor.getValue().getNativeEvent());
+			assertEquals(click.getNativeEvent(), eventCaptor.getValue()
+															.getNativeEvent());
 		}
 	}
 
@@ -117,7 +109,8 @@ public class CustomPushButtonEventHandlerJUnitTest {
 		HandlerRegistration addHandler = instance.addClickHandler(clickHandler);
 		addHandler.removeHandler();
 		CustomClickEvent click = new CustomClickEvent(mock(NativeEvent.class));
-		clickEventCaptor.getValue().onClick(click);
+		clickEventCaptor.getValue()
+						.onClick(click);
 
 		verify(clickHandler, times(0)).onClick(Matchers.any(ClickEvent.class));
 	}
