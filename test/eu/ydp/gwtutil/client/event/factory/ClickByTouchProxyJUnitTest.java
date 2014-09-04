@@ -1,24 +1,19 @@
 package eu.ydp.gwtutil.client.event.factory;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
+import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.event.dom.client.TouchEndEvent;
+import com.google.gwt.event.dom.client.TouchStartEvent;
+import com.google.gwtmockito.GwtMockitoTestRunner;
+import eu.ydp.gwtutil.client.event.TouchEventReader;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
-import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.event.dom.client.DomEvent;
-import com.google.gwt.event.dom.client.TouchEndEvent;
-import com.google.gwt.event.dom.client.TouchStartEvent;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import eu.ydp.gwtutil.client.event.TouchEventReader;
-import eu.ydp.gwtutil.junit.runners.ExMockRunner;
-import eu.ydp.gwtutil.junit.runners.PrepareForTest;
-
-@RunWith(ExMockRunner.class)
-@PrepareForTest({ DomEvent.class, NativeEvent.class })
+@RunWith(GwtMockitoTestRunner.class)
 public class ClickByTouchProxyJUnitTest {
 
 	private ClickByTouchProxy clickByTouchProxy;
