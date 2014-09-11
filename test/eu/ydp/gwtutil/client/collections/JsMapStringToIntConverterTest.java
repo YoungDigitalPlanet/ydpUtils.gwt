@@ -2,10 +2,15 @@ package eu.ydp.gwtutil.client.collections;
 
 import java.util.Map;
 
+import org.junit.experimental.categories.Category;
+
 import com.google.common.collect.Maps;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.junit.client.GWTTestCase;
 
+import eu.ydp.gwtutil.category.GWTUnitTest;
+
+@Category(GWTUnitTest.class)
 public class JsMapStringToIntConverterTest extends GWTTestCase {
 
 	private static final String KEY_0 = "k0";

@@ -99,14 +99,12 @@ task wrapper(type: Wrapper) {
 task testJUnit(type: Test) {
     jacoco {
         enabled = true
-    }
-    useJUnit()
+    }	
+	useJUnit {
+		excludeCategories 'eu.ydp.gwtutil.category.GWTUnitTest'
+	}
 	
     include 'eu/ydp/gwtutil/**'
-	exclude '**/JsMapStringToIntConverterTest.*'
-	exclude '**/NativeMethodInvocatorImplTest.*'
-	exclude '**/JsMapStringToIntTest.*'
-	
 	
     forkEvery = 1
     maxHeapSize = '512M'
@@ -116,11 +114,9 @@ task testGWTUnit(type: Test) {
     jacoco {
         enabled = false
     }
-	useJUnit()
-	include '**/JsMapStringToIntConverterTest.*'
-	include '**/NativeMethodInvocatorImplTest.*'
-	include '**/JsMapStringToIntTest.*'
-	
+	useJUnit {
+		includeCategories 'eu.ydp.gwtutil.category.GWTUnitTest'
+	}
 
     forkEvery = 1
     maxHeapSize = '512M'
