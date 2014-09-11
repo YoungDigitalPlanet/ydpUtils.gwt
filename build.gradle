@@ -8,19 +8,21 @@ def buildProfile = project.getProperties().get('buildProfile', 'develop')
 apply from: "gradle/profiles/${buildProfile}.gradle"
 apply plugin: 'ivy-publish'
 
+def projectName = 'ydpgwtutils'
 sourceCompatibility = 1.7
 compileJava.options.encoding = 'UTF-8'
+libsDirName = '../dist'
 
 ext {
     tstamp = new Date().format("yyyyMMddHHmmssSSS")
     buildnumber = "${System.env["BUILD_NUMBER"] ?: "${tstamp}"}"
-    jacocoReport = "${buildDir}/jacoco/testJUnit.exec"
+    jacocoReport = "$buildDir/jacoco/testJUnit.exec"
 }
 
 repositories {
     mavenCentral()
     ivy {
-        url "http://dev/ivyrep/public/"
+        url 'http://dev/ivyrep/public/'
         layout 'pattern', {
             artifact '[organisation]/[module]/[revision]/[type]s/[artifact].[ext]'
             ivy '[organisation]/[module]/[revision]/[type]s/[artifact].[ext]'
@@ -28,7 +30,7 @@ repositories {
     }
 
     ivy {
-        url "http://dev/ivyrep/shared/"
+        url 'http://dev/ivyrep/shared/'
         layout 'pattern', {
             artifact '[organisation]/[module]/[revision]/[type]s/[artifact].[ext]'
             ivy '[organisation]/[module]/[revision]/[type]s/[artifact].[ext]'
@@ -54,14 +56,14 @@ dependencies {
 
 sonarRunner {
     sonarProperties {
-        property "sonar.host.url", sonar_host_url
-        property "sonar.jdbc.url", sonar_jdbc_url
-        property "sonar.jdbc.driverClassName", sonar_jdbc_driverClassName
-        property "sonar.jdbc.username", sonar_jdbc_username
-        property "sonar.jdbc.password", sonar_jdbc_password
-        property "sonar.projectName", sonar_project_name
+        property 'sonar.host.url', sonar_host_url
+        property 'sonar.jdbc.url', sonar_jdbc_url
+        property 'sonar.jdbc.driverClassName', sonar_jdbc_driverClassName
+        property 'sonar.jdbc.username', sonar_jdbc_username
+        property 'sonar.jdbc.password', sonar_jdbc_password
+        property 'sonar.projectName', sonar_project_name
 
-        property "sonar.core.codeCoveragePlugin", "jacoco"
+        property 'sonar.core.codeCoveragePlugin', 'jacoco'
     }
 }
 
@@ -99,8 +101,9 @@ task wrapper(type: Wrapper) {
 task testJUnit(type: Test) {
     jacoco {
         enabled = true
-    }	
-	useJUnit {
+    }
+
+    useJUnit {
 		excludeCategories 'eu.ydp.gwtutil.category.GWTUnitTest'
 	}
 	
@@ -110,13 +113,15 @@ task testJUnit(type: Test) {
     maxHeapSize = '512M'
     jvmArgs(['-XX:MaxPermSize=256M', '-Xss1M'])
 }
+
 task testGWTUnit(type: Test) {
     jacoco {
         enabled = false
     }
-	useJUnit {
-		includeCategories 'eu.ydp.gwtutil.category.GWTUnitTest'
-	}
+
+    useJUnit {
+        includeCategories 'eu.ydp.gwtutil.category.GWTUnitTest'
+    }
 
     forkEvery = 1
     maxHeapSize = '512M'
@@ -126,31 +131,34 @@ task testGWTUnit(type: Test) {
 task test(overwrite: true, dependsOn: [testJUnit, testGWTUnit]) {
     ext {
         // this is needed for sonarRunner
-        reports = [junitXml: [destination: file("${buildDir}/test-results")]]
+        reports = [junitXml: [destination: file("$buildDir/test-results")]]
         jacoco = [destinationFile: file(jacocoReport)]
     }
 }
 
-
-jar {
-	baseName 'ydpgwtutils'
-	from sourceSets.main.java.srcDirs
+task dist(type: Jar, dependsOn: 'test') {
+    baseName projectName
+    from sourceSets.main.java.srcDirs
+    from sourceSets.main.output
+    duplicatesStrategy 'exclude'
 }
 
-task dist(dependsOn: ['test', 'jar']){
+clean {
+    delete libsDir
+    delete 'gwt-unitCache'
 }
 
 publishing {
     publications {
         ivy(IvyPublication) {
             organisation 'eu.ydp'
-            module 'ydpgwtutils_gradle'
-            revision "${project.ext.version}-${buildnumber}"
+            module projectName + '_gradle'
+            revision "${project.ext.version}-$buildnumber"
             descriptor.status = project.ext.status
-            
+
             artifacts {
-                artifact("${buildDir}/libs/ydpgwtutils.jar") {
-                    name 'ydpgwtutils'
+                artifact("${libsDir}/${projectName}.jar") {
+                    name projectName
                     classifier 'source'
                     extension 'jar'
                     conf 'default'
