@@ -104,11 +104,11 @@ task testJUnit(type: Test) {
     }
 
     useJUnit {
-		excludeCategories 'eu.ydp.gwtutil.category.GWTUnitTest'
-	}
-	
+        excludeCategories 'eu.ydp.gwtutil.category.GWTUnitTest'
+    }
+
     include 'eu/ydp/gwtutil/**'
-	
+
     forkEvery = 1
     maxHeapSize = '512M'
     jvmArgs(['-XX:MaxPermSize=256M', '-Xss1M'])
@@ -152,7 +152,7 @@ publishing {
     publications {
         ivy(IvyPublication) {
             organisation 'eu.ydp'
-            module projectName + '_gradle'
+            module projectName
             revision "${project.ext.version}-$buildnumber"
             descriptor.status = project.ext.status
 
