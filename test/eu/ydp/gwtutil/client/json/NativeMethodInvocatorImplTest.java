@@ -1,8 +1,13 @@
 package eu.ydp.gwtutil.client.json;
 
+import org.junit.experimental.categories.Category;
+
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.junit.client.GWTTestCase;
 
+import eu.ydp.gwtutil.category.GWTUnitTest;
+
+@Category(GWTUnitTest.class)
 public class NativeMethodInvocatorImplTest extends GWTTestCase {
 
 	public void testCallMethod() {
