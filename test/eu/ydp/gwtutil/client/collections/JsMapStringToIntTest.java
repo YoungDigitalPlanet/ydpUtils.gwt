@@ -3,14 +3,13 @@ package eu.ydp.gwtutil.client.collections;
 import java.util.List;
 import java.util.Set;
 
+import eu.ydp.gwtutil.category.GWTUnitTestCategory;
 import org.junit.experimental.categories.Category;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.junit.client.GWTTestCase;
 
-import eu.ydp.gwtutil.category.GWTUnitTest;
-
-@Category(GWTUnitTest.class)
+@Category(GWTUnitTestCategory.class)
 public class JsMapStringToIntTest extends GWTTestCase {
 
 	@Override
