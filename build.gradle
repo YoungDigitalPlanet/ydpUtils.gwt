@@ -104,7 +104,7 @@ task testJUnit(type: Test) {
     }
 
     useJUnit {
-        excludeCategories 'eu.ydp.gwtutil.category.GWTUnitTest'
+        excludeCategories 'eu.ydp.gwtutil.category.GWTUnitTestCategory'
     }
 
     include 'eu/ydp/gwtutil/**'
@@ -120,7 +120,7 @@ task testGWTUnit(type: Test) {
     }
 
     useJUnit {
-        includeCategories 'eu.ydp.gwtutil.category.GWTUnitTest'
+        includeCategories 'eu.ydp.gwtutil.category.GWTUnitTestCategory'
     }
 
     forkEvery = 1
