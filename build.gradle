@@ -136,11 +136,14 @@ task test(overwrite: true, dependsOn: [testJUnit, testGWTUnit]) {
     }
 }
 
-task dist(type: Jar, dependsOn: 'test') {
+jar {
     baseName projectName
     from sourceSets.main.java.srcDirs
     from sourceSets.main.output
     duplicatesStrategy 'exclude'
+}
+
+task dist(dependsOn: ['test', 'jar']) {
 }
 
 clean {
@@ -156,15 +159,7 @@ publishing {
             revision "${project.ext.version}-$buildnumber"
             descriptor.status = project.ext.status
 
-            artifacts {
-                artifact("${libsDir}/${projectName}.jar") {
-                    name projectName
-                    classifier 'source'
-                    extension 'jar'
-                    conf 'default'
-                    builtBy dist
-                }
-            }
+            from components.java
         }
     }
     repositories {
