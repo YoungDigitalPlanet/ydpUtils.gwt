@@ -26,8 +26,6 @@
 
 	<collapse-property name="mobile.user.agent" values="*" />
 
-	<define-property name="gwt.logging.popupHandler" values="ENABLED, DISABLED" />
-
 	<!-- Debug -->
 	<define-property name="application.debug" values="off" />
 	<extend-property name="application.debug" values="on" />
@@ -56,7 +54,6 @@
 	</replace-with>
 
   <set-property name="gwt.logging.enabled" value="TRUE"/>
-  <set-property name="gwt.logging.popupHandler" value="DISABLED" />
   <set-property name="gwt.logging.consoleHandler" value="DISABLED" />
   <set-property name="gwt.logging.developmentModeHandler" value="DISABLED" />
   <set-property name="gwt.logging.systemHandler" value="DISABLED" />
@@ -64,7 +61,6 @@
   <collapse-property name="gwt.logging.systemHandler" values="*" />
   <collapse-property name="gwt.logging.developmentModeHandler" values="*" />
   <collapse-property name="gwt.logging.consoleHandler" values="*" />
-  <collapse-property name="gwt.logging.popupHandler" values="*" />
   <collapse-property name="gwt.logging.enabled" values="*" />
 
   <define-property name="debugMode" values="none,popup,console,both" />
@@ -82,12 +78,6 @@
   	<when-property-is name="debugMode" value="none"/>
   </set-property>
 
-  <set-property name="gwt.logging.popupHandler" value="ENABLED">
-  	<any>
-  		<when-property-is name="debugMode" value="popup"/>
-  		<when-property-is name="debugMode" value="both"/>
-  	</any>
-  </set-property>
   <set-property name="gwt.logging.consoleHandler" value="ENABLED">
   	<any>
   		<when-property-is name="debugMode" value="console"/>
