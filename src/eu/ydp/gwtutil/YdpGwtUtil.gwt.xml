@@ -5,6 +5,8 @@
     <inherits name="javax.annotation.Annotation"/>
 	<inherits name="com.google.common.collect.Collect"/>
 
+    <entry-point class='eu.ydp.gwtutil.client.UtilsEntryPoint'/>
+    
 	<source path='client' />
 
 	<define-property name="mobile.user.agent" values="android23" />
@@ -24,7 +26,7 @@
 
 	<collapse-property name="mobile.user.agent" values="*" />
 
-	<script src="swfobject/swfobject.js" />
+	<define-property name="gwt.logging.popupHandler" values="ENABLED, DISABLED" />
 
 	<!-- Debug -->
 	<define-property name="application.debug" values="off" />
@@ -153,12 +155,4 @@
 	</replace-with>
 
 	<!-- END ANIMATIONS -->
-
-  <replace-with class="com.google.gwt.core.client.impl.ScriptTagLoadingStrategy">
-    <when-type-is
-      class="com.google.gwt.core.client.impl.AsyncFragmentLoader.LoadingStrategy" />
-    <when-linker-added name="xsiframescripts" />
-  </replace-with>
-
-  <define-linker name="xsiframescripts" class="eu.ydp.gwtutil.core.linker.CrossSiteIframeWithScriptsLinker" />
 </module>
