@@ -14,7 +14,7 @@ www-test/
 .idea/
 *.iml
 .gradle/
-/bin/
 war/
+bin/
 .classpath
 .project

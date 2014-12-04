@@ -145,4 +145,6 @@
 	</replace-with>
 
 	<!-- END ANIMATIONS -->
+  
+   <set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>
 </module>
