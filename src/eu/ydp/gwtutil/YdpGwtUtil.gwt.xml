@@ -5,7 +5,7 @@
     <inherits name="javax.annotation.Annotation"/>
 	<inherits name="com.google.common.collect.Collect"/>
 
-    <entry-point class='eu.ydp.gwtutil.client.UtilsEntryPoint'/>
+	<entry-point class='eu.ydp.gwtutil.client.UtilsEntryPoint'/>
     
 	<source path='client' />
 
@@ -145,5 +145,5 @@
 	</replace-with>
 
 	<!-- END ANIMATIONS -->
-	
+
 </module>
