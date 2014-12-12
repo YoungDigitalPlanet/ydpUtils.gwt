@@ -16,7 +16,8 @@ public class CssAnimationConfig {
 	}
 
 	private String getRawStyleName(String imgSource) {
-		return imgSource.toUpperCase().replaceAll("[\\/.: ]", "_");
+		String upperCase = imgSource.toUpperCase();
+		return upperCase.replaceAll("[^a-zA-Z0-9-_]", "_");
 	}
 
 	public AnimationConfig getAnimationConfig() {
