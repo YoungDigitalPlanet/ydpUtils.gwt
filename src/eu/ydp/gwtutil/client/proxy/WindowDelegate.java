@@ -1,5 +1,6 @@
 package eu.ydp.gwtutil.client.proxy;
 
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Window;
 
 public class WindowDelegate {
@@ -15,11 +16,15 @@ public class WindowDelegate {
 		Window.scrollTo(left, top);
 	}
 
+	public void addResizeHandler(ResizeHandler handler) {
+		Window.addResizeHandler(handler);
+	}
+
 	public int getInnerWidth() {
 		return getInnerWidthNative();
 	}
 
 	private native int getInnerWidthNative()/*-{
-        return $wnd.innerWidth;
-    }-*/;
+		return $wnd.innerWidth;
+	}-*/;
 }
