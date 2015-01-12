@@ -5,6 +5,8 @@
     <inherits name="javax.annotation.Annotation"/>
 	<inherits name="com.google.common.collect.Collect"/>
 
+	<entry-point class='eu.ydp.gwtutil.client.UtilsEntryPoint'/>
+    
 	<source path='client' />
 
 	<define-property name="mobile.user.agent" values="android23" />
@@ -23,8 +25,6 @@
 	<property-provider name="mobile.user.agent" generator="eu.ydp.gwtutil.user.rebind.MobileUserAgentPropertyGenerator" />
 
 	<collapse-property name="mobile.user.agent" values="*" />
-
-	<script src="swfobject/swfobject.js" />
 
 	<!-- Debug -->
 	<define-property name="application.debug" values="off" />
@@ -146,13 +146,4 @@
 
 	<!-- END ANIMATIONS -->
 
-  <replace-with class="com.google.gwt.core.client.impl.ScriptTagLoadingStrategy">
-    <when-type-is
-      class="com.google.gwt.core.client.impl.AsyncFragmentLoader.LoadingStrategy" />
-    <when-linker-added name="xsiframescripts" />
-  </replace-with>
-
-  <define-linker name="xsiframescripts" class="eu.ydp.gwtutil.core.linker.CrossSiteIframeWithScriptsLinker" />
-  
-   <set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>
 </module>

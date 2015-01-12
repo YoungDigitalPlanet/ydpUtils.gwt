@@ -1,17 +1,12 @@
 package eu.ydp.gwtutil.client.gin.module;
 
 import com.google.gwt.inject.client.AbstractGinModule;
-
-import eu.ydp.gwtutil.client.util.AudioWrapper;
-import eu.ydp.gwtutil.client.util.AudioWrapperImpl;
-import eu.ydp.gwtutil.client.util.BrowserNativeInterface;
-import eu.ydp.gwtutil.client.util.BrowserNativeInterfaceImpl;
-import eu.ydp.gwtutil.client.util.MediaChecker;
-import eu.ydp.gwtutil.client.util.MediaCheckerImpl;
-import eu.ydp.gwtutil.client.util.UserAgentUtil;
-import eu.ydp.gwtutil.client.util.UserAgentUtilImpl;
-import eu.ydp.gwtutil.client.xml.IXMLParser;
-import eu.ydp.gwtutil.client.xml.XMLParser;
+import com.google.inject.Singleton;
+import eu.ydp.gwtutil.client.inject.ScriptInjectorWrapper;
+import eu.ydp.gwtutil.client.scripts.AsynchronousScriptsLoader;
+import eu.ydp.gwtutil.client.util.*;
+import eu.ydp.gwtutil.client.util.paths.UrlConverter;
+import eu.ydp.gwtutil.client.xml.*;
 
 public class UtilGinModule extends AbstractGinModule {
 
@@ -22,5 +17,9 @@ public class UtilGinModule extends AbstractGinModule {
 		bind(MediaChecker.class).to(MediaCheckerImpl.class);
 		bind(AudioWrapper.class).to(AudioWrapperImpl.class);
 		bind(IXMLParser.class).to(XMLParser.class);
+
+		bind(UrlConverter.class).in(Singleton.class);
+		bind(ScriptInjectorWrapper.class).in(Singleton.class);
+		bind(AsynchronousScriptsLoader.class).in(Singleton.class);
 	}
 }
