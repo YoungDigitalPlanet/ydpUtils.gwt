@@ -11,7 +11,7 @@ apply plugin: 'ivy-publish'
 def projectName = 'ydpgwtutils'
 sourceCompatibility = 1.7
 compileJava.options.encoding = 'UTF-8'
-libsDirName = '../dist'
+libsDirName = file("${projectDir}/dist/")
 
 ext {
     tstamp = new Date().format("yyyyMMddHHmmssSSS")
@@ -72,12 +72,8 @@ sourceSets {
     test.runtimeClasspath += files(test.java.srcDirs)
 }
 
-jacoco {
-    toolVersion = '0.7.1.201405082137'
-}
-
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.12'
+    gradleVersion = '2.3'
 }
 
 task testJUnit(type: Test) {
