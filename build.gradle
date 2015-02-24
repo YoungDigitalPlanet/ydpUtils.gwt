@@ -68,26 +68,8 @@ sonarRunner {
 }
 
 sourceSets {
-    main {
-        java {
-            srcDir 'src/'
-
-        }
-        resources {
-            srcDir 'src/'
-        }
-    }
-    test {
-        java {
-            srcDir 'test/'
-        }
-        resources {
-            srcDir 'test/'
-        }
-    }
-
-    sourceSets.test.runtimeClasspath += files(sourceSets.main.java.srcDirs)
-    sourceSets.test.runtimeClasspath += files(sourceSets.test.java.srcDirs)
+    test.runtimeClasspath += files(main.java.srcDirs)
+    test.runtimeClasspath += files(test.java.srcDirs)
 }
 
 jacoco {
@@ -143,8 +125,7 @@ jar {
     duplicatesStrategy 'exclude'
 }
 
-task dist(dependsOn: ['test', 'jar']) {
-}
+task dist(dependsOn: ['test', 'jar'])
 
 clean {
     delete libsDir
