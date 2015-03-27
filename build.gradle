@@ -11,7 +11,7 @@ apply plugin: 'ivy-publish'
 def projectName = 'ydpgwtutils'
 sourceCompatibility = 1.7
 compileJava.options.encoding = 'UTF-8'
-libsDirName = '../dist'
+libsDirName = file("${projectDir}/dist/")
 
 ext {
     tstamp = new Date().format("yyyyMMddHHmmssSSS")
@@ -68,34 +68,12 @@ sonarRunner {
 }
 
 sourceSets {
-    main {
-        java {
-            srcDir 'src/'
-
-        }
-        resources {
-            srcDir 'src/'
-        }
-    }
-    test {
-        java {
-            srcDir 'test/'
-        }
-        resources {
-            srcDir 'test/'
-        }
-    }
-
-    sourceSets.test.runtimeClasspath += files(sourceSets.main.java.srcDirs)
-    sourceSets.test.runtimeClasspath += files(sourceSets.test.java.srcDirs)
-}
-
-jacoco {
-    toolVersion = '0.7.1.201405082137'
+    test.runtimeClasspath += files(main.java.srcDirs)
+    test.runtimeClasspath += files(test.java.srcDirs)
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.12'
+    gradleVersion = '2.3'
 }
 
 task testJUnit(type: Test) {
@@ -143,8 +121,7 @@ jar {
     duplicatesStrategy 'exclude'
 }
 
-task dist(dependsOn: ['test', 'jar']) {
-}
+task dist(dependsOn: ['test', 'jar'])
 
 clean {
     delete libsDir
