@@ -1,7 +1,8 @@
 package eu.ydp.gwtutil.client.scripts;
 
+import com.google.common.collect.Lists;
 import com.google.gwt.core.client.Callback;
-import com.google.gwt.thirdparty.guava.common.collect.Lists;
+
 import com.google.inject.Inject;
 
 import java.util.*;
