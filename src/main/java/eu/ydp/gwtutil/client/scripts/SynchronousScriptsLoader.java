@@ -1,13 +1,11 @@
 package eu.ydp.gwtutil.client.scripts;
 
 import com.google.gwt.core.client.Callback;
+import com.google.gwt.thirdparty.guava.common.collect.Lists;
 import com.google.inject.Inject;
 
 import java.util.*;
 
-/**
- * Created by ldomzalski on 2015-06-24.
- */
 public class SynchronousScriptsLoader {
 
     @Inject
@@ -15,19 +13,16 @@ public class SynchronousScriptsLoader {
 
     public void injectScripts(ScriptUrl[] scripts, Callback<Void, Exception> callback) {
 
-        List<ScriptUrl> scriptsList = new ArrayList<ScriptUrl>(Arrays.asList(scripts));
+        List<ScriptUrl> scriptsList = Lists.newArrayList(scripts);
         Collections.reverse(scriptsList);
 
-        Stack<ScriptUrl> scriptsStack = new Stack<ScriptUrl>();
+        Stack<ScriptUrl> scriptsStack = new Stack<>();
         scriptsStack.addAll(scriptsList);
         injectScript(scriptsStack, callback);
 
     }
 
     private void injectScript(final Stack<ScriptUrl> scriptsStack, final Callback<Void, Exception> callback) {
-        if (scriptsStack.empty()) {
-            return;
-        }
 
         asynchronousScriptsLoader.inject(scriptsStack.pop(), new Callback<Void, Exception>() {
             @Override
@@ -37,10 +32,10 @@ public class SynchronousScriptsLoader {
 
             @Override
             public void onSuccess(Void result) {
-                if (!scriptsStack.empty()) {
-                    injectScript(scriptsStack, callback);
-                } else {
+                if (scriptsStack.empty()) {
                     callback.onSuccess(result);
+                } else {
+                    injectScript(scriptsStack, callback);
                 }
             }
         });
