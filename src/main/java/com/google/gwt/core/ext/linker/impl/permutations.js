@@ -16,48 +16,48 @@
 
 function getCompiledCodeFilename() {
 
-  // A multi-tier lookup map that uses actual property values to quickly find
-  // the strong name of the cache.js file to load.
-  var answers = [];
+    // A multi-tier lookup map that uses actual property values to quickly find
+    // the strong name of the cache.js file to load.
+    var answers = [];
 
-  var softPermutationId;
+    var softPermutationId;
 
-  // Deferred-binding mapper function.  Sets a value into the several-level-deep
-  // answers map. The keys are specified by a non-zero-length propValArray,
-  // which should be a flat array target property values. Used by the generated
-  // PERMUTATIONS code.
-  function unflattenKeylistIntoAnswers(propValArray, value) {
-    var answer = answers;
-    for (var i = 0, n = propValArray.length - 1; i < n; ++i) {
-      // lazy initialize an empty object for the current key if needed
-      answer = answer[propValArray[i]] || (answer[propValArray[i]] = []);
+    // Deferred-binding mapper function.  Sets a value into the several-level-deep
+    // answers map. The keys are specified by a non-zero-length propValArray,
+    // which should be a flat array target property values. Used by the generated
+    // PERMUTATIONS code.
+    function unflattenKeylistIntoAnswers(propValArray, value) {
+        var answer = answers;
+        for (var i = 0, n = propValArray.length - 1; i < n; ++i) {
+            // lazy initialize an empty object for the current key if needed
+            answer = answer[propValArray[i]] || (answer[propValArray[i]] = []);
+        }
+        // set the final one to the value
+        answer[propValArray[n]] = value;
     }
-    // set the final one to the value
-    answer[propValArray[n]] = value;
-  }
 
-  // Provides the computePropvalue() function and sets the 
-  // __gwt_isKnownPropertyValue and MODULE_FUNC__.__computePropValue variables 
-  __PROPERTIES__
-  
-  sendStats('bootstrap', 'selectingPermutation');
-  if (isHostedMode()) {
-    return computeUrlForResource("__HOSTED_FILENAME__"); 
-  }
-  var strongName;
-  try {
-    // __PERMUTATIONS_BEGIN__
-    // Permutation logic is injected here. this code populates the 
-    // answers variable.
-    // __PERMUTATIONS_END__
-    var idx = strongName.indexOf(':');
-    if (idx != -1) {
-      softPermutationId = parseInt(strongName.substring(idx + 1));
-      strongName = strongName.substring(0, idx);
+    // Provides the computePropvalue() function and sets the
+    // __gwt_isKnownPropertyValue and MODULE_FUNC__.__computePropValue variables
+    __PROPERTIES__
+
+    sendStats('bootstrap', 'selectingPermutation');
+    if (isHostedMode()) {
+        return computeUrlForResource("__HOSTED_FILENAME__");
     }
-  } catch (e) {
-    // intentionally silent on property failure
-  }
-  __MODULE_FUNC__.__softPermutationId = softPermutationId;
-  return computeUrlForResource(strongName + '.cache.js');
+    var strongName;
+    try {
+        // __PERMUTATIONS_BEGIN__
+        // Permutation logic is injected here. this code populates the
+        // answers variable.
+        // __PERMUTATIONS_END__
+        var idx = strongName.indexOf(':');
+        if (idx != -1) {
+            softPermutationId = parseInt(strongName.substring(idx + 1));
+            strongName = strongName.substring(0, idx);
+        }
+    } catch (e) {
+        // intentionally silent on property failure
+    }
+    __MODULE_FUNC__.__softPermutationId = softPermutationId;
+    return computeUrlForResource(strongName + '.cache.js');
 } 

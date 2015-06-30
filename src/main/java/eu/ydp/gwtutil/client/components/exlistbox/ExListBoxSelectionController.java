@@ -1,44 +1,44 @@
 package eu.ydp.gwtutil.client.components.exlistbox;
 
-import java.util.List;
-
 import com.google.common.collect.Lists;
 import com.google.gwt.dom.client.NativeEvent;
 
+import java.util.List;
+
 public class ExListBoxSelectionController implements ExListBoxClickHandler, ExListBoxOverHandler {
-	private final ExListBox listBox;
+    private final ExListBox listBox;
 
-	private final List<ExListBoxOption> options = Lists.newArrayList();
+    private final List<ExListBoxOption> options = Lists.newArrayList();
 
-	public ExListBoxSelectionController(ExListBox listBox) {
-		this.listBox = listBox;
-	}
+    public ExListBoxSelectionController(ExListBox listBox) {
+        this.listBox = listBox;
+    }
 
-	public void addOption(ExListBoxOption listBoxOption) {
-		options.add(listBoxOption);
-		listBoxOption.setClickHandler(this);
-		listBoxOption.setOverHandler(this);
-	}
+    public void addOption(ExListBoxOption listBoxOption) {
+        options.add(listBoxOption);
+        listBoxOption.setClickHandler(this);
+        listBoxOption.setOverHandler(this);
+    }
 
-	@Override
-	public void onEvent(boolean over, ExListBoxOption selectedOption) {
-		selectedOption.setOver(over);
-		for (ExListBoxOption option : options) {
-			if (!option.equals(selectedOption)) {
-				option.setOver(false);
-			}
-		}
-	}
+    @Override
+    public void onEvent(boolean over, ExListBoxOption selectedOption) {
+        selectedOption.setOver(over);
+        for (ExListBoxOption option : options) {
+            if (!option.equals(selectedOption)) {
+                option.setOver(false);
+            }
+        }
+    }
 
-	@Override
-	public void onClick(NativeEvent event, ExListBoxOption selectedOption) {
-		selectedOption.setSelected(true);
-		for (ExListBoxOption option : options) {
-			if (!option.equals(selectedOption)) {
-				option.reset();
-			}
-		}
-		listBox.selectOption(selectedOption);
-		listBox.hidePopup();
-	}
+    @Override
+    public void onClick(NativeEvent event, ExListBoxOption selectedOption) {
+        selectedOption.setSelected(true);
+        for (ExListBoxOption option : options) {
+            if (!option.equals(selectedOption)) {
+                option.reset();
+            }
+        }
+        listBox.selectOption(selectedOption);
+        listBox.hidePopup();
+    }
 }

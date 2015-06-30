@@ -1,7 +1,6 @@
 package eu.ydp.gwtutil.client.components.exlistbox;
 
 import com.google.gwt.core.client.GWT;
-
 import eu.ydp.gwtutil.client.constants.Prefix;
 import eu.ydp.gwtutil.client.constants.Separator;
 import eu.ydp.gwtutil.client.constants.StringConstants;
@@ -12,41 +11,41 @@ import eu.ydp.gwtutil.client.constants.Suffix;
 @Separator("-")
 public interface ExListBoxStyleNames extends StringConstants {
 
-	ExListBoxStyleNames INSTANCE = GWT.create(ExListBoxStyleNames.class);
+    ExListBoxStyleNames INSTANCE = GWT.create(ExListBoxStyleNames.class);
 
-	ExListBoxStyleNames baseButton();
+    ExListBoxStyleNames baseButton();
 
-	ExListBoxStyleNames baseContainer();
+    ExListBoxStyleNames baseContainer();
 
-	ExListBoxStyleNames baseContainerInner();
+    ExListBoxStyleNames baseContainerInner();
 
-	ExListBoxStyleNames baseContents();
+    ExListBoxStyleNames baseContents();
 
-	ExListBoxStyleNames disabled();
+    ExListBoxStyleNames disabled();
 
-	ExListBoxStyleNames popupContainer();
+    ExListBoxStyleNames popupContainer();
 
-	ExListBoxStyleNames popupContents();
+    ExListBoxStyleNames popupContents();
 
-	ExListBoxStyleNames popupInnerContainer();
+    ExListBoxStyleNames popupInnerContainer();
 
-	ExListBoxStyleNames popupOptionButton();
+    ExListBoxStyleNames popupOptionButton();
 
-	ExListBoxStyleNames popupOptionButtonSelected();
+    ExListBoxStyleNames popupOptionButtonSelected();
 
-	ExListBoxStyleNames popupOptionPanel();
+    ExListBoxStyleNames popupOptionPanel();
 
-	ExListBoxStyleNames popupOptionPanelSelected();
+    ExListBoxStyleNames popupOptionPanelSelected();
 
-	ExListBoxStyleNames popupOptionPanelOver();
+    ExListBoxStyleNames popupOptionPanelOver();
 
-	ExListBoxStyleNames popupOptionPanelSelectedOver();
+    ExListBoxStyleNames popupOptionPanelSelectedOver();
 
-	ExListBoxStyleNames popupOptionPanelInner();
+    ExListBoxStyleNames popupOptionPanelInner();
 
-	ExListBoxStyleNames popupOuterContainer();
+    ExListBoxStyleNames popupOuterContainer();
 
-	ExListBoxStyleNames popupOuterFooter();
+    ExListBoxStyleNames popupOuterFooter();
 
-	ExListBoxStyleNames popupOuterHeader();
+    ExListBoxStyleNames popupOuterHeader();
 }

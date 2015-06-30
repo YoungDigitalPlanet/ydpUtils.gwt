@@ -1,31 +1,31 @@
 package eu.ydp.gwtutil.client.xml;
 
-import java.util.ArrayList;
-
 import com.google.gwt.xml.client.Element;
 import com.google.gwt.xml.client.Node;
 import com.google.gwt.xml.client.NodeList;
 
+import java.util.ArrayList;
+
 public class YNodeListImpl implements NodeList {
 
-	private ArrayList<Element> nodes;
+    private ArrayList<Element> nodes;
 
-	public YNodeListImpl() {
-		nodes = new ArrayList<Element>();
-	}
+    public YNodeListImpl() {
+        nodes = new ArrayList<Element>();
+    }
 
-	public void add(Element e) {
-		nodes.add(e);
-	}
+    public void add(Element e) {
+        nodes.add(e);
+    }
 
-	@Override
-	public int getLength() {
-		return nodes.size();
-	}
+    @Override
+    public int getLength() {
+        return nodes.size();
+    }
 
-	@Override
-	public Node item(int index) {
-		return nodes.get(index);
-	}
+    @Override
+    public Node item(int index) {
+        return nodes.get(index);
+    }
 
 }

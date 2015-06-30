@@ -4,25 +4,25 @@ import eu.ydp.gwtutil.client.json.YJsonValue;
 
 public class StateConverter implements Comparable<StateConverter> {
 
-	IStateConvertionStrategy conversionStrategy;
-	int version;
+    IStateConvertionStrategy conversionStrategy;
+    int version;
 
-	public StateConverter(IStateConvertionStrategy strategy) {
-		this.conversionStrategy = strategy;
-		this.version = conversionStrategy.getStartVersion();
+    public StateConverter(IStateConvertionStrategy strategy) {
+        this.conversionStrategy = strategy;
+        this.version = conversionStrategy.getStartVersion();
 
-	}
+    }
 
-	public YJsonValue convert(YJsonValue state) {
-		return conversionStrategy.convert(state);
-	}
+    public YJsonValue convert(YJsonValue state) {
+        return conversionStrategy.convert(state);
+    }
 
-	public int getVersion() {
-		return version;
-	}
+    public int getVersion() {
+        return version;
+    }
 
-	@Override
-	public int compareTo(StateConverter converter) {
-		return Integer.valueOf(version).compareTo(converter.getVersion());
-	}
+    @Override
+    public int compareTo(StateConverter converter) {
+        return Integer.valueOf(version).compareTo(converter.getVersion());
+    }
 }

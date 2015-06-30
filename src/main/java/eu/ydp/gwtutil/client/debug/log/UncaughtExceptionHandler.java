@@ -5,15 +5,15 @@ import com.google.inject.Inject;
 
 public class UncaughtExceptionHandler implements GWT.UncaughtExceptionHandler {
 
-	private final Logger logger;
+    private final Logger logger;
 
-	@Inject
-	public UncaughtExceptionHandler(Logger logger) {
-		this.logger = logger;
-	}
+    @Inject
+    public UncaughtExceptionHandler(Logger logger) {
+        this.logger = logger;
+    }
 
-	@Override
-	public void onUncaughtException(Throwable e) {
-		logger.error(e);
-	}
+    @Override
+    public void onUncaughtException(Throwable e) {
+        logger.error(e);
+    }
 }

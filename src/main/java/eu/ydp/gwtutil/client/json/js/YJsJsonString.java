@@ -1,17 +1,16 @@
 package eu.ydp.gwtutil.client.json.js;
 
 import com.google.gwt.json.client.JSONString;
-
 import eu.ydp.gwtutil.client.json.YJsonString;
 
 public class YJsJsonString extends YJsJsonValue implements YJsonString {
 
-	YJsJsonString(JSONString json) {
-		super(json);
-	}
+    YJsJsonString(JSONString json) {
+        super(json);
+    }
 
-	@Override
-	public String stringValue() {
-		return toJson().isString().stringValue();
-	}
+    @Override
+    public String stringValue() {
+        return toJson().isString().stringValue();
+    }
 }

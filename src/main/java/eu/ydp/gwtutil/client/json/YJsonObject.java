@@ -4,11 +4,11 @@ import java.util.Set;
 
 public interface YJsonObject extends YJsonValue {
 
-	YJsonValue get(String key);
+    YJsonValue get(String key);
 
-	void put(String key, YJsonValue value);
+    void put(String key, YJsonValue value);
 
-	int size();
+    int size();
 
-	Set<String> keySet();
+    Set<String> keySet();
 }
