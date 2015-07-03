@@ -7,17 +7,17 @@ import com.google.gwt.xml.client.impl.DomXmlAccessor;
 
 public class XMLProxyIE6 implements XMLProxy {
 
-	XMLProxyIE6() {
-	}
+    XMLProxyIE6() {
+    }
 
-	@Override
-	public NodeList getElementsByTagName(Element element, String tagName) {
-		DomXmlAccessor acc = new DomXmlAccessor();
-		return acc.createNodeListImpl(getElementsByTagNameImpl(acc.getJavaScriptObject(element), tagName));
-	}
+    @Override
+    public NodeList getElementsByTagName(Element element, String tagName) {
+        DomXmlAccessor acc = new DomXmlAccessor();
+        return acc.createNodeListImpl(getElementsByTagNameImpl(acc.getJavaScriptObject(element), tagName));
+    }
 
-	private native JavaScriptObject getElementsByTagNameImpl(JavaScriptObject o, String tagName) /*-{
-																									return o.getElementsByTagName(tagName);
-																									}-*/;
+    private native JavaScriptObject getElementsByTagNameImpl(JavaScriptObject o, String tagName) /*-{
+        return o.getElementsByTagName(tagName);
+    }-*/;
 
 }

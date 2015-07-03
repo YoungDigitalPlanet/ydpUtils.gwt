@@ -5,13 +5,13 @@ import java.util.Set;
 
 public interface MapStringToInt {
 
-	Set<String> keySet();
+    Set<String> keySet();
 
-	List<Integer> values();
+    List<Integer> values();
 
-	Integer get(String key);
+    Integer get(String key);
 
-	boolean containsKey(String key);
+    boolean containsKey(String key);
 
-	void put(String key, Integer value);
+    void put(String key, Integer value);
 }

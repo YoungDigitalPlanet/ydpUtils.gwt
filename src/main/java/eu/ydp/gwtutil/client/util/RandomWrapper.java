@@ -4,7 +4,7 @@ import com.google.gwt.user.client.Random;
 
 public class RandomWrapper {
 
-	public int nextInt(int n) {
-		return Random.nextInt(n);
-	}
+    public int nextInt(int n) {
+        return Random.nextInt(n);
+    }
 }

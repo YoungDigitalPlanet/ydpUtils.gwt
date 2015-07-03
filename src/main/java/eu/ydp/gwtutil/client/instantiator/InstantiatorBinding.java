@@ -9,10 +9,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface InstantiatorBinding {
 
-	InstantiatorBindingPair[] value();
+    InstantiatorBindingPair[] value();
 
-	Class<?> whenNotFound() default Null.class;
+    Class<?> whenNotFound() default Null.class;
 
-	static class Null {
-	}
+    static class Null {
+    }
 }

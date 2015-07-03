@@ -5,8 +5,8 @@ import com.google.gwt.user.client.ui.FlowPanel;
 
 public interface GWTPanelFactory {
 
-	public abstract FlowPanel getFlowPanel();
+    public abstract FlowPanel getFlowPanel();
 
-	public abstract AbsolutePanel getAbsolutePanel();
+    public abstract AbsolutePanel getAbsolutePanel();
 
 }

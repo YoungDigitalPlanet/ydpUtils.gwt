@@ -1,253 +1,248 @@
 package eu.ydp.gwtutil.client.components.exlistbox;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.FocusPanel;
-import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
-
 import eu.ydp.gwtutil.client.event.factory.Command;
 import eu.ydp.gwtutil.client.event.factory.EventHandlerProxy;
 import eu.ydp.gwtutil.client.event.factory.UserInteractionHandlerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ExListBox extends Composite implements IsExListBox {
 
-	private static ExListBoxUiBinder uiBinder = GWT.create(ExListBoxUiBinder.class);
+    private static ExListBoxUiBinder uiBinder = GWT.create(ExListBoxUiBinder.class);
 
-	interface ExListBoxUiBinder extends UiBinder<Widget, ExListBox> {
-	}
+    interface ExListBoxUiBinder extends UiBinder<Widget, ExListBox> {
+    }
 
-	public static enum PopupPosition {
-		ABOVE, BELOW
-	};
+    public static enum PopupPosition {
+        ABOVE, BELOW
+    }
 
-	private final ExListBoxDelays delays;
+    ;
 
-	@UiField
-	FlowPanel mainContainer;
-	@UiField
-	FocusPanel baseContainer;
-	@UiField
-	FlowPanel baseContainerInner;
-	@UiField
-	FlowPanel baseContents;
+    private final ExListBoxDelays delays;
 
-	private final ExListBoxPopup popupContents;
-	private final PopupPanel popupPanel;
-	private final List<ExListBoxOption> options;
-	private ExListBoxOpenCloseListener openCloseListener;
+    @UiField
+    FlowPanel mainContainer;
+    @UiField
+    FocusPanel baseContainer;
+    @UiField
+    FlowPanel baseContainerInner;
+    @UiField
+    FlowPanel baseContents;
 
-	private int selectedIndex = 0;
-	private boolean enabled = true;
-	private PopupPosition popupPosition = PopupPosition.ABOVE;
+    private final ExListBoxPopup popupContents;
+    private final PopupPanel popupPanel;
+    private final List<ExListBoxOption> options;
+    private ExListBoxOpenCloseListener openCloseListener;
 
-	private final UserInteractionHandlerFactory userInteractionHandlerFactory = new UserInteractionHandlerFactory();
+    private int selectedIndex = 0;
+    private boolean enabled = true;
+    private PopupPosition popupPosition = PopupPosition.ABOVE;
 
-	protected ExListBoxChangeListener listener;
+    private final UserInteractionHandlerFactory userInteractionHandlerFactory = new UserInteractionHandlerFactory();
 
-	private final ExListBoxSelectionController selectionController = new ExListBoxSelectionController(this);
+    protected ExListBoxChangeListener listener;
 
-	@Inject
-	public ExListBox(ExListBoxDelays delays) {
-		initWidget(uiBinder.createAndBindUi(this));
-		options = new ArrayList<ExListBoxOption>();
-		popupContents = new ExListBoxPopup();
-		popupPanel = new PopupPanel(false);
-		popupPanel.addCloseHandler(new PopupPanelAtuoHideDisabler());
-		popupPanel.setStyleName(ExListBoxStyleNames.INSTANCE.popupContainer().toString());
-		popupPanel.add(popupContents);
-		addShowListBoxHandler(baseContainer);
+    private final ExListBoxSelectionController selectionController = new ExListBoxSelectionController(this);
 
-		this.delays = delays;
-	}
+    @Inject
+    public ExListBox(ExListBoxDelays delays) {
+        initWidget(uiBinder.createAndBindUi(this));
+        options = new ArrayList<ExListBoxOption>();
+        popupContents = new ExListBoxPopup();
+        popupPanel = new PopupPanel(false);
+        popupPanel.addCloseHandler(new PopupPanelAtuoHideDisabler());
+        popupPanel.setStyleName(ExListBoxStyleNames.INSTANCE.popupContainer().toString());
+        popupPanel.add(popupContents);
+        addShowListBoxHandler(baseContainer);
 
-	@Override
-	public void addOpenCloseListener(ExListBoxOpenCloseListener openCloseListener) {
-		this.openCloseListener = openCloseListener;
-		popupPanel.addCloseHandler(openCloseListener);
-	}
+        this.delays = delays;
+    }
 
-	private void addShowListBoxHandler(Panel baseContainer) {
-		Command showListBox = createShowListBoxCommand();
-		EventHandlerProxy showListboxClickHandler = userInteractionHandlerFactory.createUserClickHandler(showListBox);
-		showListboxClickHandler.apply(baseContainer);
-	}
+    @Override
+    public void addOpenCloseListener(ExListBoxOpenCloseListener openCloseListener) {
+        this.openCloseListener = openCloseListener;
+        popupPanel.addCloseHandler(openCloseListener);
+    }
 
-	private Command createShowListBoxCommand() {
-		Command showListBox = new Command() {
-			@Override
-			public void execute(NativeEvent event) {
-				if (enabled) {
-					event.preventDefault();
-					updateOptionButtonsSelection();
-					popupPanel.show();
-					fireOpenEvent();
-					updatePosition();
-					setAutoHideWithDelay();
-				}
-			}
-		};
-		return showListBox;
-	}
+    private void addShowListBoxHandler(Panel baseContainer) {
+        Command showListBox = createShowListBoxCommand();
+        EventHandlerProxy showListboxClickHandler = userInteractionHandlerFactory.createUserClickHandler(showListBox);
+        showListboxClickHandler.apply(baseContainer);
+    }
 
-	private void setAutoHideWithDelay() {
-		Timer timer = new Timer() {
+    private Command createShowListBoxCommand() {
+        Command showListBox = new Command() {
+            @Override
+            public void execute(NativeEvent event) {
+                if (enabled) {
+                    event.preventDefault();
+                    updateOptionButtonsSelection();
+                    popupPanel.show();
+                    fireOpenEvent();
+                    updatePosition();
+                    setAutoHideWithDelay();
+                }
+            }
+        };
+        return showListBox;
+    }
 
-			@Override
-			public void run() {
-				popupPanel.setAutoHideEnabled(true);
-			}
-		};
-		timer.schedule(delays.getCloseDelay());
-	}
+    private void setAutoHideWithDelay() {
+        Timer timer = new Timer() {
 
-	private void fireOpenEvent() {
-		if (openCloseListener != null) {
-			openCloseListener.onOpen();
-		}
-	}
+            @Override
+            public void run() {
+                popupPanel.setAutoHideEnabled(true);
+            }
+        };
+        timer.schedule(delays.getCloseDelay());
+    }
 
-	@Override
-	public void addOption(IsWidget baseBody, IsWidget popupBody) {
-		addOption(new ExListBoxOption(baseBody, popupBody));
-	}
+    private void fireOpenEvent() {
+        if (openCloseListener != null) {
+            openCloseListener.onOpen();
+        }
+    }
 
-	@Override
-	public void addOption(final ExListBoxOption option) {
-		options.add(option);
-		popupContents.addOption(option.getPopupBody());
-		selectionController.addOption(option);
-	}
+    @Override
+    public void addOption(IsWidget baseBody, IsWidget popupBody) {
+        addOption(new ExListBoxOption(baseBody, popupBody));
+    }
 
-	protected void selectOption(final ExListBoxOption option) {
-		int currentOptionIndex = getOptionIndex(option);
-		if (selectedIndex != currentOptionIndex) {
-			selectedIndex = currentOptionIndex;
-		}
-		setSelectedBodyAndFireOnChange();
-	}
+    @Override
+    public void addOption(final ExListBoxOption option) {
+        options.add(option);
+        popupContents.addOption(option.getPopupBody());
+        selectionController.addOption(option);
+    }
 
-	private void setSelectedBodyAndFireOnChange() {
-		setSelectedBaseBody();
-		listener.onChange();
-	}
+    protected void selectOption(final ExListBoxOption option) {
+        int currentOptionIndex = getOptionIndex(option);
+        if (selectedIndex != currentOptionIndex) {
+            selectedIndex = currentOptionIndex;
+        }
+        setSelectedBodyAndFireOnChange();
+    }
 
-	private int getOptionIndex(final ExListBoxOption option) {
-		int currentOptionIndex = options.indexOf(option);
-		return currentOptionIndex;
-	}
+    private void setSelectedBodyAndFireOnChange() {
+        setSelectedBaseBody();
+        listener.onChange();
+    }
 
-	@Override
-	public void setChangeListener(ExListBoxChangeListener listener) {
-		this.listener = listener;
-	}
+    private int getOptionIndex(final ExListBoxOption option) {
+        int currentOptionIndex = options.indexOf(option);
+        return currentOptionIndex;
+    }
 
-	@Override
-	public int getSelectedIndex() {
-		return selectedIndex;
-	}
+    @Override
+    public void setChangeListener(ExListBoxChangeListener listener) {
+        this.listener = listener;
+    }
 
-	@Override
-	public void setSelectedIndex(int index) {
-		if (index >= -1 && index < options.size()) {
-			selectedIndex = index;
-			setSelectedBaseBody();
-			hidePopup();
-		}
-	}
+    @Override
+    public int getSelectedIndex() {
+        return selectedIndex;
+    }
 
-	@Override
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-		if (this.enabled) {
-			removeStyleName(ExListBoxStyleNames.INSTANCE.disabled().toString());
-		} else {
-			addStyleName(ExListBoxStyleNames.INSTANCE.disabled().toString());
-		}
-	}
+    @Override
+    public void setSelectedIndex(int index) {
+        if (index >= -1 && index < options.size()) {
+            selectedIndex = index;
+            setSelectedBaseBody();
+            hidePopup();
+        }
+    }
 
-	public void setShowEmptyOptions(boolean showEmptyOption) {
-		this.setSelectedIndex(((showEmptyOption) ? 0 : -1));
-	}
+    @Override
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+        if (this.enabled) {
+            removeStyleName(ExListBoxStyleNames.INSTANCE.disabled().toString());
+        } else {
+            addStyleName(ExListBoxStyleNames.INSTANCE.disabled().toString());
+        }
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return this.enabled;
-	}
+    public void setShowEmptyOptions(boolean showEmptyOption) {
+        this.setSelectedIndex(((showEmptyOption) ? 0 : -1));
+    }
 
-	@Override
-	public void setPopupPosition(PopupPosition pp) {
-		popupPosition = pp;
-	}
+    @Override
+    public boolean isEnabled() {
+        return this.enabled;
+    }
 
-	@Override
-	public PopupPosition getPopupPosition() {
-		return popupPosition;
-	}
+    @Override
+    public void setPopupPosition(PopupPosition pp) {
+        popupPosition = pp;
+    }
 
-	private void setSelectedBaseBody() {
-		baseContents.clear();
-		if (selectedIndex >= 0 && selectedIndex < options.size()) {
-			baseContents.add(options.get(selectedIndex).getBaseBody());
-		}
-	}
+    @Override
+    public PopupPosition getPopupPosition() {
+        return popupPosition;
+    }
 
-	@Override
-	public void hidePopup() {
-		Timer timer = new Timer() {
+    private void setSelectedBaseBody() {
+        baseContents.clear();
+        if (selectedIndex >= 0 && selectedIndex < options.size()) {
+            baseContents.add(options.get(selectedIndex).getBaseBody());
+        }
+    }
 
-			@Override
-			public void run() {
-				popupPanel.hide();
-			}
-		};
-		timer.schedule(delays.getCloseDelay());
-	}
+    @Override
+    public void hidePopup() {
+        Timer timer = new Timer() {
 
-	private void updatePosition() {
-		int mountingPointX = 0;
-		int mountingPointY = 0;
-		final int MARGIN = 8;
+            @Override
+            public void run() {
+                popupPanel.hide();
+            }
+        };
+        timer.schedule(delays.getCloseDelay());
+    }
 
-		mountingPointX = baseContainer.getAbsoluteLeft() + baseContainer.getOffsetWidth() / 2 - popupPanel.getOffsetWidth() / 2;
-		if (popupPosition == PopupPosition.ABOVE) {
-			mountingPointY = baseContainer.getAbsoluteTop() + baseContainer.getOffsetHeight() - popupPanel.getOffsetHeight();
-		} else {
-			mountingPointY = baseContainer.getAbsoluteTop() - baseContainer.getOffsetHeight() + baseContainer.getOffsetHeight();
-		}
+    private void updatePosition() {
+        int mountingPointX = 0;
+        int mountingPointY = 0;
+        final int MARGIN = 8;
 
-		if (mountingPointX < Window.getScrollLeft() + MARGIN) {
-			mountingPointX = Window.getScrollLeft() + MARGIN;
-		} else if (mountingPointX + popupPanel.getOffsetWidth() > Window.getClientWidth() + Window.getScrollLeft() + MARGIN) {
-			mountingPointX = Window.getClientWidth() + Window.getScrollLeft() + MARGIN - popupPanel.getOffsetWidth();
-		}
+        mountingPointX = baseContainer.getAbsoluteLeft() + baseContainer.getOffsetWidth() / 2 - popupPanel.getOffsetWidth() / 2;
+        if (popupPosition == PopupPosition.ABOVE) {
+            mountingPointY = baseContainer.getAbsoluteTop() + baseContainer.getOffsetHeight() - popupPanel.getOffsetHeight();
+        } else {
+            mountingPointY = baseContainer.getAbsoluteTop() - baseContainer.getOffsetHeight() + baseContainer.getOffsetHeight();
+        }
 
-		if (mountingPointY < Window.getScrollTop() + MARGIN) {
-			mountingPointY = Window.getScrollTop() + MARGIN;
-		} else if (mountingPointY + popupPanel.getOffsetHeight() > Window.getClientHeight() + Window.getScrollTop() + MARGIN) {
-			mountingPointY = Window.getClientHeight() + Window.getScrollTop() + MARGIN - popupPanel.getOffsetHeight();
-		}
+        if (mountingPointX < Window.getScrollLeft() + MARGIN) {
+            mountingPointX = Window.getScrollLeft() + MARGIN;
+        } else if (mountingPointX + popupPanel.getOffsetWidth() > Window.getClientWidth() + Window.getScrollLeft() + MARGIN) {
+            mountingPointX = Window.getClientWidth() + Window.getScrollLeft() + MARGIN - popupPanel.getOffsetWidth();
+        }
 
-		popupPanel.setPopupPosition(mountingPointX, mountingPointY);
+        if (mountingPointY < Window.getScrollTop() + MARGIN) {
+            mountingPointY = Window.getScrollTop() + MARGIN;
+        } else if (mountingPointY + popupPanel.getOffsetHeight() > Window.getClientHeight() + Window.getScrollTop() + MARGIN) {
+            mountingPointY = Window.getClientHeight() + Window.getScrollTop() + MARGIN - popupPanel.getOffsetHeight();
+        }
 
-	}
+        popupPanel.setPopupPosition(mountingPointX, mountingPointY);
 
-	private void updateOptionButtonsSelection() {
-		for (int i = 0; i < options.size(); i++) {
-			options.get(i).setSelected(i == selectedIndex);
-		}
-	}
+    }
+
+    private void updateOptionButtonsSelection() {
+        for (int i = 0; i < options.size(); i++) {
+            options.get(i).setSelected(i == selectedIndex);
+        }
+    }
 
 }

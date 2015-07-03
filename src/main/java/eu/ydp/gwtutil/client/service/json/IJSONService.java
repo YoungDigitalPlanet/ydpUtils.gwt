@@ -1,23 +1,19 @@
 package eu.ydp.gwtutil.client.service.json;
 
-import eu.ydp.gwtutil.client.json.YJsonArray;
-import eu.ydp.gwtutil.client.json.YJsonBoolean;
-import eu.ydp.gwtutil.client.json.YJsonObject;
-import eu.ydp.gwtutil.client.json.YJsonString;
-import eu.ydp.gwtutil.client.json.YJsonValue;
+import eu.ydp.gwtutil.client.json.*;
 
 public interface IJSONService {
 
-	YJsonValue parse(String contents);
+    YJsonValue parse(String contents);
 
-	YJsonArray createArray();
+    YJsonArray createArray();
 
-	YJsonString createString(String value);
+    YJsonString createString(String value);
 
-	YJsonValue createNumber(double value);
+    YJsonValue createNumber(double value);
 
-	YJsonObject createObject();
+    YJsonObject createObject();
 
-	YJsonBoolean createBoolean(boolean bool);
+    YJsonBoolean createBoolean(boolean bool);
 
 }

@@ -5,20 +5,20 @@ import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.user.client.ui.Widget;
 
 class MouseOverEventProxy implements EventHandlerProxy {
-	private final Command command;
+    private final Command command;
 
-	public MouseOverEventProxy(Command command) {
-		this.command = command;
-	}
+    public MouseOverEventProxy(Command command) {
+        this.command = command;
+    }
 
-	@Override
-	public void apply(Widget widget) {
-		widget.addDomHandler(new MouseOverHandler() {
+    @Override
+    public void apply(Widget widget) {
+        widget.addDomHandler(new MouseOverHandler() {
 
-			@Override
-			public void onMouseOver(MouseOverEvent event) {
-				command.execute(event.getNativeEvent());
-			}
-		}, MouseOverEvent.getType());
-	}
+            @Override
+            public void onMouseOver(MouseOverEvent event) {
+                command.execute(event.getNativeEvent());
+            }
+        }, MouseOverEvent.getType());
+    }
 }

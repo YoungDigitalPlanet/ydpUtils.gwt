@@ -2,7 +2,7 @@ package eu.ydp.gwtutil.client.instantiator;
 
 public @interface InstantiatorBindingPair {
 
-	String name();
+    String name();
 
-	Class<?> clazz();
+    Class<?> clazz();
 }
