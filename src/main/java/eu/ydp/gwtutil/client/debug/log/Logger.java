@@ -43,7 +43,8 @@ public class Logger {
         StackTraceElement[] stackTrace = e.getStackTrace();
         String message = e.getMessage();
 
-        StringBuilder sb = new StringBuilder(message);
+        StringBuilder sb = new StringBuilder();
+        sb.append(message);
         for (StackTraceElement stackTraceElement : stackTrace) {
             sb.append("\nFilename: ").append(stackTraceElement.getFileName()).append(" method: ").append(stackTraceElement.getMethodName()).append(" line: ")
                     .append(stackTraceElement.getLineNumber());
