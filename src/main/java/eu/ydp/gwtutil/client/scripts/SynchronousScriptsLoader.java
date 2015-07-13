@@ -2,10 +2,11 @@ package eu.ydp.gwtutil.client.scripts;
 
 import com.google.common.collect.Lists;
 import com.google.gwt.core.client.Callback;
-
 import com.google.inject.Inject;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Stack;
 
 public class SynchronousScriptsLoader {
 

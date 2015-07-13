@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class DateService {
 
-	public long getTimeMillis() {
-		return new Date().getTime();
-	}
+    public long getTimeMillis() {
+        return new Date().getTime();
+    }
 
 }

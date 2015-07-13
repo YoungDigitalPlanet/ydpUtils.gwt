@@ -5,11 +5,11 @@ import eu.ydp.gwtutil.client.scripts.ScriptUrl;
 
 public class UrlConverter {
 
-	public String getModuleRelativeUrl(String url) {
-		return GWT.getModuleBaseURL() + url;
-	}
+    public String getModuleRelativeUrl(String url) {
+        return GWT.getModuleBaseURL() + url;
+    }
 
-	public String getModuleRelativeUrl(ScriptUrl url) {
-		return GWT.getModuleBaseURL() + url.getUrl();
-	}
+    public String getModuleRelativeUrl(ScriptUrl url) {
+        return GWT.getModuleBaseURL() + url.getUrl();
+    }
 }

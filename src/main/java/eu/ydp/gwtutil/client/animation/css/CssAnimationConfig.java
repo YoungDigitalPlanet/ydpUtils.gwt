@@ -5,43 +5,43 @@ import eu.ydp.gwtutil.client.util.geom.Size;
 
 public class CssAnimationConfig {
 
-	private final AnimationConfig animationConfig;
-	private final String animationStyleName;
-	private final Size imgSize;
+    private final AnimationConfig animationConfig;
+    private final String animationStyleName;
+    private final Size imgSize;
 
-	public CssAnimationConfig(AnimationConfig animationConfig, Size imgSize) {
-		this.animationConfig = animationConfig;
-		this.imgSize = imgSize;
-		this.animationStyleName = getRawStyleName(animationConfig.getSource());
-	}
+    public CssAnimationConfig(AnimationConfig animationConfig, Size imgSize) {
+        this.animationConfig = animationConfig;
+        this.imgSize = imgSize;
+        this.animationStyleName = getRawStyleName(animationConfig.getSource());
+    }
 
-	private String getRawStyleName(String imgSource) {
-		String upperCase = imgSource.toUpperCase();
-		return upperCase.replaceAll("[^a-zA-Z0-9-_]", "_");
-	}
+    private String getRawStyleName(String imgSource) {
+        String upperCase = imgSource.toUpperCase();
+        return upperCase.replaceAll("[^a-zA-Z0-9-_]", "_");
+    }
 
-	public AnimationConfig getAnimationConfig() {
-		return animationConfig;
-	}
+    public AnimationConfig getAnimationConfig() {
+        return animationConfig;
+    }
 
-	public String getAnimationStyleName() {
-		return animationStyleName;
-	}
+    public String getAnimationStyleName() {
+        return animationStyleName;
+    }
 
-	public Size getImgSize() {
-		return imgSize;
-	}
+    public Size getImgSize() {
+        return imgSize;
+    }
 
-	public int getFramesCount() {
-		int framesCount = imgSize.getWidth() / animationConfig.getFrameSize().getWidth();
-		return framesCount;
-	}
+    public int getFramesCount() {
+        int framesCount = imgSize.getWidth() / animationConfig.getFrameSize().getWidth();
+        return framesCount;
+    }
 
-	public String getSource() {
-		return animationConfig.getSource();
-	}
+    public String getSource() {
+        return animationConfig.getSource();
+    }
 
-	public String getAnimationTime() {
-		return String.valueOf(animationConfig.getIntervalMs() * getFramesCount());
-	}
+    public String getAnimationTime() {
+        return String.valueOf(animationConfig.getIntervalMs() * getFramesCount());
+    }
 }

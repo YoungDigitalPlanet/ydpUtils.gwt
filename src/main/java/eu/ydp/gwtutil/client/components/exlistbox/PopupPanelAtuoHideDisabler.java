@@ -6,8 +6,8 @@ import com.google.gwt.user.client.ui.PopupPanel;
 
 public class PopupPanelAtuoHideDisabler implements CloseHandler<PopupPanel> {
 
-	@Override
-	public void onClose(CloseEvent<PopupPanel> event) {
-		event.getTarget().setAutoHideEnabled(false);
-	}
+    @Override
+    public void onClose(CloseEvent<PopupPanel> event) {
+        event.getTarget().setAutoHideEnabled(false);
+    }
 }

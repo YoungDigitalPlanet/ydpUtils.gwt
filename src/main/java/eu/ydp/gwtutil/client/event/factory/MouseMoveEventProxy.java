@@ -6,21 +6,21 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class MouseMoveEventProxy implements EventHandlerProxy {
 
-	private final Command command;
+    private final Command command;
 
-	public MouseMoveEventProxy(Command command) {
-		this.command = command;
-	}
+    public MouseMoveEventProxy(Command command) {
+        this.command = command;
+    }
 
-	@Override
-	public void apply(Widget widget) {
+    @Override
+    public void apply(Widget widget) {
 
-		widget.addDomHandler(new MouseMoveHandler() {
+        widget.addDomHandler(new MouseMoveHandler() {
 
-			@Override
-			public void onMouseMove(MouseMoveEvent event) {
-				command.execute(event.getNativeEvent());
-			}
-		}, MouseMoveEvent.getType());
-	}
+            @Override
+            public void onMouseMove(MouseMoveEvent event) {
+                command.execute(event.getNativeEvent());
+            }
+        }, MouseMoveEvent.getType());
+    }
 }

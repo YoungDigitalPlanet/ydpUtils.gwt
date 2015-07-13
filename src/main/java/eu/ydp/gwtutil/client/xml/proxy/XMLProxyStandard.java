@@ -5,12 +5,12 @@ import com.google.gwt.xml.client.NodeList;
 
 public class XMLProxyStandard implements XMLProxy {
 
-	XMLProxyStandard() {
-	}
+    XMLProxyStandard() {
+    }
 
-	@Override
-	public NodeList getElementsByTagName(Element element, String tagName) {
-		return element.getElementsByTagName(tagName);
-	}
+    @Override
+    public NodeList getElementsByTagName(Element element, String tagName) {
+        return element.getElementsByTagName(tagName);
+    }
 
 }

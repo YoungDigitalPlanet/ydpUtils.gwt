@@ -1,11 +1,11 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
-	<ui:with type="eu.ydp.gwtutil.client.components.exlistbox.ExListBoxStyleNames" field="styleNames" />
-	<g:FlowPanel styleName="{styleNames.popupOuterContainer.toString}">
-		<g:FlowPanel styleName="{styleNames.popupOuterHeader.toString}"/>
-		<g:FlowPanel styleName="{styleNames.popupInnerContainer.toString}">
-			<g:FlowPanel styleName="{styleNames.popupContents.toString}" ui:field="popupContents"/>
-		</g:FlowPanel>
-		<g:FlowPanel styleName="{styleNames.popupOuterFooter.toString}"/>
-	</g:FlowPanel>
+    <ui:with type="eu.ydp.gwtutil.client.components.exlistbox.ExListBoxStyleNames" field="styleNames"/>
+    <g:FlowPanel styleName="{styleNames.popupOuterContainer.toString}">
+        <g:FlowPanel styleName="{styleNames.popupOuterHeader.toString}"/>
+        <g:FlowPanel styleName="{styleNames.popupInnerContainer.toString}">
+            <g:FlowPanel styleName="{styleNames.popupContents.toString}" ui:field="popupContents"/>
+        </g:FlowPanel>
+        <g:FlowPanel styleName="{styleNames.popupOuterFooter.toString}"/>
+    </g:FlowPanel>
 </ui:UiBinder> 
