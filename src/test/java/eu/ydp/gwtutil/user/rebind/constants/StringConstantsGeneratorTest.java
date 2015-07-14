@@ -16,50 +16,50 @@ import static org.junit.Assert.assertThat;
 @RunWith(JUnitParamsRunner.class)
 public class StringConstantsGeneratorTest extends AbstractTestBase {
 
-	private static final String SEPARATOR = "#";
-	private StringConstantsGenerator generator;
+    private static final String SEPARATOR = "#";
+    private StringConstantsGenerator generator;
 
-	@Override
-	public void setUp() {
-		super.setUp();
-		generator = new StringConstantsGenerator();
-	}
+    @Override
+    public void setUp() {
+        super.setUp();
+        generator = new StringConstantsGenerator();
+    }
 
-	public Object[] dataCamelCaseToComponents() {
-		return $(
-				$("AbcDef12GhiJk", Lists.newArrayList("abc", "def", "12", "ghi", "jk")),
-				$("123", Lists.newArrayList("123")),
-				$("A", Lists.newArrayList("a")),
-				$("ABC", Lists.newArrayList("a", "b", "c")),
-				$("", Lists.newArrayList()));
-	}
+    public Object[] dataCamelCaseToComponents() {
+        return $(
+                $("AbcDef12GhiJk", Lists.newArrayList("abc", "def", "12", "ghi", "jk")),
+                $("123", Lists.newArrayList("123")),
+                $("A", Lists.newArrayList("a")),
+                $("ABC", Lists.newArrayList("a", "b", "c")),
+                $("", Lists.newArrayList()));
+    }
 
-	@Test
-	@Parameters(method = "dataCamelCaseToComponents")
-	public void camelCaseToComponents(String input, List<String> output) {
-		// when
-		List<String> actualOutput = generator.camelCaseToComponents(input);
+    @Test
+    @Parameters(method = "dataCamelCaseToComponents")
+    public void camelCaseToComponents(String input, List<String> output) {
+        // when
+        List<String> actualOutput = generator.camelCaseToComponents(input);
 
-		// then
-		assertThat(actualOutput, equalTo(output));
-	}
+        // then
+        assertThat(actualOutput, equalTo(output));
+    }
 
-	public Object[] dataCombineComponents() {
-		return $(
-				$(Lists.newArrayList("abc", "def", "12", "ghi", "jk"), "abc#def#12#ghi#jk"),
-				$(Lists.newArrayList("123"), "123"),
-				$(Lists.newArrayList(), "")
-		);
-	}
+    public Object[] dataCombineComponents() {
+        return $(
+                $(Lists.newArrayList("abc", "def", "12", "ghi", "jk"), "abc#def#12#ghi#jk"),
+                $(Lists.newArrayList("123"), "123"),
+                $(Lists.newArrayList(), "")
+        );
+    }
 
-	@Test
-	@Parameters(method = "dataCombineComponents")
-	public void combineComponents(List<String> input, String output) {
-		// when
-		String actualOutput = generator.combineComponents(input, SEPARATOR);
+    @Test
+    @Parameters(method = "dataCombineComponents")
+    public void combineComponents(List<String> input, String output) {
+        // when
+        String actualOutput = generator.combineComponents(input, SEPARATOR);
 
-		// then
-		assertThat(actualOutput, equalTo(output));
+        // then
+        assertThat(actualOutput, equalTo(output));
 
-	}
+    }
 }

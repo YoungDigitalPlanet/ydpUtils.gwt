@@ -4,31 +4,31 @@ import eu.ydp.gwtutil.client.util.UserAgentChecker.BrowserUserAgent;
 import eu.ydp.gwtutil.client.util.UserAgentChecker.MobileUserAgent;
 
 public interface UserAgentUtil {
-	public boolean isMobileUserAgent(MobileUserAgent userAgent);
+    public boolean isMobileUserAgent(MobileUserAgent userAgent);
 
-	public boolean isMobileUserAgent(MobileUserAgent... userAgent);
+    public boolean isMobileUserAgent(MobileUserAgent... userAgent);
 
-	public boolean isMobileUserAgent();
+    public boolean isMobileUserAgent();
 
-	public boolean isStackAndroidBrowser();
+    public boolean isStackAndroidBrowser();
 
-	public boolean isAndroidBrowser();
+    public boolean isAndroidBrowser();
 
-	public boolean isUserAgent(BrowserUserAgent userAgent);
+    public boolean isUserAgent(BrowserUserAgent userAgent);
 
-	public boolean isUserAgent(BrowserUserAgent... userAgents);
+    public boolean isUserAgent(BrowserUserAgent... userAgents);
 
-	public String getUserAgentString();
+    public String getUserAgentString();
 
-	public MobileUserAgent getMobileUserAgent();
+    public MobileUserAgent getMobileUserAgent();
 
-	public boolean isLocal();
+    public boolean isLocal();
 
-	public boolean isAIR();
+    public boolean isAIR();
 
-	public boolean isIE();
+    public boolean isIE();
 
-	boolean isInsideIframe();
+    boolean isInsideIframe();
 
-	public boolean isUserAgentMatching(String pattern);
+    public boolean isUserAgentMatching(String pattern);
 }

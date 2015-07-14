@@ -1,60 +1,56 @@
 package eu.ydp.gwtutil.json;
 
-import com.google.gwt.dev.json.JsonArray;
-import com.google.gwt.dev.json.JsonBoolean;
-import com.google.gwt.dev.json.JsonNumber;
-import com.google.gwt.dev.json.JsonObject;
-import com.google.gwt.dev.json.JsonString;
-import com.google.gwt.dev.json.JsonValue;
-
+import com.google.gwt.dev.json.*;
 import eu.ydp.gwtutil.client.json.YJsonNumber;
 import eu.ydp.gwtutil.client.json.YJsonValue;
 
 public class YNativeJsonFactory {
-	private YNativeJsonFactory() {
-	};
+    private YNativeJsonFactory() {
+    }
 
-	public static YJsonValue create(JsonValue json) {
-		if (json.isArray()) {
-			return new YNativeJsonArray(json.asArray());
-		}
+    ;
 
-		if (json.isString()) {
-			return new YNativeJsonString(json.asString());
-		}
+    public static YJsonValue create(JsonValue json) {
+        if (json.isArray()) {
+            return new YNativeJsonArray(json.asArray());
+        }
 
-		if (json.isNumber()) {
-			return new YNativeJsonNumber(json.asNumber());
-		}
+        if (json.isString()) {
+            return new YNativeJsonString(json.asString());
+        }
 
-		if (json.isObject()) {
-			return new YNativeJsonObject(json.asObject());
-		}
+        if (json.isNumber()) {
+            return new YNativeJsonNumber(json.asNumber());
+        }
 
-		if (json.isBoolean()) {
-			return new YNativeJsonBoolean(json.asBoolean());
-		}
+        if (json.isObject()) {
+            return new YNativeJsonObject(json.asObject());
+        }
 
-		return new YNativeJsonValue(json);
-	}
+        if (json.isBoolean()) {
+            return new YNativeJsonBoolean(json.asBoolean());
+        }
 
-	public static YNativeJsonArray createArray() {
-		return new YNativeJsonArray(JsonArray.create());
-	}
+        return new YNativeJsonValue(json);
+    }
 
-	public static YNativeJsonString createString(String v) {
-		return new YNativeJsonString(JsonString.create(v));
-	}
+    public static YNativeJsonArray createArray() {
+        return new YNativeJsonArray(JsonArray.create());
+    }
 
-	public static YJsonNumber createNumber(double value) {
-		return new YNativeJsonNumber(JsonNumber.create(value));
-	}
+    public static YNativeJsonString createString(String v) {
+        return new YNativeJsonString(JsonString.create(v));
+    }
 
-	public static YNativeJsonObject createObject() {
-		return new YNativeJsonObject(new JsonObject());
-	}
+    public static YJsonNumber createNumber(double value) {
+        return new YNativeJsonNumber(JsonNumber.create(value));
+    }
 
-	public static YNativeJsonBoolean createBoolean(boolean bool) {
-		return new YNativeJsonBoolean(JsonBoolean.create(bool));
-	}
+    public static YNativeJsonObject createObject() {
+        return new YNativeJsonObject(new JsonObject());
+    }
+
+    public static YNativeJsonBoolean createBoolean(boolean bool) {
+        return new YNativeJsonBoolean(JsonBoolean.create(bool));
+    }
 }

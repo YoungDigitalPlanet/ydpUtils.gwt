@@ -28,47 +28,47 @@ import java.util.Vector;
 
 public class RandomizedSet<T> {
 
-	private final Vector<T> elements = new Vector<T>();
+    private final Vector<T> elements = new Vector<T>();
 
-	public RandomizedSet() {
+    public RandomizedSet() {
 
-	}
+    }
 
-	public RandomizedSet(Collection<T> collection) {
-		elements.addAll(collection);
-	}
+    public RandomizedSet(Collection<T> collection) {
+        elements.addAll(collection);
+    }
 
-	/**
-	 * Add element do the set
-	 * 
-	 * @param item
-	 */
-	public void push(T item) {
-		elements.add(item);
-	}
+    /**
+     * Add element do the set
+     *
+     * @param item
+     */
+    public void push(T item) {
+        elements.add(item);
+    }
 
-	/**
-	 * check if there are more elements
-	 * 
-	 * @return
-	 */
-	public boolean hasMore() {
-		return (elements.size() > 0);
-	}
+    /**
+     * check if there are more elements
+     *
+     * @return
+     */
+    public boolean hasMore() {
+        return (elements.size() > 0);
+    }
 
-	/**
-	 * return element from the set. element will be removed
-	 */
-	public T pull() {
-		if (elements.size() == 0) {
-			return null;
-		}
+    /**
+     * return element from the set. element will be removed
+     */
+    public T pull() {
+        if (elements.size() == 0) {
+            return null;
+        }
 
-		int index = (int) (Math.floor(Math.random() * elements.size()));
-		T item = elements.get(index);
-		elements.remove(index);
+        int index = (int) (Math.floor(Math.random() * elements.size()));
+        T item = elements.get(index);
+        elements.remove(index);
 
-		return item;
-	}
+        return item;
+    }
 
 }

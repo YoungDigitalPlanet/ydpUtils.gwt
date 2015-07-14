@@ -4,6 +4,6 @@ import com.google.gwt.xml.client.Document;
 
 public interface IXMLParser {
 
-	Document parse(String xmlConntent);
+    Document parse(String xmlConntent);
 
 }

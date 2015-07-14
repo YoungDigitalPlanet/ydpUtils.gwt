@@ -6,11 +6,11 @@ import com.google.gwt.user.client.ui.PushButton;
 
 public class CustomPushButton extends PushButton {
 
-	private final CustomPushButtonEventHandler clickEventHandler = new CustomPushButtonEventHandler(this);
+    private final CustomPushButtonEventHandler clickEventHandler = new CustomPushButtonEventHandler(this);
 
-	@Override
-	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		return clickEventHandler.addClickHandler(handler);
-	}
+    @Override
+    public HandlerRegistration addClickHandler(ClickHandler handler) {
+        return clickEventHandler.addClickHandler(handler);
+    }
 
 }

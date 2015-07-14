@@ -4,5 +4,5 @@ import com.google.gwt.user.client.ui.Widget;
 
 public interface ContainsWidgetOptions {
 
-	void addOption(Widget option);
+    void addOption(Widget option);
 }

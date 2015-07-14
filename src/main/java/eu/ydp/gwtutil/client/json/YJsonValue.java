@@ -2,14 +2,14 @@ package eu.ydp.gwtutil.client.json;
 
 public interface YJsonValue {
 
-	YJsonArray isArray();
+    YJsonArray isArray();
 
-	YJsonString isString();
+    YJsonString isString();
 
-	YJsonNumber isNumber();
+    YJsonNumber isNumber();
 
-	YJsonObject isObject();
+    YJsonObject isObject();
 
-	YJsonBoolean isBoolean();
+    YJsonBoolean isBoolean();
 
 }

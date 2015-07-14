@@ -9,23 +9,23 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class DOMAppenderWidget extends Composite {
 
-	private static DOMAppenderWidgetUiBinder uiBinder = GWT.create(DOMAppenderWidgetUiBinder.class);
+    private static DOMAppenderWidgetUiBinder uiBinder = GWT.create(DOMAppenderWidgetUiBinder.class);
 
-	interface DOMAppenderWidgetUiBinder extends UiBinder<Widget, DOMAppenderWidget> {
-	}
+    interface DOMAppenderWidgetUiBinder extends UiBinder<Widget, DOMAppenderWidget> {
+    }
 
-	@UiField
-	TextArea textArea;
+    @UiField
+    TextArea textArea;
 
-	public DOMAppenderWidget() {
-		initWidget(uiBinder.createAndBindUi(this));
-	}
+    public DOMAppenderWidget() {
+        initWidget(uiBinder.createAndBindUi(this));
+    }
 
-	public void setText(String text) {
-		textArea.setText(text);
-	}
+    public void setText(String text) {
+        textArea.setText(text);
+    }
 
-	public String getText() {
-		return textArea.getText();
-	}
+    public String getText() {
+        return textArea.getText();
+    }
 }
