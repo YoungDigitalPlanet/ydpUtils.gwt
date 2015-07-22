@@ -3,7 +3,6 @@ package eu.ydp.gwtutil.client.gin.module;
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;
 import eu.ydp.gwtutil.client.inject.ScriptInjectorWrapper;
-import eu.ydp.gwtutil.client.scripts.AsynchronousScriptsLoader;
 import eu.ydp.gwtutil.client.util.*;
 import eu.ydp.gwtutil.client.util.paths.UrlConverter;
 import eu.ydp.gwtutil.client.xml.IXMLParser;
@@ -21,6 +20,5 @@ public class UtilGinModule extends AbstractGinModule {
 
         bind(UrlConverter.class).in(Singleton.class);
         bind(ScriptInjectorWrapper.class).in(Singleton.class);
-        bind(AsynchronousScriptsLoader.class).in(Singleton.class);
     }
 }
