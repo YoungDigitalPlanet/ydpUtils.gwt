@@ -1,8 +1,8 @@
 package eu.ydp.gwtutil.client.state.converter;
 
-import eu.ydp.gwtutil.AbstractTestBase;
 import eu.ydp.gwtutil.client.json.YJsonValue;
 import eu.ydp.gwtutil.client.service.json.IJSONService;
+import eu.ydp.gwtutil.client.service.json.NativeJSONService;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
@@ -15,15 +15,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(JUnitParamsRunner.class)
-public class StateConverterTest extends AbstractTestBase {
+public class StateConverterTest {
 
-    IJSONService jsonService;
-
-    @Override
-    public void setUp() {
-        super.setUp();
-        jsonService = injector.getInstance(IJSONService.class);
-    }
+    IJSONService jsonService = new NativeJSONService();
 
     @Test
     public void testGetVersion() {

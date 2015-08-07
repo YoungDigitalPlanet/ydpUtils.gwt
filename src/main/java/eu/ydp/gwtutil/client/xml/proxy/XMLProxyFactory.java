@@ -9,7 +9,7 @@ public abstract class XMLProxyFactory {
     }
 
     @Inject
-    static XMLProxy xmlProxy;
+    public static XMLProxy xmlProxy;
 
     public static XMLProxy getXMLProxy() {
         if (xmlProxy == null) {

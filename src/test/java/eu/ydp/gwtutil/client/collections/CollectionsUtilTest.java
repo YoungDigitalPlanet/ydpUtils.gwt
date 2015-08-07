@@ -1,7 +1,6 @@
 package eu.ydp.gwtutil.client.collections;
 
 import com.google.common.collect.Lists;
-import eu.ydp.gwtutil.AbstractTestBase;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class CollectionsUtilTest extends AbstractTestBase {
+public class CollectionsUtilTest {
 
     @Test
     public void testIndexOfNot1() {
