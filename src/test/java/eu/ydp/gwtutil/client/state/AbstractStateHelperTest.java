@@ -25,13 +25,6 @@ public class AbstractStateHelperTest {
 
     private IJSONService jsonService = new NativeJSONService();
 
-//    @Override
-//    public void setUp() {
-//
-//        super.setUp();
-//        jsonService = injector.getInstance(IJSONService.class);
-//    }
-
     @Test
     public void testImportState() {
         // given
