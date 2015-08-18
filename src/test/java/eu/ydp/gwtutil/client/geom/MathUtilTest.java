@@ -1,6 +1,5 @@
 package eu.ydp.gwtutil.client.geom;
 
-import eu.ydp.gwtutil.AbstractTestBase;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
@@ -11,7 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @RunWith(JUnitParamsRunner.class)
-public class MathUtilTest extends AbstractTestBase {
+public class MathUtilTest {
 
     public Object[] data() {
         return $(

@@ -1,7 +1,6 @@
 package eu.ydp.gwtutil.user.rebind.constants;
 
 import com.google.common.collect.Lists;
-import eu.ydp.gwtutil.AbstractTestBase;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
@@ -14,16 +13,10 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 @RunWith(JUnitParamsRunner.class)
-public class StringConstantsGeneratorTest extends AbstractTestBase {
+public class StringConstantsGeneratorTest {
 
     private static final String SEPARATOR = "#";
-    private StringConstantsGenerator generator;
-
-    @Override
-    public void setUp() {
-        super.setUp();
-        generator = new StringConstantsGenerator();
-    }
+    private StringConstantsGenerator generator= new StringConstantsGenerator();
 
     public Object[] dataCamelCaseToComponents() {
         return $(
