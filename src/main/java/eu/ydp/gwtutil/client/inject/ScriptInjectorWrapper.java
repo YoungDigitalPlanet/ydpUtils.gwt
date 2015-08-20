@@ -1,7 +1,9 @@
 package eu.ydp.gwtutil.client.inject;
 
 import com.google.gwt.core.client.ScriptInjector;
+import com.google.inject.Singleton;
 
+@Singleton
 public class ScriptInjectorWrapper {
 
     public void fromUrl(final String url) {

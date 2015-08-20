@@ -1,9 +1,11 @@
 package eu.ydp.gwtutil.client.service.json;
 
+import com.google.inject.Singleton;
 import eu.ydp.gwtutil.client.json.*;
 import eu.ydp.gwtutil.client.json.js.YJsJsonFactory;
 import eu.ydp.gwtutil.client.json.js.YJsJsonParser;
 
+@Singleton
 public class JSONService implements IJSONService {
 
     @Override
