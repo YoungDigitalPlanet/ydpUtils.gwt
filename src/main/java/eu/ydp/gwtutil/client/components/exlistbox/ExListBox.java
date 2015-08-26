@@ -177,6 +177,10 @@ public class ExListBox extends Composite implements IsExListBox {
         this.setSelectedIndex(((showEmptyOption) ? 0 : -1));
     }
 
+    public void reset(){
+        selectionController.reset();
+    }
+
     @Override
     public boolean isEnabled() {
         return this.enabled;
