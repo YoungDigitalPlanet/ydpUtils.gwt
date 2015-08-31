@@ -2,11 +2,13 @@ package eu.ydp.gwtutil.client.animation.css;
 
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import eu.ydp.gwtutil.client.animation.AnimationConfig;
 import eu.ydp.gwtutil.client.util.geom.Size;
 
 import java.util.Set;
 
+@Singleton
 public class CssAnimationClassBuilder {
     private static final String ANIMATE_CLASS_TEMPLATE = " .$name { $styleProperty background-image: url($backgroundImage) } ";
     private static final String ANIMATE_PROPERTY = " $prefixanimation: $keyframesName $animationTimems steps($stepsCount, end);";
