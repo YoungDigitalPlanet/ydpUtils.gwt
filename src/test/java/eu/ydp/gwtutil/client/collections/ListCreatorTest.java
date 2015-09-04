@@ -1,6 +1,5 @@
 package eu.ydp.gwtutil.client.collections;
 
-import eu.ydp.gwtutil.AbstractTestBase;
 import org.junit.Test;
 
 import java.util.List;
@@ -10,7 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 
-public class ListCreatorTest extends AbstractTestBase {
+public class ListCreatorTest {
 
     @Test
     public void testCreate() {

@@ -2,7 +2,9 @@ package eu.ydp.gwtutil.client.ui;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.inject.Singleton;
 
+@Singleton
 public class GWTPanelFactoryImpl implements GWTPanelFactory {
 
     /*

@@ -1,10 +1,10 @@
 package eu.ydp.gwtutil.client.state;
 
-import eu.ydp.gwtutil.AbstractTestBase;
 import eu.ydp.gwtutil.client.json.YJsonArray;
 import eu.ydp.gwtutil.client.json.YJsonNumber;
 import eu.ydp.gwtutil.client.json.YJsonValue;
 import eu.ydp.gwtutil.client.service.json.IJSONService;
+import eu.ydp.gwtutil.client.service.json.NativeJSONService;
 import eu.ydp.gwtutil.client.state.converter.StateConverter;
 import eu.ydp.gwtutil.json.YNativeJsonFactory;
 import junitparams.JUnitParamsRunner;
@@ -21,16 +21,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(JUnitParamsRunner.class)
-public class AbstractStateHelperTest extends AbstractTestBase {
+public class AbstractStateHelperTest {
 
-    private IJSONService jsonService;
-
-    @Override
-    public void setUp() {
-
-        super.setUp();
-        jsonService = injector.getInstance(IJSONService.class);
-    }
+    private IJSONService jsonService = new NativeJSONService();
 
     @Test
     public void testImportState() {

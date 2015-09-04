@@ -2,17 +2,20 @@ package eu.ydp.gwtutil.client.xml;
 
 import com.google.gwt.xml.client.Element;
 import com.google.gwt.xml.client.NodeList;
-import eu.ydp.gwtutil.AbstractTestBase;
+import eu.ydp.gwtutil.client.xml.proxy.XMLProxyFactory;
 import eu.ydp.gwtutil.xml.ElementWrapper;
 import eu.ydp.gwtutil.xml.XMLComparator;
 import eu.ydp.gwtutil.xml.XMLParser;
+import eu.ydp.gwtutil.xml.XMLProxyWrapper;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class XmlUtilTest extends AbstractTestBase {
+public class XmlUtilTest {
 
     @Test
     public void getElementsByAttribute() {
+        XMLProxyFactory.xmlProxy = new XMLProxyWrapper();
+
         Element element = createXML();
 
         NodeList elems = XMLUtils.getElementsByAttribute(element, "div", "type", "config");

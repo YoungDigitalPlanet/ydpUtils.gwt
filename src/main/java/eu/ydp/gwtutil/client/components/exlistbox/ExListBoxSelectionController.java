@@ -41,4 +41,10 @@ public class ExListBoxSelectionController implements ExListBoxClickHandler, ExLi
         listBox.selectOption(selectedOption);
         listBox.hidePopup();
     }
+
+    public void reset() {
+        for (ExListBoxOption option : options) {
+            option.reset();
+        }
+    }
 }

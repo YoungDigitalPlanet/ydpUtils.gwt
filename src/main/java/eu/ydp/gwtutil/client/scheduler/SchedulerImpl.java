@@ -2,7 +2,9 @@ package eu.ydp.gwtutil.client.scheduler;
 
 import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.inject.Singleton;
 
+@Singleton
 public class SchedulerImpl implements Scheduler {
     private final com.google.gwt.core.client.Scheduler schedulerObject = com.google.gwt.core.client.Scheduler.get();
 
