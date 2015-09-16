@@ -12,6 +12,10 @@ public class WindowDelegate {
         return Window.getClientWidth();
     }
 
+    public int getClientHeight() {
+        return Window.getClientHeight();
+    }
+
     public void scrollTo(int left, int top) {
         Window.scrollTo(left, top);
     }
