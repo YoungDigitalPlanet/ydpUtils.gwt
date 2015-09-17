@@ -13,6 +13,10 @@ public class RootPanelDelegate {
         return RootPanel.get();
     }
 
+    public RootPanel getRootPanel(String id){
+        return RootPanel.get(id);
+    }
+
     public Element getBodyElement() {
         return RootPanel.get().getBodyElement();
     }
