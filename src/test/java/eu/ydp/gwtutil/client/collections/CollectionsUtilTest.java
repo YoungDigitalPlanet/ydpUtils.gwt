@@ -1,6 +1,7 @@
 package eu.ydp.gwtutil.client.collections;
 
 import com.google.common.collect.Lists;
+import org.fest.assertions.api.Assertions;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -83,4 +84,17 @@ public class CollectionsUtilTest {
         assertFalse(containsAnyOfElements);
     }
 
+    @Test
+    public void shouldReturnRangeIntList() {
+        // given
+        int lower = -3;
+        int upper = 5;
+        Integer[] expectedIntegers = {-3, -2, -1, 0, 1, 2, 3, 4, 5};
+
+        // when
+        List<Integer> resultList = CollectionsUtil.getRangeList(lower, upper);
+
+        // then
+        Assertions.assertThat(resultList).containsExactly(expectedIntegers);
+    }
 }

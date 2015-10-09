@@ -1,5 +1,8 @@
 package eu.ydp.gwtutil.client.collections;
 
+import com.google.common.collect.ContiguousSet;
+import com.google.common.collect.DiscreteDomain;
+import com.google.common.collect.Range;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayString;
 
@@ -57,5 +60,9 @@ public class CollectionsUtil {
             array.push(el);
         }
         return array;
+    }
+
+    public static List<Integer> getRangeList(int lower, int upper) {
+        return ContiguousSet.create(Range.closed(lower, upper), DiscreteDomain.integers()).asList();
     }
 }
