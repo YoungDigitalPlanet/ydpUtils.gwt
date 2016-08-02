@@ -1,6 +1,7 @@
 package eu.ydp.gwtutil.client.event.factory;
 
 import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.TouchEndEvent;
 import com.google.gwt.event.dom.client.TouchStartEvent;
 import com.google.gwtmockito.GwtMockitoTestRunner;
@@ -10,8 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(GwtMockitoTestRunner.class)
 public class ClickByTouchProxyJUnitTest {
@@ -24,8 +24,8 @@ public class ClickByTouchProxyJUnitTest {
 
     @Before
     public void setUp() throws Exception {
-        command = Mockito.mock(Command.class);
-        touchEventReader = Mockito.mock(TouchEventReader.class);
+        command = mock(Command.class);
+        touchEventReader = mock(TouchEventReader.class);
         clickByTouchProxy = new ClickByTouchProxy(command, touchEventReader);
     }
 
@@ -63,9 +63,44 @@ public class ClickByTouchProxyJUnitTest {
         verify(command).execute(touchEndNativeEvent);
     }
 
+    @Test
+    public void shouldExecuteClickHandler_whenClickEventWasFired_andTouchWasNotStarted() throws Exception {
+        // GIVEN
+        prepareTouchStartEventWithCoords(0, 0);
+
+        NativeEvent clickNativeEvent = mock(NativeEvent.class);
+
+        ClickEvent givenClickEvent = mock(ClickEvent.class);
+        when(givenClickEvent.getNativeEvent()).thenReturn(clickNativeEvent);
+
+        // WHEN
+        clickByTouchProxy.onClick(givenClickEvent);
+
+        // THEN
+        verify(command).execute(clickNativeEvent);
+    }
+
+    @Test
+    public void shouldNotExecuteCommand_whenTouchWasStarted() throws Exception {
+        // GIVEN
+        prepareTouchStartEventWithCoords(0, 0);
+        clickByTouchProxy.onTouchStart(touchStartEvent);
+
+        NativeEvent clickNativeEvent = mock(NativeEvent.class);
+
+        ClickEvent givenClickEvent = mock(ClickEvent.class);
+        when(givenClickEvent.getNativeEvent()).thenReturn(clickNativeEvent);
+
+        // WHEN
+        clickByTouchProxy.onClick(givenClickEvent);
+
+        // THEN
+        verify(command, never()).execute(clickNativeEvent);
+    }
+
     private NativeEvent prepareTouchEndEventWithCoords(int xCoordinate, int yCoordinate) {
-        touchEndEvent = Mockito.mock(TouchEndEvent.class);
-        NativeEvent nativeEvent = Mockito.mock(NativeEvent.class);
+        touchEndEvent = mock(TouchEndEvent.class);
+        NativeEvent nativeEvent = mock(NativeEvent.class);
         when(touchEndEvent.getNativeEvent()).thenReturn(nativeEvent);
 
         when(touchEventReader.getFromChangedTouchesX(nativeEvent)).thenReturn(xCoordinate);
@@ -76,8 +111,8 @@ public class ClickByTouchProxyJUnitTest {
     }
 
     private void prepareTouchStartEventWithCoords(int xCoordinate, int yCoordinate) {
-        touchStartEvent = Mockito.mock(TouchStartEvent.class);
-        NativeEvent nativeEvent = Mockito.mock(NativeEvent.class);
+        touchStartEvent = mock(TouchStartEvent.class);
+        NativeEvent nativeEvent = mock(NativeEvent.class);
         when(touchStartEvent.getNativeEvent()).thenReturn(nativeEvent);
 
         when(touchEventReader.getX(nativeEvent)).thenReturn(xCoordinate);
