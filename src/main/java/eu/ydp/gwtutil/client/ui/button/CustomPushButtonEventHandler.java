@@ -54,6 +54,7 @@ public class CustomPushButtonEventHandler extends EventHandlerRegistrator<ClickH
             @Override
             public void execute(NativeEvent event) {
                 event.preventDefault();
+                pushButton.getElement().focus();
                 fireEvent(new CustomClickEvent(event));
             }
         });
@@ -66,5 +67,4 @@ public class CustomPushButtonEventHandler extends EventHandlerRegistrator<ClickH
             handler.onClick(event);
         }
     }
-
 }
