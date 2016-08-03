@@ -54,6 +54,7 @@ public class CustomPushButtonEventHandler extends EventHandlerRegistrator<ClickH
             @Override
             public void execute(NativeEvent event) {
                 event.preventDefault();
+                removeFocus();
                 fireEvent(new CustomClickEvent(event));
             }
         });
@@ -67,4 +68,8 @@ public class CustomPushButtonEventHandler extends EventHandlerRegistrator<ClickH
         }
     }
 
+    private void removeFocus() {
+        pushButton.getElement().focus();
+        pushButton.getElement().blur();
+    }
 }
