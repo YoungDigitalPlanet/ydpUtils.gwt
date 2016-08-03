@@ -5,6 +5,7 @@ import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DomEvent;
+import com.google.gwt.user.client.Element;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 import eu.ydp.gwtutil.client.event.HandlerRegistration;
 import eu.ydp.gwtutil.client.event.emulate.CustomClickEvent;
@@ -29,10 +30,13 @@ public class CustomPushButtonEventHandlerJUnitTest {
     private final UserInteractionHandlerFactory userInteractionHandlerFactory = spy(new UserInteractionHandlerFactory());
     private CustomPushButtonEventHandler instance;
     private final ArgumentCaptor<ClickHandler> clickEventCaptor = ArgumentCaptor.forClass(ClickHandler.class);
+    private Element buttonElement;
 
     @Before
     public void before() {
-        CustomPushButton pushButton = mock(CustomPushButton.class);
+        buttonElement = mock(Element.class);
+        CustomPushButton pushButton =  mock(CustomPushButton.class);
+        when(pushButton.getElement()).thenReturn(buttonElement);
         doReturn(null).when(pushButton)
                 .addDomHandler(clickEventCaptor.capture(), Matchers.any(DomEvent.Type.class));
         instance = new CustomPushButtonEventHandler(pushButton, userInteractionHandlerFactory);
@@ -52,6 +56,8 @@ public class CustomPushButtonEventHandlerJUnitTest {
         ArgumentCaptor<ClickEvent> eventCaptor = ArgumentCaptor.forClass(ClickEvent.class);
         verify(clickHandler).onClick(eventCaptor.capture());
         verify(nativeEvent).preventDefault();
+        verify(buttonElement).focus();
+        verify(buttonElement).blur();
         assertEquals(click.getNativeEvent(), eventCaptor.getValue()
                 .getNativeEvent());
     }
