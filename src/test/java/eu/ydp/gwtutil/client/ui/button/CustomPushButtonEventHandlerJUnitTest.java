@@ -57,7 +57,6 @@ public class CustomPushButtonEventHandlerJUnitTest {
         verify(clickHandler).onClick(eventCaptor.capture());
         verify(nativeEvent).preventDefault();
         verify(buttonElement).focus();
-        verify(buttonElement).blur();
         assertEquals(click.getNativeEvent(), eventCaptor.getValue()
                 .getNativeEvent());
     }
