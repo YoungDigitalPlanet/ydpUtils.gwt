@@ -4,8 +4,6 @@ import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.touch.client.Point;
 import com.google.gwt.user.client.ui.Widget;
-import eu.ydp.gwtutil.client.debug.log.ConsoleAppender;
-import eu.ydp.gwtutil.client.debug.log.Logger;
 import eu.ydp.gwtutil.client.event.TouchEventReader;
 
 public class ClickByTouchProxy implements EventHandlerProxy, TouchStartHandler, TouchEndHandler, ClickHandler {
