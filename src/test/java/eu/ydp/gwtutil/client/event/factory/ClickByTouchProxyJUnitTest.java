@@ -61,6 +61,7 @@ public class ClickByTouchProxyJUnitTest {
         clickByTouchProxy.onTouchEnd(touchEndEvent);
 
         verify(command).execute(touchEndNativeEvent);
+        verify(touchEndEvent).preventDefault();
     }
 
     @Test
