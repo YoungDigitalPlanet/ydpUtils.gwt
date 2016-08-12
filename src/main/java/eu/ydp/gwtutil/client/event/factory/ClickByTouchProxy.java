@@ -58,9 +58,7 @@ public class ClickByTouchProxy implements EventHandlerProxy, TouchStartHandler, 
 
     @Override
     public void onClick(ClickEvent event) {
-        if (!touchStart) {
-            command.execute(event.getNativeEvent());
-        }
+        command.execute(event.getNativeEvent());
     }
 
     private boolean wasNotSwipe(Point touchEndPoint) {
