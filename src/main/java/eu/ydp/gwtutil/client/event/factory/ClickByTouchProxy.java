@@ -41,12 +41,16 @@ public class ClickByTouchProxy implements EventHandlerProxy, TouchStartHandler, 
 
     @Override
     public void onTouchEnd(TouchEndEvent event) {
+
         if (touchStart) {
             NativeEvent nativeEvent = event.getNativeEvent();
+            event.preventDefault();
+
             Point touchEndPoint = pointFromTouchEndEvent(nativeEvent);
             if (wasNotSwipe(touchEndPoint)) {
                 command.execute(nativeEvent);
             }
+
             touchStart = false;
             touchStartPoint = null;
         }
@@ -54,9 +58,7 @@ public class ClickByTouchProxy implements EventHandlerProxy, TouchStartHandler, 
 
     @Override
     public void onClick(ClickEvent event) {
-        if (!touchStart) {
-            command.execute(event.getNativeEvent());
-        }
+        command.execute(event.getNativeEvent());
     }
 
     private boolean wasNotSwipe(Point touchEndPoint) {
