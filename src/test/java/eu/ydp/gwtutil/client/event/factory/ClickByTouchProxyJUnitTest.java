@@ -65,7 +65,7 @@ public class ClickByTouchProxyJUnitTest {
     }
 
     @Test
-    public void shouldExecuteClickHandler_whenClickEventWasFired_andTouchWasNotStarted() throws Exception {
+    public void shouldExecuteClickHandler() throws Exception {
         // GIVEN
         prepareTouchStartEventWithCoords(0, 0);
 
@@ -79,24 +79,6 @@ public class ClickByTouchProxyJUnitTest {
 
         // THEN
         verify(command).execute(clickNativeEvent);
-    }
-
-    @Test
-    public void shouldNotExecuteCommand_whenTouchWasStarted() throws Exception {
-        // GIVEN
-        prepareTouchStartEventWithCoords(0, 0);
-        clickByTouchProxy.onTouchStart(touchStartEvent);
-
-        NativeEvent clickNativeEvent = mock(NativeEvent.class);
-
-        ClickEvent givenClickEvent = mock(ClickEvent.class);
-        when(givenClickEvent.getNativeEvent()).thenReturn(clickNativeEvent);
-
-        // WHEN
-        clickByTouchProxy.onClick(givenClickEvent);
-
-        // THEN
-        verify(command, never()).execute(clickNativeEvent);
     }
 
     private NativeEvent prepareTouchEndEventWithCoords(int xCoordinate, int yCoordinate) {
