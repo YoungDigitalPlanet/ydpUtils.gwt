@@ -1,15 +1,12 @@
 package eu.ydp.gwtutil.client.event.factory;
 
 import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.event.dom.client.TouchEndEvent;
-import com.google.gwt.event.dom.client.TouchEndHandler;
-import com.google.gwt.event.dom.client.TouchStartEvent;
-import com.google.gwt.event.dom.client.TouchStartHandler;
+import com.google.gwt.event.dom.client.*;
 import com.google.gwt.touch.client.Point;
 import com.google.gwt.user.client.ui.Widget;
 import eu.ydp.gwtutil.client.event.TouchEventReader;
 
-public class ClickByTouchProxy implements EventHandlerProxy, TouchStartHandler, TouchEndHandler {
+public class ClickByTouchProxy implements EventHandlerProxy, TouchStartHandler, TouchEndHandler, ClickHandler {
 
     public static final int PIXELS_MOVE_TOLERANTION = 7;
 
@@ -33,6 +30,7 @@ public class ClickByTouchProxy implements EventHandlerProxy, TouchStartHandler, 
     public void apply(Widget widget) {
         widget.addDomHandler(this, TouchStartEvent.getType());
         widget.addDomHandler(this, TouchEndEvent.getType());
+        widget.addDomHandler(this, ClickEvent.getType());
     }
 
     @Override
@@ -43,15 +41,24 @@ public class ClickByTouchProxy implements EventHandlerProxy, TouchStartHandler, 
 
     @Override
     public void onTouchEnd(TouchEndEvent event) {
+
         if (touchStart) {
             NativeEvent nativeEvent = event.getNativeEvent();
+            event.preventDefault();
+
             Point touchEndPoint = pointFromTouchEndEvent(nativeEvent);
             if (wasNotSwipe(touchEndPoint)) {
                 command.execute(nativeEvent);
             }
+
             touchStart = false;
             touchStartPoint = null;
         }
+    }
+
+    @Override
+    public void onClick(ClickEvent event) {
+        command.execute(event.getNativeEvent());
     }
 
     private boolean wasNotSwipe(Point touchEndPoint) {
