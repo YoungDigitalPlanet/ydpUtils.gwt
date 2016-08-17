@@ -6,6 +6,7 @@ import eu.ydp.gwtutil.client.util.UserAgentChecker.UserAgent;
 import eu.ydp.gwtutil.junit.mock.UserAgentCheckerNativeInterfaceMock;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
+import org.fest.assertions.api.Assertions;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +14,7 @@ import org.junit.runner.RunWith;
 import java.util.Set;
 
 import static junitparams.JUnitParamsRunner.$;
+import static org.fest.assertions.api.Assertions.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -87,6 +89,15 @@ public class UserAgentCheckerJUnitTest {
         // @formatter:on
     }
 
+    @SuppressWarnings("unused")
+    private Object[] iOS9() {
+        return $(
+                $("Mozilla/5.0 (iPad; CPU OS 9_0 like Mac OS X) AppleWebKit/601.1.16 (KHTML, like Gecko) Version/8.0 Mobile/13A171a Safari/600.1.4\n"),
+                $("Mozilla/5.0 (iPad; CPU OS 9_0 like Mac OS X) AppleWebKit/601.1.17 (KHTML, like Gecko) Version/8.0 Mobile/13A175 Safari/600.1.4\n"),
+                $("Mozilla/5.0 (iPhone; CPU iPhone OS 9_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13C75 Safari/601.1")
+        );
+    }
+
     @Test
     @Parameters(method = "getDesktop")
     public void userAgentDesktopTest(String userAgentString, UserAgent userAgent) {
@@ -114,6 +125,20 @@ public class UserAgentCheckerJUnitTest {
         UserAgentChecker.setNativeInterface(nativeInterface);
 
         assertEquals(ieAgents.contains(userAgent), UserAgentChecker.isIE());
+    }
+
+    @Test
+    @Parameters(method = "iOS9")
+    public void iOS9UserAgent(String userAgentString) {
+        // given
+        BrowserNativeInterface nativeInterface = UserAgentCheckerNativeInterfaceMock.getNativeInterfaceMock(userAgentString);
+        UserAgentChecker.setNativeInterface(nativeInterface);
+
+        // when
+        boolean ios9 = UserAgentChecker.isIOS9();
+
+        // then
+        assertThat(ios9).isTrue();
     }
 
 }
