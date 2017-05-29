@@ -1,41 +1,24 @@
-apply plugin: 'java'
-apply plugin: 'jacoco'
-apply plugin: 'sonar-runner'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-
-def buildProfile = project.getProperties().get('buildProfile', 'develop')
-apply from: "gradle/profiles/${buildProfile}.gradle"
-apply plugin: 'ivy-publish'
-
-def projectName = 'ydpgwtutils'
-sourceCompatibility = 1.7
-compileJava.options.encoding = 'UTF-8'
-libsDirName = file("${projectDir}/dist/")
-
-ext {
-    tstamp = new Date().format("yyyyMMddHHmmssSSS")
-    buildnumber = "${System.env["BUILD_NUMBER"] ?: "${tstamp}"}"
-    jacocoReport = "$buildDir/jacoco/testJUnit.exec"
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
 }
 
-repositories {
-    mavenCentral()
-    ivy {
-        url 'http://dev/ivyrep/public/'
-        layout 'pattern', {
-            artifact '[organisation]/[module]/[revision]/[type]s/[artifact].[ext]'
-            ivy '[organisation]/[module]/[revision]/[type]s/[artifact].[ext]'
-        }
-    }
+plugins {
+    id "com.jfrog.bintray" version "1.7"
+}
 
-    ivy {
-        url 'http://dev/ivyrep/shared/'
-        layout 'pattern', {
-            artifact '[organisation]/[module]/[revision]/[type]s/[artifact].[ext]'
-            ivy '[organisation]/[module]/[revision]/[type]s/[artifact].[ext]'
-        }
+group = 'eu.ydp'
+def projectName = 'ydpgwtutils'
+
+allprojects {
+    repositories {
+        jcenter()
     }
+    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
+    apply plugin: 'java'
 }
 
 dependencies {
@@ -54,32 +37,16 @@ dependencies {
     testCompile group: 'pl.pragmatists', name: 'JUnitParams', version: '1.0.4'
 }
 
-sonarRunner {
-    sonarProperties {
-        property 'sonar.host.url', sonar_host_url
-        property 'sonar.jdbc.url', sonar_jdbc_url
-        property 'sonar.jdbc.driverClassName', sonar_jdbc_driverClassName
-        property 'sonar.jdbc.username', sonar_jdbc_username
-        property 'sonar.jdbc.password', sonar_jdbc_password
-        property 'sonar.projectName', sonar_project_name
-
-        property 'sonar.core.codeCoveragePlugin', 'jacoco'
-    }
-}
-
 sourceSets {
     test.runtimeClasspath += files(main.java.srcDirs)
     test.runtimeClasspath += files(test.java.srcDirs)
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+    gradleVersion = '2.4'
 }
 
 task testJUnit(type: Test) {
-    jacoco {
-        enabled = true
-    }
 
     useJUnit {
         excludeCategories 'eu.ydp.gwtutil.category.GWTUnitTestCategory'
@@ -93,9 +60,6 @@ task testJUnit(type: Test) {
 }
 
 task testGWTUnit(type: Test) {
-    jacoco {
-        enabled = false
-    }
 
     useJUnit {
         includeCategories 'eu.ydp.gwtutil.category.GWTUnitTestCategory'
@@ -110,7 +74,6 @@ task test(overwrite: true, dependsOn: [testJUnit, testGWTUnit]) {
     ext {
         // this is needed for sonarRunner
         reports = [junitXml: [destination: file("$buildDir/test-results")]]
-        jacoco = [destinationFile: file(jacocoReport)]
     }
 }
 
@@ -130,22 +93,25 @@ clean {
 
 publishing {
     publications {
-        ivy(IvyPublication) {
-            organisation 'eu.ydp'
-            module projectName
-            revision "${project.ext.version}-$buildnumber"
-            descriptor.status = project.ext.status
-
+        BintrayPublication(MavenPublication) {
             from components.java
+            groupId group
+            artifactId projectName
+            version version
         }
     }
-    repositories {
-        ivy {
-            url 'http://dev/ivyrep/public'
-            layout 'pattern', {
-                artifact '[organisation]/[module]/[revision]/[type]s/[artifact].[ext]'
-                ivy '[organisation]/[module]/[revision]/[type]s/[artifact].[ext]'
-            }
-        }
+}
+
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    publications = ['BintrayPublication']
+    pkg {
+        repo = 'empiria'
+        name = projectName
+        userOrg = 'youngdigitalplanet'
+        licenses = ['EPL-1.0']
+        vcsUrl = 'https://github.com/YoungDigitalPlanet/ydpUtils.gwt.git'
+        publicDownloadNumbers = true
     }
 }
