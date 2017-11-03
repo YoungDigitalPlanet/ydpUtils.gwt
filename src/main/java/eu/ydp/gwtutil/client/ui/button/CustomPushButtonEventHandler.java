@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.dom.client.DomEvent.Type;
+import com.google.gwt.user.client.ui.Widget;
 import eu.ydp.gwtutil.client.event.EventHandlerRegistrator;
 import eu.ydp.gwtutil.client.event.HandlerRegistration;
 import eu.ydp.gwtutil.client.event.emulate.CustomClickEvent;
@@ -20,15 +21,15 @@ public class CustomPushButtonEventHandler extends EventHandlerRegistrator<ClickH
 
     private boolean isUserInteractionHandlerAdded;
 
-    private final CustomPushButton pushButton;
+    private final Widget widget;
 
-    public CustomPushButtonEventHandler(CustomPushButton pushButton) {
-        this.pushButton = pushButton;
+    public CustomPushButtonEventHandler(Widget widget) {
+        this.widget = widget;
         this.interactionHandlerFactory = new UserInteractionHandlerFactory();
     }
 
-    public CustomPushButtonEventHandler(CustomPushButton pushButton, UserInteractionHandlerFactory interactionHandlerFactory) {
-        this.pushButton = pushButton;
+    public CustomPushButtonEventHandler(Widget widget, UserInteractionHandlerFactory interactionHandlerFactory) {
+        this.widget = widget;
         this.interactionHandlerFactory = interactionHandlerFactory;
     }
 
@@ -45,7 +46,7 @@ public class CustomPushButtonEventHandler extends EventHandlerRegistrator<ClickH
         if (!isUserInteractionHandlerAdded) {
             isUserInteractionHandlerAdded = true;
             EventHandlerProxy userClickHandler = createUserClickHandler();
-            userClickHandler.apply(pushButton);
+            userClickHandler.apply(widget);
         }
     }
 
@@ -54,7 +55,7 @@ public class CustomPushButtonEventHandler extends EventHandlerRegistrator<ClickH
             @Override
             public void execute(NativeEvent event) {
                 event.preventDefault();
-                pushButton.getElement().focus();
+                widget.getElement().focus();
                 fireEvent(new CustomClickEvent(event));
             }
         });
